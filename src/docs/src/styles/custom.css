@@ -1,0 +1,367 @@
+/* Tipografía premium de Google Fonts (Outfit e Inter) cargada asíncronamente en astro.config.mjs */
+
+:root {
+	/* Tipografía del sistema y Markdown */
+	--sl-font-system: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+	--sl-font-markdown: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+	--sl-font-headings: 'Outfit', 'Inter', var(--sl-font-system);
+
+	/* Ajustes de legibilidad profesional y dimensiones de lectura */
+	--sl-text-base: 1.0625rem !important; /* ~17px para óptima legibilidad */
+	--sl-line-height: 1.75 !important;    /* Interlineado cómodo */
+
+	/* Color de acento de IA - Violeta Eléctrico y Cian Tecnológico */
+	--color-brand-red: #7c3aed;
+	--color-brand-red-dark: #6d28d9;
+	--color-brand-red-light: rgba(124, 58, 237, 0.08);
+	--color-brand-red-border: rgba(124, 58, 237, 0.25);
+}
+
+/* Aplicar ancho óptimo de lectura (unos 720px) solo en pantallas grandes para asegurar responsividad en móviles */
+@media (min-width: 50rem) {
+	:root {
+		--sl-content-width: 76ch !important;
+	}
+}
+
+/* ------------------------------------------------------------- */
+/* TEMA OSCURO (Por defecto)                                     */
+/* ------------------------------------------------------------- */
+:root[data-theme='dark'] {
+	/* Colores de Acento (Violeta y Cian) */
+	--sl-color-accent-low: #1e113a;
+	--sl-color-accent: #8b5cf6;
+	--sl-color-accent-high: #a78bfa;
+	--sl-color-text-accent: #06b6d4;
+
+	/* Escala de Grises / Fondos / Contraste */
+	--sl-color-white: #f8fafc;
+	--sl-color-gray-1: #f1f5f9;
+	--sl-color-gray-2: #cbd5e1;
+	--sl-color-gray-3: #94a3b8;
+	--sl-color-gray-4: #475569;
+	--sl-color-gray-5: #1e293b;
+	--sl-color-gray-6: #0f172a;
+	--sl-color-black: #020617;
+
+	--sl-color-bg: #090d16;
+	--sl-color-bg-nav: #0f172a;
+	--sl-color-bg-sidebar: #0b0f19;
+}
+
+/* ------------------------------------------------------------- */
+/* TEMA CLARO                                                    */
+/* ------------------------------------------------------------- */
+:root[data-theme='light'] {
+	/* Colores de Acento (Violeta y Cian) */
+	--sl-color-accent-low: var(--color-brand-red-light);
+	--sl-color-accent: var(--color-brand-red);
+	--sl-color-accent-high: var(--color-brand-red-dark);
+	--sl-color-text-accent: #0891b2;
+
+	/* Escala de Grises / Fondos / Contraste */
+	--sl-color-white: #0f172a;
+	--sl-color-gray-1: #1e293b;
+	--sl-color-gray-2: #334155;
+	--sl-color-gray-3: #64748b;
+	--sl-color-gray-4: #94a3b8;
+	--sl-color-gray-5: #e2e8f0;
+	--sl-color-gray-6: #f1f5f9;
+	--sl-color-black: #ffffff;
+
+	--sl-color-bg: #ffffff;
+	--sl-color-bg-nav: #ffffff;
+	--sl-color-bg-sidebar: #f8fafc;
+}
+
+/* ------------------------------------------------------------- */
+/* AJUSTES DE MAQUETACIÓN Y COMPONENTES                          */
+/* ------------------------------------------------------------- */
+
+/* Estilos de encabezado y legibilidad */
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--sl-font-headings) !important;
+	letter-spacing: -0.025em;
+	font-weight: 700;
+	color: var(--sl-color-white) !important;
+	line-height: 1.3 !important;
+}
+
+h1 {
+	font-size: 2.5rem !important;
+	margin-bottom: 1.75rem !important;
+}
+
+h2 {
+	font-size: 1.75rem !important;
+	margin-top: 2rem !important;
+	margin-bottom: 1rem !important;
+}
+
+h3 {
+	font-size: 1.35rem !important;
+	margin-top: 1.75rem !important;
+	margin-bottom: 0.75rem !important;
+}
+
+/* Forzar line-height y márgenes en párrafos para excelente confort de lectura */
+.content p, .content li {
+	font-size: 1.0625rem !important;
+	line-height: 1.75 !important;
+	margin-bottom: 1.25rem !important;
+	color: var(--sl-color-gray-2) !important;
+}
+
+/* Ajustes de las tablas para que parezcan hojas de cálculo médicas profesionales y sean responsivas */
+table {
+	display: block !important;
+	overflow-x: auto !important;
+	width: 100% !important;
+	border-collapse: collapse !important;
+	margin: 1.5rem 0 !important;
+	font-size: 0.925rem !important;
+	border-radius: 8px !important;
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+th {
+	background-color: var(--sl-color-bg-sidebar) !important;
+	font-weight: 600 !important;
+	text-transform: uppercase !important;
+	font-size: 0.75rem !important;
+	letter-spacing: 0.05em !important;
+	padding: 0.75rem 1rem !important;
+	border-bottom: 2px solid var(--sl-color-gray-5) !important;
+}
+
+td {
+	padding: 0.875rem 1rem !important;
+	border-bottom: 1px solid var(--sl-color-gray-5) !important;
+	vertical-align: middle !important;
+}
+
+/* Tarjeta / Hero layout */
+.hero {
+	padding: 3rem 0 !important;
+}
+
+/* Estilos de badges e identificadores de soporte */
+
+/* Bloques de advertencias / Info */
+blockquote {
+	border-left-width: 4px !important;
+	border-left-color: var(--sl-color-accent) !important;
+	background-color: var(--sl-color-bg-sidebar) !important;
+	padding: 1rem 1.25rem !important;
+	border-radius: 0 8px 8px 0 !important;
+}
+
+/* ------------------------------------------------------------- */
+/* FLUJO VISUAL COMPACTO DE ATENCIÓN (0 COLAS)                  */
+/* ------------------------------------------------------------- */
+.flow-container-compact {
+	background-color: var(--sl-color-bg-sidebar) !important;
+	border: 1px solid var(--sl-color-gray-5) !important;
+	border-radius: 12px !important;
+	padding: 1rem !important;
+	margin: 1.5rem 0 !important;
+	width: 100% !important;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+	transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.flow-container-compact:hover {
+	border-color: var(--color-brand-red-border) !important;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08) !important;
+}
+
+.flow-steps-grid {
+	display: flex !important;
+	align-items: center !important;
+	justify-content: space-between !important;
+	width: 100% !important;
+	gap: 0.5rem !important;
+}
+
+@media (max-width: 768px) {
+	.flow-steps-grid {
+		flex-direction: column !important;
+		gap: 0.75rem !important;
+	}
+	.flow-arrow-compact {
+		transform: rotate(90deg) !important;
+		margin: 0.15rem 0 !important;
+	}
+	.flow-step-compact {
+		width: 100% !important;
+		max-width: 100% !important;
+	}
+}
+
+.flow-step-compact {
+	flex: 1 !important;
+	text-align: center !important;
+	padding: 0.65rem 0.5rem !important;
+	background-color: var(--sl-color-bg) !important;
+	border: 1px solid var(--sl-color-gray-5) !important;
+	border-radius: 8px !important;
+	max-width: 220px !important;
+}
+
+.step-icon-compact {
+	display: none !important;
+}
+
+.flow-step-compact strong {
+	font-size: 0.9rem !important;
+	color: var(--sl-color-white) !important;
+	display: inline-block !important;
+	vertical-align: middle !important;
+}
+
+.flow-step-compact p {
+	font-size: 0.775rem !important;
+	color: var(--sl-color-gray-3) !important;
+	margin: 0.35rem 0 0 0 !important;
+}
+
+.flow-substeps-compact {
+	display: flex !important;
+	gap: 0.25rem !important;
+	margin-top: 0.35rem !important;
+	justify-content: center !important;
+}
+
+.substep-green, .substep-red {
+	font-size: 0.7rem !important;
+	font-weight: 600 !important;
+	padding: 0.15rem 0.4rem !important;
+	border-radius: 4px !important;
+}
+
+.substep-green {
+	background-color: rgba(16, 185, 129, 0.08) !important;
+	color: #10b981 !important;
+	border: 1px solid rgba(16, 185, 129, 0.2) !important;
+}
+
+.substep-red {
+	background-color: rgba(217, 56, 58, 0.08) !important;
+	color: var(--color-brand-red) !important;
+	border: 1px solid rgba(217, 56, 58, 0.2) !important;
+}
+
+.flow-arrow-compact {
+	font-size: 1.25rem !important;
+	color: var(--sl-color-gray-4) !important;
+	user-select: none !important;
+	font-weight: bold !important;
+}
+
+.flow-goal-compact {
+	text-align: center !important;
+	margin-top: 0.75rem !important;
+	padding-top: 0.75rem !important;
+	border-top: 1px solid var(--sl-color-gray-5) !important;
+	font-size: 0.875rem !important;
+	color: var(--sl-color-gray-2) !important;
+}
+
+.goal-highlight-compact {
+	font-weight: 700 !important;
+	color: var(--color-brand-red) !important;
+	background-color: var(--color-brand-red-light) !important;
+	padding: 0.2rem 0.5rem !important;
+	border-radius: 6px !important;
+	border: 1px solid var(--color-brand-red-border) !important;
+}
+
+/* ------------------------------------------------------------- */
+/* DASHBOARD DE PORTADA (MOSAICO DE ACCESOS DIRECTOS)            */
+/* ------------------------------------------------------------- */
+.dashboard-grid {
+	display: grid !important;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+	gap: 1.25rem !important;
+	margin: 2rem 0 !important;
+	width: 100% !important;
+}
+
+.dashboard-card {
+	background-color: var(--sl-color-bg-sidebar) !important;
+	border: 1px solid var(--sl-color-gray-5) !important;
+	border-radius: 12px !important;
+	padding: 1.5rem !important;
+	text-decoration: none !important;
+	color: inherit !important;
+	transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+	display: flex !important;
+	flex-direction: column !important;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02) !important;
+}
+
+.dashboard-card:hover {
+	transform: translateY(-3px) !important;
+	border-color: var(--sl-color-accent) !important;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+.card-icon {
+	font-size: 2.25rem !important;
+	margin-bottom: 0.75rem !important;
+	display: block !important;
+}
+
+.dashboard-card h3 {
+	font-size: 1.15rem !important;
+	color: var(--sl-color-white) !important;
+	margin: 0 0 0.5rem 0 !important;
+	font-weight: 600 !important;
+}
+
+.dashboard-card p {
+	font-size: 0.85rem !important;
+	color: var(--sl-color-gray-3) !important;
+	margin: 0 !important;
+	line-height: 1.4 !important;
+}
+
+/* Fin de estilos del portal */
+
+/* Ocultar el selector de tema (Dark/Light/Auto) */
+starlight-theme-select {
+	display: none !important;
+}
+
+/* Ocultar iconos en notas, advertencias y callouts (asides) de Starlight */
+.aside__icon {
+	display: none !important;
+}
+
+/* Corregir estructura del aside tras eliminar el icono */
+.aside {
+	display: block !important;
+	padding-left: 1.25rem !important;
+}
+
+/* Ocultar iconos automáticos de enlaces externos */
+.content a[href^="http"] svg,
+.content a[target="_blank"] svg {
+	display: none !important;
+}
+
+/* Ocultar por completo la barra lateral de la Tabla de Contenidos (TOC) en móvil y escritorio */
+.right-sidebar-container,
+starlight-toc,
+mobile-starlight-toc,
+.right-sidebar {
+	display: none !important;
+}
+
+/* Ocultar el botón y componentes de búsqueda (Search) de Starlight */
+site-search,
+button[data-open-modal] {
+	display: none !important;
+}
+
+

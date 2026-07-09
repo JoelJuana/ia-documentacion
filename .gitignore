@@ -1,0 +1,25 @@
+# build output
+dist/
+src/docs/dist/
+src/docs/.astro/
+
+# dependencies
+node_modules/
+src/docs/node_modules/
+
+# firebase cache
+.firebase/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# environment variables
+.env
+.env*.local
+.env.production
+
+# macOS-specific files
+.DS_Store
