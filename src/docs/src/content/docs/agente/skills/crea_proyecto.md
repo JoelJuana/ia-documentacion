@@ -3,7 +3,7 @@ title: crea_proyecto
 description: Lanza la interfaz web de Project Creator para crear un nuevo proyecto. Úsalo cuando el usuario diga "crea proyecto", "crear proyecto", "nuevo proyecto", "quiero crear un proyecto" o expresiones similares.
 ---
 
-*   **Ruta de Configuración**: [`.gemini/config/skills/crea_proyecto/`](file:///C:/Users/jjtei/.gemini/config/skills/crea_proyecto/SKILL.md)
+*   **Ruta de Configuración**: [`IA_Configuracion/skills/crea_proyecto/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/skills/crea_proyecto/SKILL.md)
 
 ---
 

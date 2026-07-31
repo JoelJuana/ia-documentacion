@@ -1,10 +1,17 @@
 ---
 title: gestiona_github
-description: Controla el servidor local de GitPublish CMS y automatiza tareas en repositorios remotos de GitHub. Úsalo cuando el usuario pida realizar acciones como crear repositorios, ramas, commits, Pull Requests, issues, o automatizar flujos de trabajo de GitHub mediante lenguaje natural.
+description: Sin descripción detallada.
 ---
 
-*   **Ruta de Configuración**: [`.gemini/config/skills/gestiona_github/`](file:///C:/Users/jjtei/.gemini/config/skills/gestiona_github/SKILL.md)
+*   **Ruta de Configuración**: [`IA_Configuracion/skills/gestiona_github/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/skills/gestiona_github/SKILL.md)
 
+---
+
+﻿---
+name: gestiona_github
+description: >
+  Controla el servidor local de GitPublish CMS y automatiza tareas en repositorios remotos de GitHub.
+  Úsalo cuando el usuario pida realizar acciones como crear repositorios, ramas, commits, Pull Requests, issues, o automatizar flujos de trabajo de GitHub mediante lenguaje natural.
 ---
 
 # Skill: Gestionar GitHub (`gestiona_github`)
@@ -59,7 +66,7 @@ A continuación se listan las principales peticiones de PowerShell para interact
 Para actualizar el repositorio activo o cambiar las credenciales:
 ```powershell
 # Leer la configuración actual
-$config = Invoke-RestMethod -Uri "http://localhost:3100/api/config"
+$config = Invoke-RestMethod -Uri "http://localhost:3000/api/git/api/config"
 $config | Format-List
 
 # Actualizar el token u otros parámetros
@@ -71,14 +78,14 @@ $body = @{
     postsPath = "posts"
 } | ConvertTo-Json
 
-$res = Invoke-RestMethod -Uri "http://localhost:3100/api/config" -Method Post -Body $body -ContentType "application/json"
+$res = Invoke-RestMethod -Uri "http://localhost:3000/api/git/api/config" -Method Post -Body $body -ContentType "application/json"
 $res | Format-List
 ```
 
 #### B. Gestionar Repositorios
 ```powershell
 # Listar repositorios del usuario
-$repos = Invoke-RestMethod -Uri "http://localhost:3100/api/repos"
+$repos = Invoke-RestMethod -Uri "http://localhost:3000/api/git/api/repos"
 $repos | Select-Object name, fullName, private, htmlUrl | Format-Table
 
 # Crear un nuevo repositorio
@@ -88,14 +95,14 @@ $body = @{
     private = $true
 } | ConvertTo-Json
 
-$res = Invoke-RestMethod -Uri "http://localhost:3100/api/repos" -Method Post -Body $body -ContentType "application/json"
+$res = Invoke-RestMethod -Uri "http://localhost:3000/api/git/api/repos" -Method Post -Body $body -ContentType "application/json"
 $res.repo | Format-List
 ```
 
 #### C. Gestionar Ramas (Branches)
 ```powershell
 # Listar ramas
-$branches = Invoke-RestMethod -Uri "http://localhost:3100/api/branches"
+$branches = Invoke-RestMethod -Uri "http://localhost:3000/api/git/api/branches"
 $branches.name
 
 # Crear una nueva rama desde 'main'
@@ -104,17 +111,17 @@ $body = @{
     fromBranch = "main"
 } | ConvertTo-Json
 
-$res = Invoke-RestMethod -Uri "http://localhost:3100/api/branches" -Method Post -Body $body -ContentType "application/json"
+$res = Invoke-RestMethod -Uri "http://localhost:3000/api/git/api/branches" -Method Post -Body $body -ContentType "application/json"
 $res | Format-List
 
 # Eliminar una rama
-Invoke-RestMethod -Uri "http://localhost:3100/api/branches/feature/nueva-funcionalidad" -Method Delete
+Invoke-RestMethod -Uri "http://localhost:3000/api/git/api/branches/feature/nueva-funcionalidad" -Method Delete
 ```
 
 #### D. Gestionar Pull Requests (PRs)
 ```powershell
 # Listar PRs abiertos y estado de checks de CI
-$pulls = Invoke-RestMethod -Uri "http://localhost:3100/api/pulls"
+$pulls = Invoke-RestMethod -Uri "http://localhost:3000/api/git/api/pulls"
 $pulls | Select-Object number, title, headBranch, checkState | Format-Table
 
 # Crear un Pull Request
@@ -125,7 +132,7 @@ $body = @{
     body = "Este PR incluye el simulador financiero integrado."
 } | ConvertTo-Json
 
-$res = Invoke-RestMethod -Uri "http://localhost:3100/api/pulls" -Method Post -Body $body -ContentType "application/json"
+$res = Invoke-RestMethod -Uri "http://localhost:3000/api/git/api/pulls" -Method Post -Body $body -ContentType "application/json"
 $res | Format-List
 
 # Fusionar (Merge) un Pull Request
@@ -133,14 +140,14 @@ $body = @{
     commitTitle = "chore: merge branch feature/nueva-funcionalidad"
 } | ConvertTo-Json
 
-$res = Invoke-RestMethod -Uri "http://localhost:3100/api/pulls/1/merge" -Method Post -Body $body -ContentType "application/json"
+$res = Invoke-RestMethod -Uri "http://localhost:3000/api/git/api/pulls/1/merge" -Method Post -Body $body -ContentType "application/json"
 $res | Format-List
 ```
 
 #### E. Gestionar Tareas (Issues)
 ```powershell
 # Listar issues abiertas
-$issues = Invoke-RestMethod -Uri "http://localhost:3100/api/issues"
+$issues = Invoke-RestMethod -Uri "http://localhost:3000/api/git/api/issues"
 $issues | Select-Object number, title, labels | Format-Table
 
 # Crear una issue
@@ -150,21 +157,21 @@ $body = @{
     labels = @("bug", "urgente")
 } | ConvertTo-Json
 
-$res = Invoke-RestMethod -Uri "http://localhost:3100/api/issues" -Method Post -Body $body -ContentType "application/json"
+$res = Invoke-RestMethod -Uri "http://localhost:3000/api/git/api/issues" -Method Post -Body $body -ContentType "application/json"
 $res.issue | Format-List
 
 # Cerrar una issue
-Invoke-RestMethod -Uri "http://localhost:3100/api/issues/5/close" -Method Post
+Invoke-RestMethod -Uri "http://localhost:3000/api/git/api/issues/5/close" -Method Post
 ```
 
 #### F. Gestión de Publicaciones (Markdown)
 ```powershell
 # Listar posts
-$posts = Invoke-RestMethod -Uri "http://localhost:3100/api/posts"
+$posts = Invoke-RestMethod -Uri "http://localhost:3000/api/git/api/posts"
 $posts | Select-Object name, sha | Format-Table
 
 # Obtener contenido de un post
-$post = Invoke-RestMethod -Uri "http://localhost:3100/api/posts/mi-primer-post.md"
+$post = Invoke-RestMethod -Uri "http://localhost:3000/api/git/api/posts/mi-primer-post.md"
 $post.content
 
 # Guardar/Actualizar un post (valida Frontmatter)
@@ -175,7 +182,7 @@ $body = @{
     branch = "main"
 } | ConvertTo-Json
 
-$res = Invoke-RestMethod -Uri "http://localhost:3100/api/posts" -Method Post -Body $body -ContentType "application/json"
+$res = Invoke-RestMethod -Uri "http://localhost:3000/api/git/api/posts" -Method Post -Body $body -ContentType "application/json"
 $res | Format-List
 ```
 
@@ -199,7 +206,7 @@ $body = @{
     deleteBranch = $true  # Borra la rama 'feature/auto-publicacion' tras el merge
 } | ConvertTo-Json
 
-$res = Invoke-RestMethod -Uri "http://localhost:3100/api/workflow" -Method Post -Body $body -ContentType "application/json"
+$res = Invoke-RestMethod -Uri "http://localhost:3000/api/git/api/workflow" -Method Post -Body $body -ContentType "application/json"
 $res.steps
 ```
 
@@ -223,3 +230,4 @@ El skill `gestiona_github` está coordinado con los otros agentes del espacio de
 1. **Creación con `crea_proyecto`**: Tras generar un proyecto en local, el agente usa `gestiona_github` para inicializar el repositorio y subir la estructura inicial.
 2. **Deploy con `gestiona_fierbase`**: Cuando el agente compila y despliega en Firebase Hosting, usa `gestiona_github` para sincronizar los cambios de configuración.
 3. **Dominio con `gestiona_dominios`**: Al asociar un subdominio Cloudflare al hosting, el agente guarda la configuración final y la commitea al repositorio.
+

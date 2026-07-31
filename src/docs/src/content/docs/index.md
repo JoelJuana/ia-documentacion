@@ -5,37 +5,50 @@ template: splash
 tableOfContents: false
 hero:
   tagline: "«Portal central de documentación técnica y operativa de proyectos e infraestructura de IA, diseñado para orquestar agentes inteligentes y microservicios locales.»"
-  actions:
-    - text: Reglas del Agente
-      link: /agente/reglas/reglas-y-directrices/
-      variant: primary
-    - text: Inventario de Proyectos
-      link: /proyectos-ia/catalogo-general/
-      variant: secondary
 ---
 
-## Resumen de Módulos
+## Módulos del Ecosistema
 
 Selecciona la sección correspondiente para acceder de forma inmediata a los contenidos del portal:
 
 <div class="dashboard-grid">
-  <a href="/agente/reglas/reglas-y-directrices/" class="dashboard-card">
-    <h3>Reglas del Agente</h3>
-    <p>Directrices, estándares de codificación, seguridad y comportamiento operativo para agentes de IA en el monorepositorio.</p>
+  <a href="/infraestructura-local/introduccion/" class="dashboard-card">
+    <h3>Infraestructura Local</h3>
+    <p>Suite de microservicios locales coordinados por el API Gateway (puerto 3000). Gestión operativa con PM2, visor de logs y panel de control.</p>
   </a>
 
-  <a href="/agente/skills/introduccion/" class="dashboard-card">
-    <h3>Habilidades (Skills)</h3>
-    <p>Catálogo dinámico de las skills instaladas para extender y automatizar el comportamiento del agente de IA de Gemini.</p>
+  <a href="/agente/reglas/reglas-y-directrices/" class="dashboard-card">
+    <h3>Manual del Agente</h3>
+    <p>Reglas generales de comportamiento de los agentes, directrices de codificación y catálogo de habilidades (skills) del ecosistema.</p>
   </a>
 
   <a href="/proyectos-ia/catalogo-general/" class="dashboard-card">
-    <h3>Ecosistema de Proyectos</h3>
-    <p>Inventario de proyectos activos (API de paradas, Business Plans, portal de farmacia) y fichas de arquitectura individualizadas.</p>
+    <h3>Proyectos de Negocio</h3>
+    <p>Inventario de aplicaciones de negocio activas, Comunidad Paradas, Documentación Farmacia y simuladores financieros de la suite Business Plans.</p>
   </a>
 
-  <a href="/infraestructura-local/arquitectura-y-servicios/" class="dashboard-card">
-    <h3>Infraestructura Local</h3>
-    <p>Mapeo de puertos reservados de red, variables .env, API Gateway y manual operativo de control (PM2 / Standalone).</p>
+  <a href="/configuracion/introduccion/" class="dashboard-card">
+    <h3>Configuración del Entorno</h3>
+    <p>Gestión del espacio de trabajo global. Script de instalación (install.ps1), plugins activos, integraciones MCP y directrices específicas por repositorio.</p>
   </a>
 </div>
+
+---
+
+## Estadísticas del Ecosistema IA
+
+<div class="dashboard-grid">
+  <div class="dashboard-card">
+    <h3>Proyectos Registrados</h3>
+    <p class="stat-number">8</p>
+  </div>
+  <div class="dashboard-card">
+    <h3>Skills de Agente</h3>
+    <p class="stat-number">10</p>
+  </div>
+  <div class="dashboard-card">
+    <h3>Servicios de Infraestructura</h3>
+    <p class="stat-number">8</p>
+  </div>
+</div>
+

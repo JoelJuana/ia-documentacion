@@ -6,12 +6,67 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const workspaceRoot = path.resolve(__dirname, '../../../../Proyectos_IA');
-const projectsJsonPath = path.join(workspaceRoot, 'projects.json');
-const skillsDir = path.resolve('C:/Users/jjtei/.gemini/config/skills');
+// Rutas absolutas a los proyectos
+const configuracionRoot = 'C:/Users/jjtei/Desktop/IA_Configuracion';
+const proyectosRoot = 'C:/Users/jjtei/Desktop/IA_Proyectos';
+const infraestructuraRoot = 'C:/Users/jjtei/Desktop/IA_Infraestructura';
+const documentacionRoot = 'C:/Users/jjtei/Desktop/IA_Documentacion';
+
+const projectsJsonPath = path.join(proyectosRoot, 'projects.json');
+const skillsDir = path.join(configuracionRoot, 'skills');
 
 const targetProyectosMd = path.join(__dirname, '../src/content/docs/proyectos-ia/catalogo-general.md');
 const targetSkillsDir = path.join(__dirname, '../src/content/docs/agente/skills');
+const targetReglasMd = path.join(__dirname, '../src/content/docs/agente/reglas/reglas-y-directrices.md');
+const targetInfraServiciosDir = path.join(__dirname, '../src/content/docs/infraestructura-local/servicios');
+const targetConfiguracionDir = path.join(__dirname, '../src/content/docs/configuracion');
+const targetConfigPluginsDir = path.join(__dirname, '../src/content/docs/configuracion/plugins');
+const targetConfigReglasDir = path.join(__dirname, '../src/content/docs/configuracion/reglas');
+const targetProyectosAppsDir = path.join(__dirname, '../src/content/docs/proyectos-ia/apps');
+const targetChangelogMd = path.join(__dirname, '../src/content/docs/historial/cambios.md');
+const targetIndexMd = path.join(__dirname, '../src/content/docs/index.md');
+
+let countProjects = 0;
+let countSkills = 0;
+let countInfra = 0;
+
+const pluginsDir = path.join(configuracionRoot, 'plugins');
+const proyectosReglasDir = path.join(configuracionRoot, 'proyectos-reglas');
+
+// Rutas de destino para sincronizar reglas específicas de agentes
+const targetAgentsRules = [
+  {
+    src: path.join(configuracionRoot, 'proyectos-reglas/ia-documentacion.md'),
+    dest: path.join(documentacionRoot, '.agents/AGENTS.md')
+  },
+  {
+    src: path.join(configuracionRoot, 'proyectos-reglas/ia-infraestructura.md'),
+    dest: path.join(infraestructuraRoot, '.agents/AGENTS.md')
+  },
+  {
+    src: path.join(configuracionRoot, 'proyectos-reglas/proyectos-ia.md'),
+    dest: path.join(proyectosRoot, '.agents/AGENTS.md')
+  }
+];
+
+// Función para corregir encoding corrupto en archivos UTF-8
+function fixEncoding(text) {
+  return text
+    .replace(/Ã¡/g, 'á')
+    .replace(/Ã©/g, 'é')
+    .replace(/Ã­/g, 'í')
+    .replace(/Ã³/g, 'ó')
+    .replace(/Ãº/g, 'ú')
+    .replace(/Ã±/g, 'ñ')
+    .replace(/Ã/g, 'Á')
+    .replace(/Ã‰/g, 'É')
+    .replace(/Ã/g, 'Í')
+    .replace(/Ã“/g, 'Ó')
+    .replace(/Ãš/g, 'Ú')
+    .replace(/Ã‘/g, 'Ñ')
+    .replace(/Â¡/g, '¡')
+    .replace(/Â¿/g, '¿');
+}
 
 // Función para limpiar emojis de los encabezados markdown (líneas que empiezan con #)
 function cleanEmojisFromHeadings(body) {
@@ -37,7 +92,8 @@ function parseSkillMetadataAndBody(skillMdPath, fallbackName) {
     if (!fs.existsSync(skillMdPath)) {
       return { name: fallbackName, description: 'Sin descripción detallada.', body: 'No hay descripción de instrucciones para esta habilidad.' };
     }
-    const content = fs.readFileSync(skillMdPath, 'utf8');
+    const rawContent = fs.readFileSync(skillMdPath, 'utf8');
+    const content = fixEncoding(rawContent);
     const yamlRegex = /^---\r?\n([\s\S]+?)\r?\n---/;
     const match = content.match(yamlRegex);
     
@@ -96,35 +152,123 @@ function parseSkillMetadataAndBody(skillMdPath, fallbackName) {
   }
 }
 
-// 1. Sincronizar Catálogo de Proyectos
+// 1. Sincronizar Catálogo de Proyectos y Fichas de Apps
 function syncProjects() {
-  console.log('Sincronizando catálogo de proyectos...');
+  console.log('Sincronizando catálogo de proyectos y fichas técnicas...');
   if (!fs.existsSync(projectsJsonPath)) {
     console.warn(`No se encontró el archivo ${projectsJsonPath}`);
     return;
   }
   const projects = JSON.parse(fs.readFileSync(projectsJsonPath, 'utf8'));
+  countProjects = projects.length;
 
-  // Construir tabla
-  let tableRows = '';
-  let detailSections = '';
+  // Asegurar directorio destino para fichas individuales
+  fs.mkdirSync(targetProyectosAppsDir, { recursive: true });
+
+  const generalProjects = [];
+  const businessPlans = [];
 
   projects.forEach(p => {
-    tableRows += `| **${p.name}** | \`${p.type}\` | ${p.description} | ${p.author} | ${p.createdAt} |\n`;
+    if (p.name.startsWith('app-bp-')) {
+      businessPlans.push(p);
+    } else {
+      generalProjects.push(p);
+    }
 
-    detailSections += `### ${p.name}\n`;
-    detailSections += `*   **Tipo**: \`${p.type}\`\n`;
-    detailSections += `*   **Propósito**: ${p.description}\n`;
-    detailSections += `*   **Creado el**: ${p.createdAt}\n`;
-    detailSections += `*   **Autor**: ${p.author}\n\n`;
-  });
+    // Determinar la ruta física del proyecto para buscar README.md
+    const relativePath = p.name.startsWith('app-bp-')
+      ? path.join('apps', 'business-plans', p.name)
+      : path.join('apps', p.name);
+    const absolutePath = path.join(proyectosRoot, relativePath);
+    const readmePath = path.join(absolutePath, 'README.md');
 
-  const content = `---
-title: Inventario de Proyectos de IA
-description: Listado oficial de todos los proyectos activos registrados en el monorepositorio Proyectos IA.
+    let docBody = '';
+    if (fs.existsSync(readmePath)) {
+      const rawContent = fs.readFileSync(readmePath, 'utf8');
+      docBody = cleanEmojisFromHeadings(fixEncoding(rawContent));
+    } else {
+      docBody = `
+No se encontró un archivo \`README.md\` local en el directorio del proyecto.
+
+### 📝 Información del Registro
+*   **Nombre**: \`${p.name}\`
+*   **Tipo**: \`${p.type}\`
+*   **Descripción**: ${p.description || 'Sin descripción.'}
+*   **Fecha de creación**: ${p.createdAt || '-'}
+*   **Autor**: ${p.author || 'JoelJuana'}
+`;
+    }
+
+    const appFileContent = `---
+title: "${p.name}"
+description: "Ficha técnica y documentación de la aplicación ${p.name}."
 ---
 
-Este documento detalla el catálogo completo de proyectos activos y registrados en el archivo central [projects.json](file:///c:/Users/jjtei/Desktop/Proyectos_IA/projects.json) en la raíz del monorepositorio.
+*   **Ruta física**: [\`${relativePath}/\`](file:///${absolutePath.replace(/\\/g, '/')})
+*   **Tipo**: \`${p.type}\`
+*   **Creado el**: ${p.createdAt || '-'}
+*   **Autor**: ${p.author || 'JoelJuana'}
+
+---
+
+${docBody}
+`;
+
+    const targetPath = path.join(targetProyectosAppsDir, `${p.name}.md`);
+    fs.writeFileSync(targetPath, appFileContent, 'utf8');
+    console.log(`Ficha de aplicación sincronizada en: ${targetPath}`);
+  });
+
+  // Construir filas de la tabla
+  let tableRows = '';
+  
+  // Proyectos Generales
+  generalProjects.forEach(p => {
+    tableRows += `| **[${p.name}](/proyectos-ia/apps/${p.name})** | \`${p.type}\` | ${p.description} | ${p.author} | ${p.createdAt} |\n`;
+  });
+
+  // Fila agrupada de Business Plans si existen
+  if (businessPlans.length > 0) {
+    let bpList = businessPlans.map(bp => `• **[${bp.name}](/proyectos-ia/apps/${bp.name})** (\`${bp.type}\`): ${bp.description}`).join('<br>');
+    tableRows += `| **Suite Business Plans** | \`suite\` | Conjunto de simuladores financieros de modelos de negocio:<br>${bpList} | JoelJuana | - |\n`;
+  }
+
+  // Construir secciones de detalles
+  let detailSections = '';
+
+  // Detalles Proyectos Generales
+  if (generalProjects.length > 0) {
+    detailSections += `## Proyectos y APIs Generales\n\n`;
+    generalProjects.forEach(p => {
+      detailSections += `### [${p.name}](/proyectos-ia/apps/${p.name})\n`;
+      detailSections += `*   **Tipo**: \`${p.type}\`\n`;
+      detailSections += `*   **Propósito**: ${p.description}\n`;
+      detailSections += `*   **Creado el**: ${p.createdAt}\n`;
+      detailSections += `*   **Autor**: ${p.author}\n\n`;
+    });
+  }
+
+  // Detalles Business Plans Agrupados
+  if (businessPlans.length > 0) {
+    detailSections += `## Suite Business Plans (Simuladores Financieros)\n\n`;
+    detailSections += `Grupo de aplicaciones especializadas en análisis de viabilidad económica y proyecciones de modelos de negocio.\n\n`;
+    businessPlans.forEach(p => {
+      detailSections += `### [${p.name}](/proyectos-ia/apps/${p.name})\n`;
+      detailSections += `*   **Tipo**: \`${p.type}\`\n`;
+      detailSections += `*   **Propósito**: ${p.description}\n`;
+      detailSections += `*   **Creado el**: ${p.createdAt}\n`;
+      detailSections += `*   **Autor**: ${p.author}\n\n`;
+    });
+  }
+
+  const content = `---
+title: Inventario
+description: Listado oficial de todos los proyectos activos registrados en el monorepositorio Proyectos IA.
+sidebar:
+  order: 2
+---
+
+Este documento detalla el catálogo completo de proyectos activos y registrados en el archivo central [projects.json](file:///c:/Users/jjtei/Desktop/IA_Proyectos/projects.json) en la raíz del monorepositorio.
 
 ---
 
@@ -134,8 +278,6 @@ Este documento detalla el catálogo completo de proyectos activos y registrados 
 | :--- | :--- | :--- | :--- | :--- |
 ${tableRows}
 ---
-
-## Ficha de Proyectos Destacados
 
 ${detailSections}`;
 
@@ -153,19 +295,11 @@ function syncSkills() {
     return;
   }
 
-  // Limpiar carpeta de destino para no acumular archivos obsoletos (esta vez limpiamos todo para autogenerar introduccion)
-  if (fs.existsSync(targetSkillsDir)) {
-    fs.readdirSync(targetSkillsDir).forEach(file => {
-      if (file.endsWith('.md')) {
-        fs.unlinkSync(path.join(targetSkillsDir, file));
-      }
-    });
-  } else {
-    fs.mkdirSync(targetSkillsDir, { recursive: true });
-  }
+  fs.mkdirSync(targetSkillsDir, { recursive: true });
 
   const items = fs.readdirSync(skillsDir);
   const skillsList = [];
+  const validFilenames = new Set(['introduccion.md']);
 
   items.forEach(item => {
     const itemPath = path.join(skillsDir, item);
@@ -180,24 +314,36 @@ function syncSkills() {
         description: skillData.description
       });
 
-      // Crear el archivo Markdown Starlight para la skill individual
+      const filename = `${item}.md`;
+      validFilenames.add(filename);
+
+      // Crear o actualizar el archivo Markdown Starlight para la skill individual
       const fileContent = `---
 title: ${skillData.name}
 description: ${skillData.description}
 ---
 
-*   **Ruta de Configuración**: [\`.gemini/config/skills/${item}/\`](file:///C:/Users/jjtei/.gemini/config/skills/${item}/SKILL.md)
+*   **Ruta de Configuración**: [\`IA_Configuracion/skills/${item}/\`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/skills/${item}/SKILL.md)
 
 ---
 
 ${skillData.body}
 `;
 
-      const targetPath = path.join(targetSkillsDir, `${item}.md`);
+      const targetPath = path.join(targetSkillsDir, filename);
       fs.writeFileSync(targetPath, fileContent, 'utf8');
       console.log(`Ficha de skill individual creada en: ${targetPath}`);
     }
   });
+
+  // Eliminar únicamente archivos obsoletos que ya no existan en el origen
+  fs.readdirSync(targetSkillsDir).forEach(file => {
+    if (file.endsWith('.md') && !validFilenames.has(file)) {
+      fs.unlinkSync(path.join(targetSkillsDir, file));
+    }
+  });
+
+  countSkills = skillsList.length;
 
   // Ordenar alfabéticamente las skills para el catálogo
   skillsList.sort((a, b) => a.name.localeCompare(b.name));
@@ -216,7 +362,9 @@ sidebar:
   order: 1
 ---
 
-Las **Skills** (habilidades) son extensiones de automatización personalizadas instaladas en el sistema de desarrollo global del agente de IA (\`C:\\Users\\jjtei\\.gemini\\config\\skills\\\`).
+Las **Skills** (habilidades) son extensiones de automatización personalizadas que se configuran y mantienen de forma centralizada en el repositorio de [IA_Configuracion](file:///c:/Users/jjtei/Desktop/IA_Configuracion/skills).
+
+Al arrancar el entorno de desarrollo o compilar el portal, estas habilidades se sincronizan y actualizan automáticamente en las carpetas de proyectos y microservicios locales (\`IA_Proyectos\`, \`IA_Infraestructura\` e \`IA_Documentacion\`).
 
 Permiten al agente interactuar con servicios locales y externos de forma autónoma basándose en disparadores de lenguaje natural.
 
@@ -235,12 +383,419 @@ ${cardsContent}</div>
   console.log(`Archivo de introducción de skills autogenerado en: ${targetIntroPath}`);
 }
 
-// Ejecutar sincronización
+// 3. Sincronizar Reglas Generales en el Portal de Documentación
+function syncReglasDocumentacion() {
+  console.log('Sincronizando reglas generales en el portal de documentación...');
+  const srcReglas = path.join(configuracionRoot, 'AGENTS.md');
+  if (!fs.existsSync(srcReglas)) {
+    console.warn(`No se encontró el archivo de reglas globales en ${srcReglas}`);
+    return;
+  }
+  const rawContent = fs.readFileSync(srcReglas, 'utf8');
+  const cleanContent = fixEncoding(rawContent);
+
+  const fileContent = `---
+title: Reglas Generales del Agente
+description: Directrices, estándares obligatorios de codificación, seguridad y comportamiento para agentes de IA que operan en este monorepositorio.
+template: doc
+tableOfContents: true
+---
+
+:::tip[Sincronización Automática]
+Las reglas globales y específicas de agentes se configuran centralizadamente en el repositorio [IA_Configuracion](file:///C:/Users/jjtei/Desktop/IA_Configuracion). Cualquier cambio se propaga de forma automática a los directorios \`.agents/AGENTS.md\` de **IA_Proyectos**, **IA_Infraestructura** e **IA_Documentacion** al ejecutar el script de desarrollo (\`npm run dev\` o \`npm run build\`).
+:::
+
+Este documento establece las reglas fundamentales que todo agente de IA debe seguir al trabajar en el monorepositorio **Proyectos IA** y en la máquina de desarrollo local. Estas normas garantizan la seguridad, mantenibilidad, consistencia de código y optimización de recursos.
+
+---
+
+${cleanContent}
+`;
+
+  fs.mkdirSync(path.dirname(targetReglasMd), { recursive: true });
+  fs.writeFileSync(targetReglasMd, fileContent, 'utf8');
+  console.log(`Reglas generales del agente actualizadas en la documentación: ${targetReglasMd}`);
+}
+
+// 4. Sincronizar Reglas Específicas (.agents/AGENTS.md) de los Proyectos
+function syncProjectRules() {
+  console.log('Sincronizando reglas específicas de agentes en los proyectos...');
+  targetAgentsRules.forEach(rule => {
+    if (!fs.existsSync(rule.src)) {
+      console.warn(`No se encontró el archivo de origen de reglas en ${rule.src}`);
+      return;
+    }
+    const content = fs.readFileSync(rule.src, 'utf8');
+    const fixedContent = fixEncoding(content);
+    
+    // Asegurar directorio destino
+    fs.mkdirSync(path.dirname(rule.dest), { recursive: true });
+    fs.writeFileSync(rule.dest, fixedContent, 'utf8');
+    console.log(`Reglas actualizadas en: ${rule.dest}`);
+  });
+}
+
+// 5. Sincronizar Fichas de Infraestructura
+function syncInfraestructura() {
+  console.log('Sincronizando documentación de infraestructura...');
+  if (!fs.existsSync(infraestructuraRoot)) {
+    console.warn(`No se encontró el directorio de infraestructura en ${infraestructuraRoot}`);
+    return;
+  }
+
+  // Asegurar directorio destino
+  fs.mkdirSync(targetInfraServiciosDir, { recursive: true });
+
+  const items = fs.readdirSync(infraestructuraRoot);
+  let localCountInfra = 0;
+  
+  const serviceTitles = {
+    'infra-gateway': 'Gateway (infra-gateway)',
+    'infra-github': 'GitHub Service (infra-github)',
+    'infra-firebase': 'Firebase Service (infra-firebase)',
+    'infra-project-creator': 'Project Creator (infra-project-creator)',
+    'infra-domain-manager': 'Domain Manager (infra-domain-manager)',
+    'api-design-assets': 'Design Assets (api-design-assets)',
+    'api-conocimiento-rag': 'Conocimiento y RAG (api-conocimiento-rag)',
+    'api-utilidades-scraping': 'Scraping Utility (api-utilidades-scraping)'
+  };
+
+  items.forEach(item => {
+    const itemPath = path.join(infraestructuraRoot, item);
+    if (fs.statSync(itemPath).isDirectory() && !item.startsWith('.')) {
+      const readmePath = path.join(itemPath, 'README.md');
+      if (fs.existsSync(readmePath)) {
+        const rawContent = fs.readFileSync(readmePath, 'utf8');
+        let content = fixEncoding(rawContent);
+        content = cleanEmojisFromHeadings(content);
+
+        const title = serviceTitles[item] || item;
+        const description = `Ficha técnica detallada del microservicio ${item}.`;
+
+        const fileContent = `---
+title: "${title}"
+description: "${description}"
+---
+
+*   **Ruta física**: [\`${item}/\`](file:///c:/Users/jjtei/Desktop/IA_Infraestructura/${item})
+
+---
+
+${content}
+`;
+
+        const targetPath = path.join(targetInfraServiciosDir, `${item}.md`);
+        fs.writeFileSync(targetPath, fileContent, 'utf8');
+        console.log(`Ficha de servicio de infraestructura creada en: ${targetPath}`);
+        localCountInfra++;
+      }
+    }
+  });
+  countInfra = localCountInfra;
+}
+
+// 6. Sincronizar Fichas de Configuración del Agente
+function syncConfiguracion() {
+  console.log('Sincronizando documentación de configuración...');
+  if (!fs.existsSync(configuracionRoot)) {
+    console.warn(`No se encontró el directorio de configuración en ${configuracionRoot}`);
+    return;
+  }
+
+  // Asegurar directorios de destino
+  fs.mkdirSync(targetConfiguracionDir, { recursive: true });
+  fs.mkdirSync(targetConfigPluginsDir, { recursive: true });
+  fs.mkdirSync(targetConfigReglasDir, { recursive: true });
+
+  // A) Introducción (README de la raíz)
+  const readmePath = path.join(configuracionRoot, 'README.md');
+  if (fs.existsSync(readmePath)) {
+    const rawContent = fs.readFileSync(readmePath, 'utf8');
+    const content = cleanEmojisFromHeadings(fixEncoding(rawContent));
+    const fileContent = `---
+title: Introducción a la Configuración
+description: Guía de introducción técnica al repositorio de configuración del agente de IA.
+---
+
+*   **Ruta física**: [\`IA_Configuracion/\`](file:///C:/Users/jjtei/Desktop/IA_Configuracion)
+
+---
+
+${content}
+`;
+    fs.writeFileSync(path.join(targetConfiguracionDir, 'introduccion.md'), fileContent, 'utf8');
+    console.log('Documento de introducción a la configuración sincronizado.');
+  }
+
+  // B) Instalación y Setup (install.ps1)
+  const installPath = path.join(configuracionRoot, 'install.ps1');
+  if (fs.existsSync(installPath)) {
+    const rawContent = fs.readFileSync(installPath, 'utf8');
+    const content = fixEncoding(rawContent);
+    const fileContent = `---
+title: Instalación y Setup
+description: Script de instalación y setup del entorno de los agentes.
+---
+
+El script \`install.ps1\` permite realizar la instalación y despliegue del repositorio de configuración de agentes de forma local en la máquina de desarrollo.
+
+\`\`\`powershell
+${content}
+\`\`\`
+`;
+    fs.writeFileSync(path.join(targetConfiguracionDir, 'instalacion.md'), fileContent, 'utf8');
+    console.log('Guía de instalación de configuración sincronizada.');
+  }
+
+  // C) Plugins Activos
+  if (fs.existsSync(pluginsDir)) {
+    const plugins = fs.readdirSync(pluginsDir);
+    let pluginsList = '';
+    let cardsContent = '';
+
+    plugins.forEach(p => {
+      const pluginPath = path.join(pluginsDir, p);
+      if (fs.statSync(pluginPath).isDirectory() && !p.startsWith('.')) {
+        // Buscar README o SKILL dentro del plugin
+        let docPath = path.join(pluginPath, 'README.md');
+        if (!fs.existsSync(docPath)) {
+          docPath = path.join(pluginPath, 'SKILL.md');
+        }
+
+        let description = 'Sin descripción detallada.';
+        let hasDetail = false;
+
+        if (fs.existsSync(docPath)) {
+          const rawContent = fs.readFileSync(docPath, 'utf8');
+          const cleanContent = cleanEmojisFromHeadings(fixEncoding(rawContent));
+          hasDetail = true;
+
+          // Extraer descripción inicial si es posible
+          const lines = cleanContent.split('\n');
+          const firstTextLine = lines.find(l => l.trim() && !l.trim().startsWith('#') && !l.trim().startsWith('-') && !l.trim().startsWith('*') && !l.trim().startsWith('---'));
+          if (firstTextLine) {
+            description = firstTextLine.trim().slice(0, 150);
+            if (firstTextLine.length > 150) description += '...';
+          }
+
+          // Crear archivo markdown individual para el plugin
+          const pluginContent = `---
+title: Plugin "${p}"
+description: Documentación detallada del plugin de agente ${p}.
+---
+
+*   **Ruta física**: [\`plugins/${p}/\`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/plugins/${p})
+
+---
+
+${cleanContent}
+`;
+          const targetPath = path.join(targetConfigPluginsDir, `${p}.md`);
+          fs.writeFileSync(targetPath, pluginContent, 'utf8');
+          console.log(`Ficha de plugin individual creada en: ${targetPath}`);
+        }
+
+        const link = hasDetail ? `/configuracion/plugins/${p}/` : '#';
+        pluginsList += `| **${p}** | ${description} | ${hasDetail ? `[Ver Documentación](${link})` : 'Sin documentación'} |\n`;
+        cardsContent += `  <a href="${link}" class="dashboard-card">\n    <h3>${p}</h3>\n    <p>${description}</p>\n  </a>\n`;
+      }
+    });
+
+    const pluginsContent = `---
+title: Plugins Activos
+description: Catálogo completo de plugins de comportamiento y herramientas configurados para el agente.
+---
+
+Los **Plugins** son módulos de comportamiento, reglas de estilo, sidecars o integraciones MCP que personalizan y amplían las capacidades de los agentes en el entorno de desarrollo.
+
+---
+
+## Catálogo de Plugins
+
+<div class="dashboard-grid">
+${cardsContent}</div>
+
+---
+
+## Tabla Resumen de Plugins
+
+| Nombre del Plugin | Descripción | Enlace |
+| :--- | :--- | :--- |
+${pluginsList}
+`;
+    fs.writeFileSync(path.join(targetConfiguracionDir, 'plugins-activos.md'), pluginsContent, 'utf8');
+    console.log('Catálogo de plugins activos sincronizado.');
+  }
+
+  // D) Reglas por Proyecto
+  if (fs.existsSync(proyectosReglasDir)) {
+    const reglas = fs.readdirSync(proyectosReglasDir);
+    let reglasList = '';
+
+    reglas.forEach(r => {
+      const reglaPath = path.join(proyectosReglasDir, r);
+      if (fs.statSync(reglaPath).isFile() && r.endsWith('.md')) {
+        const rawContent = fs.readFileSync(reglaPath, 'utf8');
+        const content = cleanEmojisFromHeadings(fixEncoding(rawContent));
+        const filename = path.basename(r, '.md');
+
+        const serviceTitles = {
+          'ia-documentacion': 'IA Documentación',
+          'ia-infraestructura': 'IA Infraestructura',
+          'proyectos-ia': 'Proyectos IA'
+        };
+        const title = serviceTitles[filename] || filename;
+
+        const fileContent = `---
+title: Reglas de "${title}"
+description: Directrices y reglas obligatorias específicas del repositorio ${title}.
+---
+
+*   **Ruta física**: [\`proyectos-reglas/${r}\`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/proyectos-reglas/${r})
+
+---
+
+${content}
+`;
+        const targetPath = path.join(targetConfigReglasDir, r);
+        fs.writeFileSync(targetPath, fileContent, 'utf8');
+        console.log(`Regla por proyecto creada en: ${targetPath}`);
+
+        reglasList += `*   **[Reglas de ${title}](/configuracion/reglas/${filename})**: Directrices para el espacio de trabajo de \`${filename}\`.\n`;
+      }
+    });
+
+    const reglasIndexContent = `---
+title: Reglas por Proyecto
+description: Directrices específicas de comportamiento de agentes según el espacio de trabajo.
+---
+
+Cada repositorio o espacio de trabajo del monorepositorio cuenta con un conjunto de directrices operativas específicas en su archivo local \`.agents/AGENTS.md\`.
+
+Estas directrices son auto-propagadas a partir de la configuración central del agente:
+
+---
+
+## Reglas del Ecosistema
+
+${reglasList}
+`;
+    fs.writeFileSync(path.join(targetConfiguracionDir, 'reglas-por-proyecto.md'), reglasIndexContent, 'utf8');
+    console.log('Reglas por proyecto sincronizadas.');
+  }
+}
+
+// 7. Sincronizar CHANGELOG / Bitácora de Cambios
+function syncChangelog() {
+  console.log('Sincronizando bitácora de cambios...');
+  const changelogPath = path.join(documentacionRoot, 'CHANGELOG.md');
+  if (!fs.existsSync(changelogPath)) {
+    console.warn(`No se encontró el archivo CHANGELOG.md global en ${changelogPath}`);
+    return;
+  }
+
+  const rawContent = fs.readFileSync(changelogPath, 'utf8');
+  const content = cleanEmojisFromHeadings(fixEncoding(rawContent));
+
+  const fileContent = `---
+title: Bitácora de Cambios
+description: Historial de actualizaciones, cambios y tareas completadas en la infraestructura y proyectos.
+sidebar:
+  order: 5
+---
+
+Este documento registra cronológicamente las actualizaciones, mejoras e intervenciones realizadas en el ecosistema de IA.
+
+---
+
+${content}
+`;
+
+  fs.mkdirSync(path.dirname(targetChangelogMd), { recursive: true });
+  fs.writeFileSync(targetChangelogMd, fileContent, 'utf8');
+  console.log(`Bitácora de cambios sincronizada en: ${targetChangelogMd}`);
+}
+
+// 8. Inyectar Estadísticas dinámicas en index.md
+function syncStats() {
+  console.log('Inyectando estadísticas en la página de inicio...');
+  if (!fs.existsSync(targetIndexMd)) {
+    console.warn(`No se encontró el archivo ${targetIndexMd}`);
+    return;
+  }
+  let content = fs.readFileSync(targetIndexMd, 'utf8');
+
+  content = content.replace(/(<h3>Proyectos Registrados<\/h3>\s*<p class="stat-number">).*?(<\/p>)/s, `$1${countProjects}$2`);
+  content = content.replace(/(<h3>Skills de Agente<\/h3>\s*<p class="stat-number">).*?(<\/p>)/s, `$1${countSkills}$2`);
+  content = content.replace(/(<h3>Servicios de Infraestructura<\/h3>\s*<p class="stat-number">).*?(<\/p>)/s, `$1${countInfra}$2`);
+
+  fs.writeFileSync(targetIndexMd, content, 'utf8');
+  console.log(`Estadísticas inyectadas en index.md. Proyectos: ${countProjects}, Skills: ${countSkills}, Infra: ${countInfra}`);
+}
+
+// Función de debouncing para agrupar cambios rápidos
+function debounce(func, wait) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
+
+const debouncedSync = debounce(() => {
+  try {
+    console.log('\n[Watch] Ejecutando re-sincronización de cambios...');
+    syncProjects();
+    syncSkills();
+    syncReglasDocumentacion();
+    syncProjectRules();
+    syncInfraestructura();
+    syncConfiguracion();
+    syncChangelog();
+    syncStats();
+    console.log('[Watch] Sincronización finalizada con éxito.\n');
+  } catch (err) {
+    console.error('[Watch] Error durante la sincronización:', err);
+  }
+}, 300);
+
+// Ejecutar sincronización inicial
 try {
   syncProjects();
   syncSkills();
-  console.log('Sincronización de catálogos finalizada con éxito.');
+  syncReglasDocumentacion();
+  syncProjectRules();
+  syncInfraestructura();
+  syncConfiguracion();
+  syncChangelog();
+  syncStats();
+  console.log('Sincronización de catálogos inicial finalizada con éxito.');
 } catch (err) {
   console.error('Error durante la sincronización de catálogos:', err);
+}
+
+// Activar modo watch si se pasa el argumento --watch
+if (process.argv.includes('--watch')) {
+  console.log('\n[Watch] Modo de sincronización continua activo. Escuchando cambios...');
+  
+  const watchTargets = [
+    { targetPath: skillsDir, recursive: true },
+    { targetPath: proyectosReglasDir, recursive: true },
+    { targetPath: projectsJsonPath, recursive: false },
+    { targetPath: path.join(documentacionRoot, 'CHANGELOG.md'), recursive: false }
+  ];
+
+  watchTargets.forEach(({ targetPath: p, recursive }) => {
+    if (fs.existsSync(p)) {
+      fs.watch(p, { recursive }, (eventType, filename) => {
+        if (filename) {
+          console.log(`[Watch] Cambio detectado en: ${filename} (${eventType})`);
+          debouncedSync();
+        }
+      });
+    } else {
+      console.warn(`[Watch] Ruta no encontrada para observar: ${p}`);
+    }
+  });
 }
 

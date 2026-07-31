@@ -1,9 +1,11 @@
 ---
-title: Inventario de Proyectos de IA
+title: Inventario
 description: Listado oficial de todos los proyectos activos registrados en el monorepositorio Proyectos IA.
+sidebar:
+  order: 2
 ---
 
-Este documento detalla el catálogo completo de proyectos activos y registrados en el archivo central [projects.json](file:///c:/Users/jjtei/Desktop/Proyectos_IA/projects.json) en la raíz del monorepositorio.
+Este documento detalla el catálogo completo de proyectos activos y registrados en el archivo central [projects.json](file:///c:/Users/jjtei/Desktop/IA_Proyectos/projects.json) en la raíz del monorepositorio.
 
 ---
 
@@ -11,64 +13,66 @@ Este documento detalla el catálogo completo de proyectos activos y registrados 
 
 | Nombre del Proyecto | Tipo | Descripción | Autor | Creado |
 | :--- | :--- | :--- | :--- | :--- |
-| **api-administrador-comunidad-paradas** | `api` | API modular para la administración y alquiler de propiedades inmuebles. | JoelJuana | 2026-06-28 |
-| **app-bp-comunidad-trasteros** | `vanilla` | Simulador de finanzas y proyecciones de rentabilidad para modelos de negocio hoteleros. | JoelJuana | 2026-06-28 |
-| **app-bp-velero** | `vanilla` | Planificador de inversión y amortización para adquisición de embarcaciones recreativas. | JoelJuana | 2026-06-28 |
-| **app-carta-astral** | `react` | Visualizador de compatibilidades y horóscopos interactivo. | JoelJuana | 2026-06-28 |
-| **app-generador-astral** | `react` | Generador dinámico de cartas astrales basado en entrada de coordenadas y fecha celeste. | JoelJuana | 2026-06-28 |
-| **app-documentacion-farmacia** | `vanilla` | Validador de Documentación Técnica y Procedimientos basado en Astro Starlight y Firebase Hosting. | JoelJuana | 2026-07-05 |
-| **app-bp-caravanas** | `react` | Analizador de modelo de negocio para alquiler de caravanas en naves | JoelJuana | 2026-07-06 |
-| **app-documentacion-ia** | `vanilla` | Portal unificado de documentación técnica de IA, sus desarrollos, habilidades e infraestructura de red local. | JoelJuana | 2026-07-08 |
+| **[antigravity-joel](/proyectos-ia/apps/antigravity-joel)** | `starlight` | Portal central de documentación de IA, especificaciones de agentes, catálogo de skills e infraestructura local. | JoelJuana | 2026-07-01 |
+| **[documentacion-farmacia](/proyectos-ia/apps/documentacion-farmacia)** | `starlight` | Validador de Documentación Técnica y Procedimientos de Farmacia. | JoelJuana | 2026-07-05 |
+| **[app-calendario-farmacia](/proyectos-ia/apps/app-calendario-farmacia)** | `react` | Planificador de turnos, rotaciones de sábados, festivos con guardia y guardias nocturnas de 2026 para el personal de la farmacia. | JoelJuana | 2026-07-11 |
+| **[api-administrador-comunidad-paradas](/proyectos-ia/apps/api-administrador-comunidad-paradas)** | `python` | Servidor API REST desarrollado con FastAPI que gestiona incidencias, actas de reuniones y documentos para una comunidad de propietarios. | JoelJuana | 2026-06-28 |
+| **[workspace-skill-lab](/proyectos-ia/apps/workspace-skill-lab)** | `node` | Hub MCP fundacional para gobernar Google Workspace (Drive, Sheets, Docs, Calendar, Apps Script) desde el agente. | JoelJuana | 2026-07-10 |
+| **Suite Business Plans** | `suite` | Conjunto de simuladores financieros de modelos de negocio:<br>• **[app-bp-caravanas](/proyectos-ia/apps/app-bp-caravanas)** (`react`): Analizador de modelo de negocio para alquiler de caravanas en naves industriales.<br>• **[app-bp-comunidad-trasteros](/proyectos-ia/apps/app-bp-comunidad-trasteros)** (`vanilla`): Simulador de finanzas y proyecciones de rentabilidad para un modelo de negocio de comunidad de trasteros.<br>• **[app-bp-velero](/proyectos-ia/apps/app-bp-velero)** (`vanilla`): Planificador de inversión y amortización para adquisición de embarcaciones recreativas. | JoelJuana | - |
 
 ---
 
-## Ficha de Proyectos Destacados
+## Proyectos y APIs Generales
 
-### api-administrador-comunidad-paradas
-*   **Tipo**: `api`
-*   **Propósito**: API modular para la administración y alquiler de propiedades inmuebles.
-*   **Creado el**: 2026-06-28
+### [antigravity-joel](/proyectos-ia/apps/antigravity-joel)
+*   **Tipo**: `starlight`
+*   **Propósito**: Portal central de documentación de IA, especificaciones de agentes, catálogo de skills e infraestructura local.
+*   **Creado el**: 2026-07-01
 *   **Autor**: JoelJuana
 
-### app-bp-comunidad-trasteros
-*   **Tipo**: `vanilla`
-*   **Propósito**: Simulador de finanzas y proyecciones de rentabilidad para modelos de negocio hoteleros.
-*   **Creado el**: 2026-06-28
-*   **Autor**: JoelJuana
-
-### app-bp-velero
-*   **Tipo**: `vanilla`
-*   **Propósito**: Planificador de inversión y amortización para adquisición de embarcaciones recreativas.
-*   **Creado el**: 2026-06-28
-*   **Autor**: JoelJuana
-
-### app-carta-astral
-*   **Tipo**: `react`
-*   **Propósito**: Visualizador de compatibilidades y horóscopos interactivo.
-*   **Creado el**: 2026-06-28
-*   **Autor**: JoelJuana
-
-### app-generador-astral
-*   **Tipo**: `react`
-*   **Propósito**: Generador dinámico de cartas astrales basado en entrada de coordenadas y fecha celeste.
-*   **Creado el**: 2026-06-28
-*   **Autor**: JoelJuana
-
-### app-documentacion-farmacia
-*   **Tipo**: `vanilla`
-*   **Propósito**: Validador de Documentación Técnica y Procedimientos basado en Astro Starlight y Firebase Hosting.
+### [documentacion-farmacia](/proyectos-ia/apps/documentacion-farmacia)
+*   **Tipo**: `starlight`
+*   **Propósito**: Validador de Documentación Técnica y Procedimientos de Farmacia.
 *   **Creado el**: 2026-07-05
 *   **Autor**: JoelJuana
 
-### app-bp-caravanas
+### [app-calendario-farmacia](/proyectos-ia/apps/app-calendario-farmacia)
 *   **Tipo**: `react`
-*   **Propósito**: Analizador de modelo de negocio para alquiler de caravanas en naves
+*   **Propósito**: Planificador de turnos, rotaciones de sábados, festivos con guardia y guardias nocturnas de 2026 para el personal de la farmacia.
+*   **Creado el**: 2026-07-11
+*   **Autor**: JoelJuana
+
+### [api-administrador-comunidad-paradas](/proyectos-ia/apps/api-administrador-comunidad-paradas)
+*   **Tipo**: `python`
+*   **Propósito**: Servidor API REST desarrollado con FastAPI que gestiona incidencias, actas de reuniones y documentos para una comunidad de propietarios.
+*   **Creado el**: 2026-06-28
+*   **Autor**: JoelJuana
+
+### [workspace-skill-lab](/proyectos-ia/apps/workspace-skill-lab)
+*   **Tipo**: `node`
+*   **Propósito**: Hub MCP fundacional para gobernar Google Workspace (Drive, Sheets, Docs, Calendar, Apps Script) desde el agente.
+*   **Creado el**: 2026-07-10
+*   **Autor**: JoelJuana
+
+## Suite Business Plans (Simuladores Financieros)
+
+Grupo de aplicaciones especializadas en análisis de viabilidad económica y proyecciones de modelos de negocio.
+
+### [app-bp-caravanas](/proyectos-ia/apps/app-bp-caravanas)
+*   **Tipo**: `react`
+*   **Propósito**: Analizador de modelo de negocio para alquiler de caravanas en naves industriales.
 *   **Creado el**: 2026-07-06
 *   **Autor**: JoelJuana
 
-### app-documentacion-ia
+### [app-bp-comunidad-trasteros](/proyectos-ia/apps/app-bp-comunidad-trasteros)
 *   **Tipo**: `vanilla`
-*   **Propósito**: Portal unificado de documentación técnica de IA, sus desarrollos, habilidades e infraestructura de red local.
-*   **Creado el**: 2026-07-08
+*   **Propósito**: Simulador de finanzas y proyecciones de rentabilidad para un modelo de negocio de comunidad de trasteros.
+*   **Creado el**: 2026-06-28
+*   **Autor**: JoelJuana
+
+### [app-bp-velero](/proyectos-ia/apps/app-bp-velero)
+*   **Tipo**: `vanilla`
+*   **Propósito**: Planificador de inversión y amortización para adquisición de embarcaciones recreativas.
+*   **Creado el**: 2026-06-28
 *   **Autor**: JoelJuana
 

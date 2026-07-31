@@ -110,6 +110,7 @@ h3 {
 	line-height: 1.75 !important;
 	margin-bottom: 1.25rem !important;
 	color: var(--sl-color-gray-2) !important;
+	text-align: justify !important;
 }
 
 /* Ajustes de las tablas para que parezcan hojas de cálculo médicas profesionales y sean responsivas */
@@ -328,9 +329,13 @@ blockquote {
 
 /* Fin de estilos del portal */
 
-/* Ocultar el selector de tema (Dark/Light/Auto) */
+/* Estilos para integrar el selector de tema y búsqueda de Starlight */
 starlight-theme-select {
-	display: none !important;
+	margin-inline-start: 1rem !important;
+}
+
+site-search {
+	margin-inline-end: 1rem !important;
 }
 
 /* Ocultar iconos en notas, advertencias y callouts (asides) de Starlight */
@@ -350,18 +355,43 @@ starlight-theme-select {
 	display: none !important;
 }
 
-/* Ocultar por completo la barra lateral de la Tabla de Contenidos (TOC) en móvil y escritorio */
-.right-sidebar-container,
-starlight-toc,
-mobile-starlight-toc,
-.right-sidebar {
-	display: none !important;
+/* Ajustes estéticos elegantes para la Tabla de Contenidos (TOC) en pantallas grandes */
+@media (min-width: 72rem) {
+	.right-sidebar {
+		border-inline-start: 1px solid var(--sl-color-gray-5) !important;
+		background-color: transparent !important;
+	}
+	
+	starlight-toc a {
+		color: var(--sl-color-gray-3) !important;
+		font-size: 0.875rem !important;
+		transition: color 0.2s ease !important;
+		border-inline-start: 2px solid transparent !important;
+		padding-inline-start: 0.75rem !important;
+	}
+	
+	starlight-toc a[aria-current="true"] {
+		color: var(--sl-color-accent) !important;
+		border-inline-start-color: var(--sl-color-accent) !important;
+		font-weight: 600 !important;
+	}
+
+	starlight-toc a:hover {
+		color: var(--sl-color-white) !important;
+	}
 }
 
-/* Ocultar el botón y componentes de búsqueda (Search) de Starlight */
-site-search,
-button[data-open-modal] {
-	display: none !important;
+/* Estilo premium para números estadísticos del Dashboard */
+.stat-number {
+	font-size: 2.5rem !important;
+	font-weight: 800 !important;
+	color: var(--sl-color-accent) !important;
+	background: linear-gradient(45deg, var(--sl-color-accent), var(--sl-color-text-accent)) !important;
+	-webkit-background-clip: text !important;
+	-webkit-text-fill-color: transparent !important;
+	margin-top: 0.5rem !important;
+	line-height: 1 !important;
 }
+
 
 

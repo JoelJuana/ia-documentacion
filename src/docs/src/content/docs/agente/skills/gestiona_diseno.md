@@ -3,7 +3,7 @@ title: gestiona_diseno
 description: Recupera recursos de diseño (paletas de colores, combinaciones tipográficas Google Fonts y plantillas HTML/CSS de mockups) para interfaces de usuario premium. Úsalo cuando crees o mejores aplicaciones web para dotarlas de una estética visual profesional a través de la ruta /api/design del Gateway.
 ---
 
-*   **Ruta de Configuración**: [`.gemini/config/skills/gestiona_diseno/`](file:///C:/Users/jjtei/.gemini/config/skills/gestiona_diseno/SKILL.md)
+*   **Ruta de Configuración**: [`IA_Configuracion/skills/gestiona_diseno/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/skills/gestiona_diseno/SKILL.md)
 
 ---
 

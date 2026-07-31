@@ -3,7 +3,7 @@ title: gestiona_fierbase
 description: Inicializa proyectos de Firebase y gestiona sus servicios (Firestore, Auth, Hosting) de forma centralizada utilizando la API REST local del microservicio infra-firebase. Úsalo cuando el usuario solicite base de datos Firestore, autenticación o despliegues de Firebase, asegurando que todas las peticiones pasen por el Gateway de infraestructura.
 ---
 
-*   **Ruta de Configuración**: [`.gemini/config/skills/gestiona_fierbase/`](file:///C:/Users/jjtei/.gemini/config/skills/gestiona_fierbase/SKILL.md)
+*   **Ruta de Configuración**: [`IA_Configuracion/skills/gestiona_fierbase/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/skills/gestiona_fierbase/SKILL.md)
 
 ---
 
@@ -145,7 +145,9 @@ Invoke-RestMethod -Uri "http://localhost:3000/api/fb/api/auth/user/$uid" -Method
 
 ---
 
-### Paso 5: Despliegue de Hosting (`POST /api/hosting/deploy`)
+### Paso 5: Despliegue de Hosting
+
+#### A. Despliegue Simple (`POST /api/hosting/deploy`)
 
 Para publicar un proyecto en Firebase Hosting de forma desatendida, compila tu proyecto localmente (`npm run build` o equivalente) y envía la ruta física de la carpeta compilada al microservicio:
 
@@ -158,6 +160,47 @@ $body = @{
 $res = Invoke-RestMethod -Uri "http://localhost:3000/api/fb/api/hosting/deploy" -Method Post -Body $body -ContentType "application/json"
 $res | Format-List
 # El resultado incluirá el 'deployUrl' (ej. https://tu-proyecto.web.app)
+```
+
+#### B. Despliegue Completo con Automatización de Dominio (`POST /api/hosting/full-deploy`) [RECOMENDADO]
+
+Crea el sitio en Firebase Hosting (si no existe), sube los archivos estáticos, vincula el dominio personalizado en Firebase y genera el CNAME en Cloudflare con proxy desactivado (`proxied: false`) en un solo paso atómico:
+
+```powershell
+$body = @{
+    folderPath = "C:\Users\jjtei\Desktop\Proyectos_IA\mi-proyecto-web\dist"
+    siteId = "mi-proyecto"                   # Nombre del sitio en Firebase
+    customSubdomain = "mi-proyecto"          # Nombre del subdominio (ej: mi-proyecto.gironacc.com)
+    projectId = "protocolo-farmacia"         # Opcional si ya se configuró
+} | ConvertTo-Json
+
+$res = Invoke-RestMethod -Uri "http://localhost:3000/api/fb/api/hosting/full-deploy" -Method Post -Body $body -ContentType "application/json"
+$res | Format-List
+```
+
+#### C. Crear Sitio Multisitio (`POST /api/hosting/sites/create`)
+
+Permite crear dinámicamente un sitio secundario de hosting en tu cuenta Firebase:
+
+```powershell
+$body = @{
+    siteId = "nuevo-sitio-secundario"
+} | ConvertTo-Json
+
+Invoke-RestMethod -Uri "http://localhost:3000/api/fb/api/hosting/sites/create" -Method Post -Body $body -ContentType "application/json"
+```
+
+#### D. Vincular Dominio Personalizado (`POST /api/hosting/customDomains`)
+
+Asocia un dominio al sitio de Firebase Hosting:
+
+```powershell
+$body = @{
+    siteId = "nuevo-sitio-secundario"
+    customDomain = "subdominio.gironacc.com"
+} | ConvertTo-Json
+
+Invoke-RestMethod -Uri "http://localhost:3000/api/fb/api/hosting/customDomains" -Method Post -Body $body -ContentType "application/json"
 ```
 
 ---
@@ -206,17 +249,16 @@ El flujo de despliegue integrado con subdominios y repositorio remoto es el sigu
 graph TD
     A[Crea Proyecto / crea_proyecto] -->|1. Genera Scaffolding| B[Proyecto Local]
     B -->|2. Compila en carpeta dist/build| B
-    B -->|3. Llama a deploy indicando ruta carpeta| C[infra-firebase /api/fb]
-    C -->|4. Sube archivos a Firebase Hosting| D[Firebase Cloud]
-    D -->|5. Retorna URL de hosting web.app| C
-    C -->|6. Pide CNAME apuntando a web.app| E[infra-domain-manager /api/dns]
-    E -->|7. Registra DNS Cloudflare| F[Subdominio con SSL Activo]
+    B -->|3. Llama a full-deploy| C[infra-firebase /api/fb]
+    C -->|4. Crea sitio & Sube archivos| D[Firebase Cloud]
+    C -->|5. Vincula dominio personalizado| D
+    C -->|6. Pide CNAME proxied: false| E[infra-domain-manager /api/dns]
+    E -->|7. Registra DNS Cloudflare| F[Subdominio con SSL Activo en Firebase Edge]
     B -->|8. Sube cambios finales del código| G[infra-github /api/git]
 ```
 
 ### Protocolo de Coordinación:
 1. **Inicialización**: El agente de `crea_proyecto` genera la estructura base.
 2. **Construcción**: El agente ejecuta `npm run build` en el directorio local del proyecto.
-3. **Despliegue a Firebase**: Se utiliza `gestiona_fierbase` (a través de `/api/fb/api/hosting/deploy`) para desplegar la carpeta compilada.
-4. **Dominio**: Se asocia un subdominio llamando a `gestiona_dominios` (`/api/dns/cname`) para que apunte al subdominio `web.app` devuelto en el deploy.
-5. **Versiones**: Se guarda el código final y su configuración con `gestiona_github` (`/api/git/posts` o `/api/git/workflow`).
+3. **Despliegue y Dominios**: Se utiliza `gestiona_fierbase` (a través de `/api/fb/api/hosting/full-deploy`) para desplegar, asociar el dominio a Firebase y registrar el CNAME en Cloudflare con `proxied: false`.
+4. **Versiones**: Se guarda el código final y su configuración con `gestiona_github` (`/api/git/posts` o `/api/git/workflow`).

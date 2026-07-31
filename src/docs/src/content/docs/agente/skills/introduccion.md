@@ -6,7 +6,9 @@ sidebar:
   order: 1
 ---
 
-Las **Skills** (habilidades) son extensiones de automatización personalizadas instaladas en el sistema de desarrollo global del agente de IA (`C:\Users\jjtei\.gemini\config\skills\`).
+Las **Skills** (habilidades) son extensiones de automatización personalizadas que se configuran y mantienen de forma centralizada en el repositorio de [IA_Configuracion](file:///c:/Users/jjtei/Desktop/IA_Configuracion/skills).
+
+Al arrancar el entorno de desarrollo o compilar el portal, estas habilidades se sincronizan y actualizan automáticamente en las carpetas de proyectos y microservicios locales (`IA_Proyectos`, `IA_Infraestructura` e `IA_Documentacion`).
 
 Permiten al agente interactuar con servicios locales y externos de forma autónoma basándose en disparadores de lenguaje natural.
 
@@ -43,7 +45,7 @@ Selecciona una de las habilidades en la barra lateral o a través de las siguien
   </a>
   <a href="/agente/skills/gestiona_github/" class="dashboard-card">
     <h3>gestiona_github</h3>
-    <p>Controla el servidor local de GitPublish CMS y automatiza tareas en repositorios remotos de GitHub. Úsalo cuando el usuario pida realizar acciones como crear repositorios, ramas, commits, Pull Requests, issues, o automatizar flujos de trabajo de GitHub mediante lenguaje natural.</p>
+    <p>Sin descripción detallada.</p>
   </a>
   <a href="/agente/skills/gestiona_infraestructura/" class="dashboard-card">
     <h3>gestiona_infraestructura</h3>
@@ -52,5 +54,9 @@ Selecciona una de las habilidades en la barra lateral o a través de las siguien
   <a href="/agente/skills/gestiona_scraping/" class="dashboard-card">
     <h3>gestiona_scraping</h3>
     <p>Extrae texto limpio y estructurado en formato Markdown de cualquier página web pública para análisis, documentación o alimentación de RAG. Úsalo cuando necesites consultar una URL, leer un artículo o descargar información técnica web a través del endpoint /api/scrape del Gateway.</p>
+  </a>
+  <a href="/agente/skills/gestiona_workspace/" class="dashboard-card">
+    <h3>gestiona_workspace</h3>
+    <p>Habilidad para interactuar con los servicios de Google Workspace (Drive, Sheets, Calendar y Apps Script) mediante el servidor MCP local para gestionar y automatizar tareas de oficina.</p>
   </a>
 </div>

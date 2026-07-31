@@ -55,6 +55,53 @@ function extractTitleAndBody(filePath, fallbackName) {
   }
 }
 
+// Dividir el markdown en secciones basadas en encabezados H2 y H3
+function splitByHeadings(markdown) {
+  const sectionRegex = /(?=^#{2,3} .+)/gm;
+  return markdown.split(sectionRegex).filter(s => s.trim().length > 0);
+}
+
+// Dividir un texto en trozos con tamaño máximo y solapamiento
+function splitBySize(text, maxChars = 1000, overlap = 150) {
+  if (text.length <= maxChars) return [text];
+  const chunks = [];
+  let start = 0;
+  while (start < text.length) {
+    let end = start + maxChars;
+    if (end < text.length) {
+      const nextSpace = text.indexOf(' ', end);
+      if (nextSpace !== -1 && nextSpace - end < 30) {
+        end = nextSpace;
+      }
+    }
+    chunks.push(text.slice(start, end).trim());
+    start = end - overlap;
+    if (start >= text.length || end - start <= 0) break;
+  }
+  return chunks;
+}
+
+// Genera los chunks híbridos finales a partir del markdown completo
+function getChunks(markdown, maxChars = 1000, overlap = 150) {
+  const sections = splitByHeadings(markdown);
+  const finalChunks = [];
+  sections.forEach(section => {
+    const headingMatch = section.match(/^#{2,3}\s+(.+)$/m);
+    const heading = headingMatch ? headingMatch[0].trim() : '';
+    
+    const sizeChunks = splitBySize(section, maxChars, overlap);
+    sizeChunks.forEach((chunk, index) => {
+      finalChunks.push({
+        content: chunk,
+        section: heading,
+        chunkIndex: index + 1,
+        totalChunks: sizeChunks.length
+      });
+    });
+  });
+  return finalChunks;
+}
+
 async function indexDocumentation() {
   console.log('\nIniciando indexación de documentación en el RAG local...');
 
@@ -91,33 +138,48 @@ async function indexDocumentation() {
       continue;
     }
 
-    try {
-      const payload = {
-        title: title,
-        content: body,
-        metadata: {
-          source: 'documentacion-ia',
-          file: relativePath
+    const chunks = getChunks(body, 1000, 150);
+
+    for (const chunk of chunks) {
+      try {
+        let chunkTitle = title;
+        if (chunk.section) {
+          chunkTitle += ` — ${chunk.section.replace(/^#+\s+/, '')}`;
         }
-      };
+        if (chunk.totalChunks > 1) {
+          chunkTitle += ` (${chunk.chunkIndex}/${chunk.totalChunks})`;
+        }
 
-      const response = await fetch(`${gatewayUrl}/index`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
+        const payload = {
+          title: chunkTitle,
+          content: chunk.content,
+          metadata: {
+            source: 'documentacion-ia',
+            file: relativePath,
+            section: chunk.section,
+            chunk_index: chunk.chunkIndex,
+            total_chunks: chunk.totalChunks
+          }
+        };
 
-      if (response.ok) {
-        indexedCount++;
-      } else {
-        console.warn(`[WARN] Falló la indexación de: ${relativePath} (Status: ${response.status})`);
+        const response = await fetch(`${gatewayUrl}/index`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+          indexedCount++;
+        } else {
+          console.warn(`[WARN] Falló la indexación del chunk de: ${relativePath} (Status: ${response.status})`);
+          failedCount++;
+        }
+      } catch (err) {
+        console.error(`[ERROR] Excepción al indexar chunk de ${relativePath}:`, err.message);
         failedCount++;
       }
-    } catch (err) {
-      console.error(`[ERROR] Excepción al indexar ${relativePath}:`, err.message);
-      failedCount++;
     }
   }
 

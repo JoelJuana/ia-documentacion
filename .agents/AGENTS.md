@@ -21,3 +21,12 @@ El contenido debe estructurarse estrictamente bajo el estándar **Diátaxis**:
 *   Este es un repositorio independiente: [ia-documentacion](https://github.com/JoelJuana/ia-documentacion).
 *   Sigue el formato de convencional commits: `feat(...)`, `fix(...)`, `docs(...)`, `chore(...)`.
 *   Sincroniza siempre los cambios empujando a la rama `main` al finalizar tus aportaciones.
+
+## 5. Protocolo de Ciclo de Vida Documental
+Al finalizar cualquier tarea de desarrollo o arquitectura en el ecosistema, el agente de IA debe cumplir obligatoriamente los siguientes pasos:
+1.  **Bitácora**: Registrar de forma breve y precisa la tarea completada en el archivo `CHANGELOG.md` en la raíz de `IA_Documentacion/`.
+2.  **Sincronización y Build**: Ejecutar \`npm run build\` en \`IA_Documentacion/src/docs/\` para:
+    *   Sincronizar todos los cambios de código, skills, READMEs y bitácora con el portal (\`sync-catalog.js\`).
+    *   Compilar el sitio web estático.
+    *   Indexar de forma automática todo el conocimiento actualizado en la base de datos vectorial del RAG local (\`index-rag.js\`).
+3.  **Publicación**: Ejecutar \`npm run deploy\` en \`src/docs/\` para desplegar el portal web en Firebase Hosting.

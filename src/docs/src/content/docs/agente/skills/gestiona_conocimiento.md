@@ -3,7 +3,7 @@ title: gestiona_conocimiento
 description: Indexa documentación y consulta la base de conocimiento local (RAG) para recuperar pasajes relevantes en tareas de investigación o soporte. Úsalo cuando necesites procesar o buscar en documentación extensa, manuales de API o código fuente del proyecto a través de la ruta /api/rag del Gateway.
 ---
 
-*   **Ruta de Configuración**: [`.gemini/config/skills/gestiona_conocimiento/`](file:///C:/Users/jjtei/.gemini/config/skills/gestiona_conocimiento/SKILL.md)
+*   **Ruta de Configuración**: [`IA_Configuracion/skills/gestiona_conocimiento/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/skills/gestiona_conocimiento/SKILL.md)
 
 ---
 

@@ -3,7 +3,7 @@ title: gestiona_dominios
 description: Inicia el servidor de Gestión Dominios y automatiza la validación de dominios y creación de subdominios CNAME. Úsalo cuando el usuario pida comprobar la disponibilidad de un dominio, crear registros DNS CNAME, levantar el agente de Gestión Dominios o frases similares.
 ---
 
-*   **Ruta de Configuración**: [`.gemini/config/skills/gestiona_dominios/`](file:///C:/Users/jjtei/.gemini/config/skills/gestiona_dominios/SKILL.md)
+*   **Ruta de Configuración**: [`IA_Configuracion/skills/gestiona_dominios/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/skills/gestiona_dominios/SKILL.md)
 
 ---
 
@@ -48,7 +48,7 @@ Start-Sleep -Seconds 2
 Haz una petición GET a `/api/domains/check?domain=<nombre_dominio>`:
 ```powershell
 $domain = "tuproyectoia.com"
-$res = Invoke-RestMethod -Uri "http://localhost:3400/api/domains/check?domain=$domain"
+$res = Invoke-RestMethod -Uri "http://localhost:3000/api/dns/api/domains/check?domain=$domain"
 $res.result | Format-List
 ```
 
@@ -60,14 +60,14 @@ $body = @{
     content = "joeljuana.github.io"
     proxied = $true
 } | ConvertTo-Json
-
-$res = Invoke-RestMethod -Uri "http://localhost:3400/api/dns/cname" -Method Post -Body $body -ContentType "application/json"
+ 
+$res = Invoke-RestMethod -Uri "http://localhost:3000/api/dns/api/dns/cname" -Method Post -Body $body -ContentType "application/json"
 $res.record | Format-List
 ```
 
 #### C. Listar registros DNS CNAME existentes
 ```powershell
-$res = Invoke-RestMethod -Uri "http://localhost:3400/api/dns/records"
+$res = Invoke-RestMethod -Uri "http://localhost:3000/api/dns/api/dns/records"
 $res.records | Out-GridView -Title "Registros DNS Cloudflare" # O simplemente formatear la salida en texto
 ```
 
@@ -80,7 +80,7 @@ $body = @{
     baseDomain = "misproyectos.com"
 } | ConvertTo-Json
 
-Invoke-RestMethod -Uri "http://localhost:3400/api/config" -Method Post -Body $body -ContentType "application/json"
+Invoke-RestMethod -Uri "http://localhost:3000/api/dns/api/config" -Method Post -Body $body -ContentType "application/json"
 ```
 
 #### E. Apagar el Servidor (Liberar Recursos)
