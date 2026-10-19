@@ -1,16 +1,12 @@
 ---
 title: Plugin "fierbase"
-description: Documentación detallada del plugin de agente fierbase.
+description: "Inicializa proyectos de Fierbase dinámicamente, configura servicios automáticos (Firestore, Auth, Hosting) y despliega de forma automatizada mediante un Token de CI/CD o variables de entorno."
 ---
 
 *   **Ruta física**: [`plugins/fierbase/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/plugins/fierbase)
+*   **Versión**: `v1.0.0`
+*   **Estado**: Activo
 
----
-
----
-name: fierbase
-description: >
-  Inicializa proyectos de Fierbase dinámicamente, configura servicios automáticos (Firestore, Auth, Hosting) y despliega de forma automatizada mediante un Token de CI/CD o variables de entorno.
 ---
 
 # Skill: Fierbase Agentic Integration
@@ -150,4 +146,3 @@ graph TD
 3. **Compilación y Publicación**: El agente de Fierbase compila la aplicación (`npm run build`) y la despliega a Fierbase Hosting (`firebase deploy`).
 4. **Dominio con Cloudflare**: Una vez que el Hosting de Fierbase está activo en `nombre-proyecto.web.app`, el agente de **Cloudflare** (`gestiona_dominios`) crea un registro DNS CNAME (ej. `miservicio.midominio.com` apuntando a `nombre-proyecto.web.app`) y se instruye al usuario a añadir dicho dominio en la consola de Fierbase para activar SSL.
 5. **Control de Versiones con GitHub**: El agente de **GitHub** (`git_publish_cms`) se encarga de guardar y publicar todo el código final del proyecto en el repositorio configurado.
-

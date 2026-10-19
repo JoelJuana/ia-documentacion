@@ -11,7 +11,7 @@ Estas directrices son auto-propagadas a partir de la configuración central del 
 
 ## Reglas del Ecosistema
 
-*   **[Reglas de IA Documentación](/configuracion/reglas/ia-documentacion)**: Directrices para el espacio de trabajo de `ia-documentacion`.
-*   **[Reglas de IA Infraestructura](/configuracion/reglas/ia-infraestructura)**: Directrices para el espacio de trabajo de `ia-infraestructura`.
-*   **[Reglas de Proyectos IA](/configuracion/reglas/proyectos-ia)**: Directrices para el espacio de trabajo de `proyectos-ia`.
+*   **[Reglas de IA Documentación](/configuracion/reglas/ia-documentacion/)**: Directrices para el espacio de trabajo de `ia-documentacion`.
+*   **[Reglas de IA Infraestructura](/configuracion/reglas/ia-infraestructura/)**: Directrices para el espacio de trabajo de `ia-infraestructura`.
+*   **[Reglas de Proyectos IA](/configuracion/reglas/proyectos-ia/)**: Directrices para el espacio de trabajo de `proyectos-ia`.
 

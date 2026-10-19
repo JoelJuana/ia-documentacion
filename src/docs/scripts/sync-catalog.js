@@ -23,12 +23,14 @@ const targetConfiguracionDir = path.join(__dirname, '../src/content/docs/configu
 const targetConfigPluginsDir = path.join(__dirname, '../src/content/docs/configuracion/plugins');
 const targetConfigReglasDir = path.join(__dirname, '../src/content/docs/configuracion/reglas');
 const targetProyectosAppsDir = path.join(__dirname, '../src/content/docs/proyectos-ia/apps');
+const targetProyectosBpDir = path.join(__dirname, '../src/content/docs/proyectos-ia/business-plans');
 const targetChangelogMd = path.join(__dirname, '../src/content/docs/historial/cambios.md');
 const targetIndexMd = path.join(__dirname, '../src/content/docs/index.md');
 
 let countProjects = 0;
 let countSkills = 0;
 let countInfra = 0;
+let countPlugins = 0;
 
 const pluginsDir = path.join(configuracionRoot, 'plugins');
 const proyectosReglasDir = path.join(configuracionRoot, 'proyectos-reglas');
@@ -58,9 +60,9 @@ function fixEncoding(text) {
     .replace(/Ã³/g, 'ó')
     .replace(/Ãº/g, 'ú')
     .replace(/Ã±/g, 'ñ')
-    .replace(/Ã/g, 'Á')
+    .replace(/Ã /g, 'Á')
     .replace(/Ã‰/g, 'É')
-    .replace(/Ã/g, 'Í')
+    .replace(/Ã /g, 'Í')
     .replace(/Ã“/g, 'Ó')
     .replace(/Ãš/g, 'Ú')
     .replace(/Ã‘/g, 'Ñ')
@@ -86,6 +88,18 @@ function cleanEmojisFromHeadings(body) {
   }).join('\n');
 }
 
+// Utilidad para purgar archivos .md obsoletos en un directorio
+function purgeObsoleteMarkdownFiles(dirPath, validFilenamesSet) {
+  if (!fs.existsSync(dirPath)) return;
+  fs.readdirSync(dirPath).forEach(file => {
+    if (file.endsWith('.md') && !validFilenamesSet.has(file)) {
+      const fullPath = path.join(dirPath, file);
+      fs.unlinkSync(fullPath);
+      console.log(`Archivo obsoleto eliminado: ${fullPath}`);
+    }
+  });
+}
+
 // Función para parsear el frontmatter YAML de las skills y extraer metadatos de forma robusta
 function parseSkillMetadataAndBody(skillMdPath, fallbackName) {
   try {
@@ -103,17 +117,15 @@ function parseSkillMetadataAndBody(skillMdPath, fallbackName) {
 
     if (match) {
       const yamlBlock = match[1];
-      body = content.replace(yamlRegex, '').trim(); // Cuerpo sin frontmatter
+      body = content.replace(yamlRegex, '').trim();
 
       const lines = yamlBlock.split('\n');
       let currentKey = null;
       let currentValueLines = [];
 
       lines.forEach(line => {
-        // ¿Es una línea de clave-valor clásica? (ej. name: crea_proyecto o description: >)
         const keyMatch = line.match(/^([a-zA-Z0-9_-]+)\s*:\s*(.*)/);
         if (keyMatch) {
-          // Si ya estábamos procesando una clave anterior, guardarla
           if (currentKey) {
             const finalVal = currentValueLines.join(' ').trim().replace(/^['"]|['"]$/g, '');
             if (currentKey === 'name') name = finalVal;
@@ -127,14 +139,12 @@ function parseSkillMetadataAndBody(skillMdPath, fallbackName) {
             currentValueLines = [inlineVal];
           }
         } else {
-          // Es una línea que continúa el valor de la clave anterior (multilínea indentada)
           if (currentKey) {
             currentValueLines.push(line.trim());
           }
         }
       });
 
-      // Guardar la última clave procesada
       if (currentKey) {
         const finalVal = currentValueLines.join(' ').trim().replace(/^['"]|['"]$/g, '');
         if (currentKey === 'name') name = finalVal;
@@ -142,9 +152,7 @@ function parseSkillMetadataAndBody(skillMdPath, fallbackName) {
       }
     }
 
-    // Sanitizar emojis del cuerpo antes de devolverlo
     body = cleanEmojisFromHeadings(body);
-
     return { name, description, body };
   } catch (err) {
     console.error(`Error leyendo skill en ${skillMdPath}:`, err);
@@ -152,7 +160,7 @@ function parseSkillMetadataAndBody(skillMdPath, fallbackName) {
   }
 }
 
-// 1. Sincronizar Catálogo de Proyectos y Fichas de Apps
+// 1. Sincronizar Catálogo de Proyectos, Aplicaciones y Suite Business Plans
 function syncProjects() {
   console.log('Sincronizando catálogo de proyectos y fichas técnicas...');
   if (!fs.existsSync(projectsJsonPath)) {
@@ -162,24 +170,39 @@ function syncProjects() {
   const projects = JSON.parse(fs.readFileSync(projectsJsonPath, 'utf8'));
   countProjects = projects.length;
 
-  // Asegurar directorio destino para fichas individuales
   fs.mkdirSync(targetProyectosAppsDir, { recursive: true });
+  fs.mkdirSync(targetProyectosBpDir, { recursive: true });
 
   const generalProjects = [];
   const businessPlans = [];
+  const validAppFiles = new Set();
+  const validBpFiles = new Set(['introduccion.md']);
 
   projects.forEach(p => {
-    if (p.name.startsWith('app-bp-')) {
+    const isBp = p.name.startsWith('app-bp-');
+    if (isBp) {
       businessPlans.push(p);
     } else {
       generalProjects.push(p);
     }
 
     // Determinar la ruta física del proyecto para buscar README.md
-    const relativePath = p.name.startsWith('app-bp-')
-      ? path.join('apps', 'business-plans', p.name)
-      : path.join('apps', p.name);
-    const absolutePath = path.join(proyectosRoot, relativePath);
+    let relativePath = '';
+    let absolutePath = '';
+    if (p.name === 'antigravity-joel') {
+      relativePath = 'IA_Documentacion';
+      absolutePath = documentacionRoot;
+    } else if (p.name === 'centro-editorial') {
+      relativePath = 'docs/editorial';
+      absolutePath = path.join(proyectosRoot, 'docs', 'editorial');
+    } else if (isBp) {
+      relativePath = path.join('apps', 'business-plans', p.name);
+      absolutePath = path.join(proyectosRoot, relativePath);
+    } else {
+      relativePath = path.join('apps', p.name);
+      absolutePath = path.join(proyectosRoot, relativePath);
+    }
+
     const readmePath = path.join(absolutePath, 'README.md');
 
     let docBody = '';
@@ -190,7 +213,7 @@ function syncProjects() {
       docBody = `
 No se encontró un archivo \`README.md\` local en el directorio del proyecto.
 
-### 📝 Información del Registro
+### Información del Registro
 *   **Nombre**: \`${p.name}\`
 *   **Tipo**: \`${p.type}\`
 *   **Descripción**: ${p.description || 'Sin descripción.'}
@@ -199,89 +222,152 @@ No se encontró un archivo \`README.md\` local en el directorio del proyecto.
 `;
     }
 
+    const publicUrlMeta = p.publicUrl ? `\n*   **URL Pública**: [${p.publicUrl}](${p.publicUrl})` : '';
+    const tagsMeta = Array.isArray(p.tags) && p.tags.length > 0 ? `\n*   **Etiquetas**: ${p.tags.map(t => `\`${t}\``).join(', ')}` : '';
+
     const appFileContent = `---
 title: "${p.name}"
 description: "Ficha técnica y documentación de la aplicación ${p.name}."
 ---
 
-*   **Ruta física**: [\`${relativePath}/\`](file:///${absolutePath.replace(/\\/g, '/')})
+*   **Ruta física**: [\`${relativePath.replace(/\\/g, '/')}/\`](file:///${absolutePath.replace(/\\/g, '/')})
 *   **Tipo**: \`${p.type}\`
 *   **Creado el**: ${p.createdAt || '-'}
-*   **Autor**: ${p.author || 'JoelJuana'}
+*   **Autor**: ${p.author || 'JoelJuana'}${publicUrlMeta}${tagsMeta}
 
 ---
 
 ${docBody}
 `;
 
-    const targetPath = path.join(targetProyectosAppsDir, `${p.name}.md`);
+    const filename = `${p.name}.md`;
+    const targetDir = isBp ? targetProyectosBpDir : targetProyectosAppsDir;
+    if (isBp) {
+      validBpFiles.add(filename);
+    } else {
+      validAppFiles.add(filename);
+    }
+
+    const targetPath = path.join(targetDir, filename);
     fs.writeFileSync(targetPath, appFileContent, 'utf8');
-    console.log(`Ficha de aplicación sincronizada en: ${targetPath}`);
+    console.log(`Ficha sincronizada en: ${targetPath}`);
   });
 
-  // Construir filas de la tabla
+  // Limpiar fichas obsoletas en ambas carpetas y en la raíz de proyectos-ia
+  purgeObsoleteMarkdownFiles(targetProyectosAppsDir, validAppFiles);
+  purgeObsoleteMarkdownFiles(targetProyectosBpDir, validBpFiles);
+  purgeObsoleteMarkdownFiles(path.dirname(targetProyectosMd), new Set(['arquitectura-monorepo.md', 'catalogo-general.md']));
+
+  // Actualizar proyectos-ia/business-plans/introduccion.md dinámicamente
+  let bpCards = '';
+  let bpBullets = '';
+  businessPlans.forEach(bp => {
+    bpCards += `  <a href="/proyectos-ia/business-plans/${bp.name}/" class="dashboard-card">\n    <h3>${bp.name}</h3>\n    <p>${bp.description}</p>\n  </a>\n`;
+    const urlBadge = bp.publicUrl ? ` — [ Producción](${bp.publicUrl})` : '';
+    bpBullets += `*   **[${bp.name}](/proyectos-ia/business-plans/${bp.name}/)**: ${bp.description}${urlBadge}\n`;
+  });
+
+  const bpIntroContent = `---
+title: Suite Business Plans
+description: Vista general de la suite de simuladores y planes de negocio interactivos con fiscalidad avanzada y sincronización cloud.
+sidebar:
+  order: 1
+---
+
+La **Suite Business Plans** es un conjunto de aplicaciones de simulación financiera interactivas diseñadas para proyectar la rentabilidad, flujos de caja, fiscalidad AEAT y amortizaciones de diversos modelos de negocio e inversión patrimonial.
+
+---
+
+## Estructura General
+
+Los simuladores de negocio comparten recursos de estilo y estándares arquitectónicos definidos en la habilidad [\`gestiona_business_plan\`](/agente/skills/gestiona_business_plan/):
+
+*   **Ubicación física**: [\`apps/business-plans/\`](file:///c:/Users/jjtei/Desktop/IA_Proyectos/apps/business-plans)
+*   **Estilo Visual**: Tema oscuro/claro corporativo, tipografías modernas (Outfit/Inter), controles deslizantes fluidos y gráficos interactivos con Chart.js.
+*   **Despliegue Granular**: Cada simulador se compila y despliega de forma individual en su propio canal/subdominio de Firebase Hosting Multisite.
+
+---
+
+## Simuladores Financieros Disponibles (${businessPlans.length})
+
+Selecciona uno de los simuladores para consultar su ficha técnica detallada:
+
+<div class="dashboard-grid">
+${bpCards}</div>
+
+${bpBullets}
+
+---
+
+## Desarrollo y Despliegue Individual
+
+Para trabajar sobre un simulador específico sin recompilar toda la suite:
+
+\`\`\`bash
+cd apps/business-plans/<nombre-app>
+npm install
+npm run dev     # Entorno local interactivo
+npm run build   # Compila únicamente el subproyecto activo
+\`\`\`
+`;
+  fs.writeFileSync(path.join(targetProyectosBpDir, 'introduccion.md'), bpIntroContent, 'utf8');
+
+  // Construir filas de la tabla en catalogo-general.md
   let tableRows = '';
-  
-  // Proyectos Generales
   generalProjects.forEach(p => {
-    tableRows += `| **[${p.name}](/proyectos-ia/apps/${p.name})** | \`${p.type}\` | ${p.description} | ${p.author} | ${p.createdAt} |\n`;
+    const prodLink = p.publicUrl ? `[Enlace](${p.publicUrl})` : '-';
+    tableRows += `| **[${p.name}](/proyectos-ia/apps/${p.name}/)** | \`${p.type}\` | ${p.description} | ${prodLink} | ${p.createdAt} |\n`;
   });
 
-  // Fila agrupada de Business Plans si existen
   if (businessPlans.length > 0) {
-    let bpList = businessPlans.map(bp => `• **[${bp.name}](/proyectos-ia/apps/${bp.name})** (\`${bp.type}\`): ${bp.description}`).join('<br>');
-    tableRows += `| **Suite Business Plans** | \`suite\` | Conjunto de simuladores financieros de modelos de negocio:<br>${bpList} | JoelJuana | - |\n`;
+    let bpList = businessPlans.map(bp => `• **[${bp.name}](/proyectos-ia/business-plans/${bp.name}/)** (\`${bp.type}\`): ${bp.description}`).join('<br>');
+    tableRows += `| **[Suite Business Plans](/proyectos-ia/business-plans/introduccion/)** | \`suite\` | Conjunto de ${businessPlans.length} simuladores financieros interactivos:<br>${bpList} | Multisite | - |\n`;
   }
 
-  // Construir secciones de detalles
   let detailSections = '';
-
-  // Detalles Proyectos Generales
   if (generalProjects.length > 0) {
-    detailSections += `## Proyectos y APIs Generales\n\n`;
+    detailSections += `## Proyectos y Aplicaciones Generales (${generalProjects.length})\n\n`;
     generalProjects.forEach(p => {
-      detailSections += `### [${p.name}](/proyectos-ia/apps/${p.name})\n`;
+      detailSections += `### [${p.name}](/proyectos-ia/apps/${p.name}/)\n`;
       detailSections += `*   **Tipo**: \`${p.type}\`\n`;
       detailSections += `*   **Propósito**: ${p.description}\n`;
-      detailSections += `*   **Creado el**: ${p.createdAt}\n`;
-      detailSections += `*   **Autor**: ${p.author}\n\n`;
+      if (p.publicUrl) detailSections += `*   **Producción**: [${p.publicUrl}](${p.publicUrl})\n`;
+      detailSections += `*   **Creado el**: ${p.createdAt}\n\n`;
     });
   }
 
-  // Detalles Business Plans Agrupados
   if (businessPlans.length > 0) {
-    detailSections += `## Suite Business Plans (Simuladores Financieros)\n\n`;
-    detailSections += `Grupo de aplicaciones especializadas en análisis de viabilidad económica y proyecciones de modelos de negocio.\n\n`;
+    detailSections += `## Suite Business Plans — Simuladores Financieros (${businessPlans.length})\n\n`;
+    detailSections += `Grupo de aplicaciones especializadas en análisis de viabilidad económica, fiscalidad y proyecciones patrimoniales.\n\n`;
     businessPlans.forEach(p => {
-      detailSections += `### [${p.name}](/proyectos-ia/apps/${p.name})\n`;
+      detailSections += `### [${p.name}](/proyectos-ia/business-plans/${p.name}/)\n`;
       detailSections += `*   **Tipo**: \`${p.type}\`\n`;
       detailSections += `*   **Propósito**: ${p.description}\n`;
-      detailSections += `*   **Creado el**: ${p.createdAt}\n`;
-      detailSections += `*   **Autor**: ${p.author}\n\n`;
+      if (p.publicUrl) detailSections += `*   **Producción**: [${p.publicUrl}](${p.publicUrl})\n`;
+      detailSections += `*   **Creado el**: ${p.createdAt}\n\n`;
     });
   }
 
   const content = `---
-title: Inventario
+title: Inventario de Proyectos
 description: Listado oficial de todos los proyectos activos registrados en el monorepositorio Proyectos IA.
 sidebar:
   order: 2
 ---
 
-Este documento detalla el catálogo completo de proyectos activos y registrados en el archivo central [projects.json](file:///c:/Users/jjtei/Desktop/IA_Proyectos/projects.json) en la raíz del monorepositorio.
+Este documento detalla el catálogo completo de **${projects.length} proyectos activos** registrados en el archivo central [projects.json](file:///c:/Users/jjtei/Desktop/IA_Proyectos/projects.json) en la raíz del monorepositorio.
 
 ---
 
 ## Tabla Resumen de Proyectos
 
-| Nombre del Proyecto | Tipo | Descripción | Autor | Creado |
+| Nombre del Proyecto | Tipo | Descripción | Producción | Creado |
 | :--- | :--- | :--- | :--- | :--- |
 ${tableRows}
 ---
 
 ${detailSections}`;
 
-  // Asegurar directorio destino
   fs.mkdirSync(path.dirname(targetProyectosMd), { recursive: true });
   fs.writeFileSync(targetProyectosMd, content, 'utf8');
   console.log(`Catálogo de proyectos guardado en: ${targetProyectosMd}`);
@@ -307,7 +393,6 @@ function syncSkills() {
       const skillMdPath = path.join(itemPath, 'SKILL.md');
       const skillData = parseSkillMetadataAndBody(skillMdPath, item);
 
-      // Guardar en la lista para la autogeneración de la introducción
       skillsList.push({
         id: item,
         name: skillData.name,
@@ -317,7 +402,6 @@ function syncSkills() {
       const filename = `${item}.md`;
       validFilenames.add(filename);
 
-      // Crear o actualizar el archivo Markdown Starlight para la skill individual
       const fileContent = `---
 title: ${skillData.name}
 description: ${skillData.description}
@@ -336,19 +420,11 @@ ${skillData.body}
     }
   });
 
-  // Eliminar únicamente archivos obsoletos que ya no existan en el origen
-  fs.readdirSync(targetSkillsDir).forEach(file => {
-    if (file.endsWith('.md') && !validFilenames.has(file)) {
-      fs.unlinkSync(path.join(targetSkillsDir, file));
-    }
-  });
+  purgeObsoleteMarkdownFiles(targetSkillsDir, validFilenames);
 
   countSkills = skillsList.length;
-
-  // Ordenar alfabéticamente las skills para el catálogo
   skillsList.sort((a, b) => a.name.localeCompare(b.name));
 
-  // Generar introduccion.md dinámicamente con cuadrícula HTML nativa y clases CSS de custom.css
   let cardsContent = '';
   skillsList.forEach(s => {
     cardsContent += `  <a href="/agente/skills/${s.id}/" class="dashboard-card">\n    <h3>${s.name}</h3>\n    <p>${s.description}</p>\n  </a>\n`;
@@ -370,7 +446,7 @@ Permiten al agente interactuar con servicios locales y externos de forma autóno
 
 ---
 
-## Catálogo de Habilidades Activas
+## Catálogo de Habilidades Activas (${countSkills})
 
 Selecciona una de las habilidades en la barra lateral o a través de las siguientes tarjetas para consultar su propósito y manual de instrucciones detallado:
 
@@ -428,7 +504,6 @@ function syncProjectRules() {
     const content = fs.readFileSync(rule.src, 'utf8');
     const fixedContent = fixEncoding(content);
     
-    // Asegurar directorio destino
     fs.mkdirSync(path.dirname(rule.dest), { recursive: true });
     fs.writeFileSync(rule.dest, fixedContent, 'utf8');
     console.log(`Reglas actualizadas en: ${rule.dest}`);
@@ -443,11 +518,11 @@ function syncInfraestructura() {
     return;
   }
 
-  // Asegurar directorio destino
   fs.mkdirSync(targetInfraServiciosDir, { recursive: true });
 
   const items = fs.readdirSync(infraestructuraRoot);
   let localCountInfra = 0;
+  const validInfraFiles = new Set();
   
   const serviceTitles = {
     'infra-gateway': 'Gateway (infra-gateway)',
@@ -484,13 +559,17 @@ description: "${description}"
 ${content}
 `;
 
-        const targetPath = path.join(targetInfraServiciosDir, `${item}.md`);
+        const filename = `${item}.md`;
+        validInfraFiles.add(filename);
+        const targetPath = path.join(targetInfraServiciosDir, filename);
         fs.writeFileSync(targetPath, fileContent, 'utf8');
         console.log(`Ficha de servicio de infraestructura creada en: ${targetPath}`);
         localCountInfra++;
       }
     }
   });
+  purgeObsoleteMarkdownFiles(targetInfraServiciosDir, validInfraFiles);
+  purgeObsoleteMarkdownFiles(path.dirname(targetInfraServiciosDir), new Set(['introduccion.md']));
   countInfra = localCountInfra;
 }
 
@@ -502,7 +581,6 @@ function syncConfiguracion() {
     return;
   }
 
-  // Asegurar directorios de destino
   fs.mkdirSync(targetConfiguracionDir, { recursive: true });
   fs.mkdirSync(targetConfigPluginsDir, { recursive: true });
   fs.mkdirSync(targetConfigReglasDir, { recursive: true });
@@ -547,59 +625,80 @@ ${content}
     console.log('Guía de instalación de configuración sincronizada.');
   }
 
-  // C) Plugins Activos
+  // C) Plugins Activos y de Reserva
   if (fs.existsSync(pluginsDir)) {
     const plugins = fs.readdirSync(pluginsDir);
     let pluginsList = '';
     let cardsContent = '';
+    let localCountPlugins = 0;
+    const validPluginFiles = new Set();
 
     plugins.forEach(p => {
       const pluginPath = path.join(pluginsDir, p);
       if (fs.statSync(pluginPath).isDirectory() && !p.startsWith('.')) {
-        // Buscar README o SKILL dentro del plugin
+        localCountPlugins++;
+        const pluginJsonPath = path.join(pluginPath, 'plugin.json');
+        let pluginMeta = {};
+        if (fs.existsSync(pluginJsonPath)) {
+          try {
+            pluginMeta = JSON.parse(fs.readFileSync(pluginJsonPath, 'utf8'));
+          } catch (e) {
+            // Ignorar JSON malformado
+          }
+        }
+
         let docPath = path.join(pluginPath, 'README.md');
+        let isEnabled = true;
         if (!fs.existsSync(docPath)) {
           docPath = path.join(pluginPath, 'SKILL.md');
         }
+        if (!fs.existsSync(docPath)) {
+          docPath = path.join(pluginPath, 'SKILL.md.disabled');
+          isEnabled = false;
+        }
 
-        let description = 'Sin descripción detallada.';
+        let description = pluginMeta.description ? fixEncoding(pluginMeta.description) : 'Sin descripción detallada.';
         let hasDetail = false;
 
         if (fs.existsSync(docPath)) {
-          const rawContent = fs.readFileSync(docPath, 'utf8');
-          const cleanContent = cleanEmojisFromHeadings(fixEncoding(rawContent));
+          const parsed = parseSkillMetadataAndBody(docPath, p);
+          if (description === 'Sin descripción detallada.' && parsed.description !== 'Sin descripción detallada.') {
+            description = parsed.description;
+          }
           hasDetail = true;
 
-          // Extraer descripción inicial si es posible
-          const lines = cleanContent.split('\n');
-          const firstTextLine = lines.find(l => l.trim() && !l.trim().startsWith('#') && !l.trim().startsWith('-') && !l.trim().startsWith('*') && !l.trim().startsWith('---'));
-          if (firstTextLine) {
-            description = firstTextLine.trim().slice(0, 150);
-            if (firstTextLine.length > 150) description += '...';
-          }
+          const statusLabel = isEnabled ? 'Activo' : 'En reserva (`SKILL.md.disabled`)';
+          const versionLabel = pluginMeta.version ? `v${pluginMeta.version}` : 'v1.0.0';
 
-          // Crear archivo markdown individual para el plugin
           const pluginContent = `---
 title: Plugin "${p}"
-description: Documentación detallada del plugin de agente ${p}.
+description: "${description.replace(/"/g, "'")}"
 ---
 
 *   **Ruta física**: [\`plugins/${p}/\`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/plugins/${p})
+*   **Versión**: \`${versionLabel}\`
+*   **Estado**: ${statusLabel}
 
 ---
 
-${cleanContent}
+${parsed.body}
 `;
-          const targetPath = path.join(targetConfigPluginsDir, `${p}.md`);
+          const filename = `${p}.md`;
+          validPluginFiles.add(filename);
+          const targetPath = path.join(targetConfigPluginsDir, filename);
           fs.writeFileSync(targetPath, pluginContent, 'utf8');
           console.log(`Ficha de plugin individual creada en: ${targetPath}`);
         }
 
         const link = hasDetail ? `/configuracion/plugins/${p}/` : '#';
-        pluginsList += `| **${p}** | ${description} | ${hasDetail ? `[Ver Documentación](${link})` : 'Sin documentación'} |\n`;
+        const stateText = isEnabled ? 'Activo' : 'En reserva';
+        pluginsList += `| **[${p}](${link})** | \`${stateText}\` | ${description} |\n`;
         cardsContent += `  <a href="${link}" class="dashboard-card">\n    <h3>${p}</h3>\n    <p>${description}</p>\n  </a>\n`;
       }
     });
+
+    purgeObsoleteMarkdownFiles(targetConfigPluginsDir, validPluginFiles);
+    countPlugins = localCountPlugins;
 
     const pluginsContent = `---
 title: Plugins Activos
@@ -610,7 +709,7 @@ Los **Plugins** son módulos de comportamiento, reglas de estilo, sidecars o int
 
 ---
 
-## Catálogo de Plugins
+## Catálogo de Plugins (${countPlugins})
 
 <div class="dashboard-grid">
 ${cardsContent}</div>
@@ -619,7 +718,7 @@ ${cardsContent}</div>
 
 ## Tabla Resumen de Plugins
 
-| Nombre del Plugin | Descripción | Enlace |
+| Nombre del Plugin | Estado | Descripción |
 | :--- | :--- | :--- |
 ${pluginsList}
 `;
@@ -631,10 +730,12 @@ ${pluginsList}
   if (fs.existsSync(proyectosReglasDir)) {
     const reglas = fs.readdirSync(proyectosReglasDir);
     let reglasList = '';
+    const validReglasFiles = new Set();
 
     reglas.forEach(r => {
       const reglaPath = path.join(proyectosReglasDir, r);
       if (fs.statSync(reglaPath).isFile() && r.endsWith('.md')) {
+        validReglasFiles.add(r);
         const rawContent = fs.readFileSync(reglaPath, 'utf8');
         const content = cleanEmojisFromHeadings(fixEncoding(rawContent));
         const filename = path.basename(r, '.md');
@@ -661,9 +762,11 @@ ${content}
         fs.writeFileSync(targetPath, fileContent, 'utf8');
         console.log(`Regla por proyecto creada en: ${targetPath}`);
 
-        reglasList += `*   **[Reglas de ${title}](/configuracion/reglas/${filename})**: Directrices para el espacio de trabajo de \`${filename}\`.\n`;
+        reglasList += `*   **[Reglas de ${title}](/configuracion/reglas/${filename}/)**: Directrices para el espacio de trabajo de \`${filename}\`.\n`;
       }
     });
+
+    purgeObsoleteMarkdownFiles(targetConfigReglasDir, validReglasFiles);
 
     const reglasIndexContent = `---
 title: Reglas por Proyecto
@@ -728,9 +831,10 @@ function syncStats() {
   content = content.replace(/(<h3>Proyectos Registrados<\/h3>\s*<p class="stat-number">).*?(<\/p>)/s, `$1${countProjects}$2`);
   content = content.replace(/(<h3>Skills de Agente<\/h3>\s*<p class="stat-number">).*?(<\/p>)/s, `$1${countSkills}$2`);
   content = content.replace(/(<h3>Servicios de Infraestructura<\/h3>\s*<p class="stat-number">).*?(<\/p>)/s, `$1${countInfra}$2`);
+  content = content.replace(/(<h3>Plugins Activos<\/h3>\s*<p class="stat-number">).*?(<\/p>)/s, `$1${countPlugins}$2`);
 
   fs.writeFileSync(targetIndexMd, content, 'utf8');
-  console.log(`Estadísticas inyectadas en index.md. Proyectos: ${countProjects}, Skills: ${countSkills}, Infra: ${countInfra}`);
+  console.log(`Estadísticas inyectadas en index.md. Proyectos: ${countProjects}, Skills: ${countSkills}, Infra: ${countInfra}, Plugins: ${countPlugins}`);
 }
 
 // Función de debouncing para agrupar cambios rápidos
@@ -798,4 +902,3 @@ if (process.argv.includes('--watch')) {
     }
   });
 }
-

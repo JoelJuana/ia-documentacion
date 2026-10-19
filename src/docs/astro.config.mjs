@@ -10,6 +10,13 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'Documentación IA',
+			defaultLocale: 'root',
+			locales: {
+				root: {
+					label: 'Español',
+					lang: 'es',
+				},
+			},
 			head: [
 				{
 					tag: 'link',
@@ -41,19 +48,31 @@ export default defineConfig({
 			pagefind: true,
 
 			sidebar: [
-				// ── BLOQUE 1: Tutoriales ──
+				// ── CUADRANTE DIÁTAXIS 1: Tutoriales ──
 				{
 					label: 'Tutoriales',
 					autogenerate: { directory: 'tutoriales' },
 				},
 
-				// ── BLOQUE 2: Guías de Tareas ──
+				// ── CUADRANTE DIÁTAXIS 2: Guías de Tareas ──
 				{
 					label: 'Guías de Tareas',
 					autogenerate: { directory: 'guias' },
 				},
 
-				// ── BLOQUE 3: Manual del Agente ──
+				// ── CUADRANTE DIÁTAXIS 3: Referencia Técnica ──
+				{
+					label: 'Referencia Técnica',
+					autogenerate: { directory: 'referencia' },
+				},
+
+				// ── CUADRANTE DIÁTAXIS 4: Explicaciones ──
+				{
+					label: 'Explicaciones y Arquitectura',
+					autogenerate: { directory: 'explicaciones' },
+				},
+
+				// ── MÓDULO: Manual del Agente ──
 				{
 					label: 'Manual del Agente',
 					items: [
@@ -69,7 +88,7 @@ export default defineConfig({
 					],
 				},
 
-				// ── BLOQUE 2: Proyectos de Negocio ──
+				// ── MÓDULO: Proyectos de Negocio ──
 				{
 					label: 'Proyectos de Negocio',
 					items: [
@@ -81,19 +100,19 @@ export default defineConfig({
 							],
 						},
 						{
-							label: 'Aplicaciones',
+							label: 'Aplicaciones Generales',
 							collapsed: true,
 							autogenerate: { directory: 'proyectos-ia/apps' },
 						},
 						{
-							label: 'Business Plans',
+							label: 'Suite Business Plans',
 							collapsed: true,
 							autogenerate: { directory: 'proyectos-ia/business-plans' },
 						},
 					],
 				},
 
-				// ── BLOQUE 3: Infraestructura Local ──
+				// ── MÓDULO: Infraestructura Local ──
 				{
 					label: 'Infraestructura Local',
 					items: [
@@ -126,7 +145,7 @@ export default defineConfig({
 					],
 				},
 
-				// ── BLOQUE 4: Configuración del Entorno ──
+				// ── MÓDULO: Configuración del Entorno ──
 				{
 					label: 'Configuración del Entorno',
 					items: [
@@ -147,7 +166,7 @@ export default defineConfig({
 					],
 				},
 
-				// ── BLOQUE 5: Historial ──
+				// ── MÓDULO: Historial ──
 				{
 					label: 'Historial',
 					items: [

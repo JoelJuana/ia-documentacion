@@ -41,6 +41,7 @@ La máquina local (`IA_Infraestructura`) cuenta con un conjunto de microservicio
 ### Reglas de Comunicación y Ciclo de Vida
 1. **Comunicación Centralizada**: Todas las solicitudes a los microservicios locales deben dirigirse a través de las rutas del Gateway (`http://localhost:3000/api/<prefijo>`) en lugar de llamar directamente a los puertos internos de los servicios.
 2. **Ciclo de Vida Automático**: Antes de consumir cualquier servicio, comprueba su estado usando la ruta de salud del Gateway (`http://localhost:3000/api/health`). Si está apagado, ejecuta de fondo el comando `npm run start --prefix "C:\Users\jjtei\Desktop\IA_Infraestructura"`. Al finalizar tu tarea, es **obligatorio** ejecutar `npm run stop --prefix "C:\Users\jjtei\Desktop\IA_Infraestructura"` para apagar todos los servicios de infraestructura.
+3. **Despliegues Granulares e Individuales en Monorrepositorios**: En proyectos monorrepositorio (como `IA_Proyectos` / `business-plans`), cuando el usuario solicite un cambio o despliegue en un subproyecto o app específica (por ejemplo `app-bp-inversion-compra-piso`), **compila y despliega ÚNICAMENTE ese subproyecto/sitio de forma aislada**. Queda estrictamente prohibido ejecutar scripts de despliegue masivo como `deploy-all.js` o compilar todo el portafolio a menos que el usuario pida explícitamente un despliegue global de todos los proyectos.
 
 ### Catálogo de Servicios Disponibles
 *   **API Gateway** (Puerto 3000): Dashboard principal (`/`) y salud general (`/api/health`).
@@ -61,3 +62,9 @@ La máquina local (`IA_Infraestructura`) cuenta con un conjunto de microservicio
 - Cuando crees o modifiques una habilidad (*skill*), debes asegurarse de colocar su especificación (`SKILL.md`) dentro de su respectiva subcarpeta en `C:/Users/jjtei/Desktop/IA_Configuracion/skills/<skill_name>/` para que sea versionada y sincronizada en el portal de documentación de Astro.
 - Además, debes copiarla en el directorio activo del agente: `C:/Users/jjtei/.gemini/config/skills/<skill_name>/SKILL.md` para que la suite de agentes pueda utilizarla inmediatamente de forma local.
 - Asegúrese de incluir el frontmatter obligatorio con `name` y `description` en el `SKILL.md` para evitar fallos de compilación e indexación en el RAG.
+
+## 7. Modo Autónomo y Ejecución Proactiva ("Modo Turbo")
+- **Autonomía total**: No solicites permisos, planes ni validaciones redundantes al usuario durante el flujo de trabajo. Procede solo y de forma resolutiva de principio a fin.
+- **Acción directa**: Crea los archivos necesarios, compila, prueba, genera los entregables terminados y entrega el resultado final ya listo.
+- **Valores y decisiones por defecto**: Si faltan datos secundarios o específicos, toma decisiones razonables por defecto (placeholders técnicos profesionales bien estructurados) y genera el documento o código completo directamente para que el usuario solo tenga que revisarlo o cambiar el texto.
+- **Cero bloqueos**: No termines las respuestas con preguntas abiertas que frenen el avance. Entrega el trabajo hecho y muestra directamente el siguiente paso ya ejecutado o disponible.

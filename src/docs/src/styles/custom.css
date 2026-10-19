@@ -110,7 +110,14 @@ h3 {
 	line-height: 1.75 !important;
 	margin-bottom: 1.25rem !important;
 	color: var(--sl-color-gray-2) !important;
+}
+
+.content p {
 	text-align: justify !important;
+}
+
+.content li {
+	margin-bottom: 0.5rem !important;
 }
 
 /* Ajustes de las tablas para que parezcan hojas de cálculo médicas profesionales y sean responsivas */

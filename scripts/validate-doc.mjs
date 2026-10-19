@@ -14,10 +14,15 @@ if (args.length < 2) {
   Uso: node scripts/validate-doc.mjs <ruta-borrador-md> <categoria-tematica>
 
   Categorías válidas:
+    - tutoriales             (Tutoriales prácticos de inicio)
+    - guias                  (Guías de tareas paso a paso)
+    - referencia             (Especificaciones de puertos, APIs y variables)
+    - explicaciones          (Arquitectura y decisiones de diseño)
     - agente/reglas          (Directrices generales de la suite)
     - agente/skills          (Especificaciones de habilidades)
     - proyectos-ia           (Inventario y fichas de desarrollos)
     - infraestructura-local  (Red, puertos y servicios Gateway)
+    - configuracion          (Entorno, plugins y reglas por proyecto)
 `);
   process.exit(1);
 }
@@ -25,7 +30,17 @@ if (args.length < 2) {
 const sourceFile = path.resolve(args[0]);
 const category = args[1].trim().toLowerCase();
 
-const validCategories = ['agente/reglas', 'agente/skills', 'proyectos-ia', 'infraestructura-local'];
+const validCategories = [
+  'tutoriales',
+  'guias',
+  'referencia',
+  'explicaciones',
+  'agente/reglas',
+  'agente/skills',
+  'proyectos-ia',
+  'infraestructura-local',
+  'configuracion'
+];
 if (!validCategories.includes(category)) {
   console.error(`❌ Categoria inválida: "${category}". Debe ser una de: ${validCategories.join(', ')}`);
   process.exit(1);
@@ -83,7 +98,11 @@ const sensitiveKeywords = [
 sensitiveKeywords.forEach(kw => {
   const matchEx = content.match(kw.regex);
   if (matchEx) {
-    errors.push(`¡Brecha de Seguridad! Se detectó un posible valor sensible expuesto (${kw.name}): "${matchEx[0]}".`);
+    const val = (matchEx[2] || matchEx[0]).toLowerCase();
+    const isPlaceholder = val.startsWith('tu_') || val.startsWith('your_') || val.startsWith('ejemplo') || val.includes('placeholder');
+    if (!isPlaceholder) {
+      errors.push(`¡Brecha de Seguridad! Se detectó un posible valor sensible expuesto (${kw.name}): "${matchEx[0]}".`);
+    }
   }
 });
 
@@ -143,18 +162,23 @@ if (errors.length > 0) {
 } else {
   console.log('\n✅ ¡Documento aprobado sin errores de conformidad críticos!');
   
-  // Publicar documento en el directorio correcto de Astro
-  const filename = path.basename(sourceFile);
-  const targetDir = path.resolve(__dirname, `../src/docs/src/content/docs/${category}`);
-  const targetPath = path.join(targetDir, filename);
+  const docsRoot = path.resolve(__dirname, '../src/docs/src/content/docs');
+  const isAlreadyInDocs = sourceFile.toLowerCase().startsWith(docsRoot.toLowerCase());
 
-  try {
-    fs.mkdirSync(targetDir, { recursive: true });
-    fs.copyFileSync(sourceFile, targetPath);
-    console.log(`\n🎉 ¡Publicación exitosa! Documento copiado a:`);
-    console.log(` 👉 ${targetPath}`);
-  } catch (err) {
-    console.error(`❌ Error al copiar el archivo para publicación:`, err);
-    process.exit(1);
+  if (!isAlreadyInDocs) {
+    // Publicar borrador externo en el directorio correspondiente de Astro
+    const filename = path.basename(sourceFile);
+    const targetDir = path.resolve(docsRoot, category);
+    const targetPath = path.join(targetDir, filename);
+
+    try {
+      fs.mkdirSync(targetDir, { recursive: true });
+      fs.copyFileSync(sourceFile, targetPath);
+      console.log(`\n🎉 ¡Publicación exitosa! Documento copiado a:`);
+      console.log(` 👉 ${targetPath}`);
+    } catch (err) {
+      console.error(`❌ Error al copiar el archivo para publicación:`, err);
+      process.exit(1);
+    }
   }
 }

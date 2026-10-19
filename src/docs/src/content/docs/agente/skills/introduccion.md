@@ -14,7 +14,7 @@ Permiten al agente interactuar con servicios locales y externos de forma autóno
 
 ---
 
-## Catálogo de Habilidades Activas
+## Catálogo de Habilidades Activas (12)
 
 Selecciona una de las habilidades en la barra lateral o a través de las siguientes tarjetas para consultar su propósito y manual de instrucciones detallado:
 
@@ -22,6 +22,10 @@ Selecciona una de las habilidades en la barra lateral o a través de las siguien
   <a href="/agente/skills/crea_proyecto/" class="dashboard-card">
     <h3>crea_proyecto</h3>
     <p>Lanza la interfaz web de Project Creator para crear un nuevo proyecto. Úsalo cuando el usuario diga "crea proyecto", "crear proyecto", "nuevo proyecto", "quiero crear un proyecto" o expresiones similares.</p>
+  </a>
+  <a href="/agente/skills/gestiona_business_plan/" class="dashboard-card">
+    <h3>gestiona_business_plan</h3>
+    <p>Estándar técnico, guía y plantilla base para simuladores financieros y Business Plans interactivos con fiscalidad AEAT avanzada y sincronización remota en la nube.</p>
   </a>
   <a href="/agente/skills/gestiona_conocimiento/" class="dashboard-card">
     <h3>gestiona_conocimiento</h3>
@@ -38,6 +42,10 @@ Selecciona una de las habilidades en la barra lateral o a través de las siguien
   <a href="/agente/skills/gestiona_dominios/" class="dashboard-card">
     <h3>gestiona_dominios</h3>
     <p>Inicia el servidor de Gestión Dominios y automatiza la validación de dominios y creación de subdominios CNAME. Úsalo cuando el usuario pida comprobar la disponibilidad de un dominio, crear registros DNS CNAME, levantar el agente de Gestión Dominios o frases similares.</p>
+  </a>
+  <a href="/agente/skills/gestiona_editorial/" class="dashboard-card">
+    <h3>gestiona_editorial</h3>
+    <p>Maquetacion profesional de documentos en formato editorial con calidad de imprenta y exportacion instantanea a PDF vectorial (A4). Soporta multiples presets de estilo (actas de comunidad, informes ejecutivos, contratos, propuestas, informes tecnicos OCA Global) con control granular de saltos de pagina y tipografia avanzada.</p>
   </a>
   <a href="/agente/skills/gestiona_fierbase/" class="dashboard-card">
     <h3>gestiona_fierbase</h3>

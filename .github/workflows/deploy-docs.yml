@@ -1,0 +1,38 @@
+name: CI/CD Pipeline - Auto Deploy Antigravity Joel Docs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Astro Starlight Dependencies
+        run: |
+          cd src/docs
+          npm ci || npm install
+
+      - name: Build Astro Starlight Documentation
+        run: |
+          cd src/docs
+          npm run build
+
+      - name: Deploy to Firebase Hosting (documentacion-ia)
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PROTOCOLO_FARMACIA }}'
+          channelId: live
+          projectId: protocolo-farmacia
+        continue-on-error: true

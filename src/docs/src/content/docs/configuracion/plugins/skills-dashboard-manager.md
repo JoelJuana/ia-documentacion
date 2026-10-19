@@ -1,15 +1,12 @@
 ---
 title: Plugin "skills-dashboard-manager"
-description: Documentación detallada del plugin de agente skills-dashboard-manager.
+description: "Skill global para arrancar y monitorizar el Cuadro de Mandos de gestion de skills de Antigravity."
 ---
 
 *   **Ruta física**: [`plugins/skills-dashboard-manager/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/plugins/skills-dashboard-manager)
+*   **Versión**: `v1.0.0`
+*   **Estado**: Activo
 
----
-
----
-name: skills-dashboard-manager
-description: "Skill global para arrancar y monitorizar el Cuadro de Mandos de gestion de skills de Antigravity."
 ---
 
 # Skills Dashboard Manager
@@ -34,4 +31,3 @@ Aplica las siguientes reglas cuando el usuario te solicite interactuar con el cu
 
 3. **Verificación de Estado**:
    * Si el usuario te pregunta si el dashboard está activo, comprueba los procesos en ejecución o consulta la URL de la API local (`http://localhost:3001/api/skills`). Si responde con éxito, indícale al usuario que ya está corriendo y que puede acceder a ella directamente en el puerto `3000`.
-

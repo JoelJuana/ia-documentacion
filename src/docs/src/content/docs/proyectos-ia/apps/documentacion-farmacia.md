@@ -3,10 +3,12 @@ title: "documentacion-farmacia"
 description: "Ficha técnica y documentación de la aplicación documentacion-farmacia."
 ---
 
-*   **Ruta física**: [`apps\documentacion-farmacia/`](file:///C:/Users/jjtei/Desktop/IA_Proyectos/apps/documentacion-farmacia)
+*   **Ruta física**: [`apps/documentacion-farmacia/`](file:///C:/Users/jjtei/Desktop/IA_Proyectos/apps/documentacion-farmacia)
 *   **Tipo**: `starlight`
 *   **Creado el**: 2026-07-05
 *   **Autor**: JoelJuana
+*   **URL Pública**: [https://protocolo-farmacia.gironacc.com](https://protocolo-farmacia.gironacc.com)
+*   **Etiquetas**: `Farmacia`, `Documentación`, `Astro`
 
 ---
 

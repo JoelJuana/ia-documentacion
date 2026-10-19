@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 const docsContentDir = path.resolve(__dirname, '../src/content/docs');
 const gatewayUrl = 'http://localhost:3000/api/rag';
 
-// Función recursiva para obtener todos los archivos .md and .mdx
+// Función recursiva para obtener todos los archivos .md y .mdx
 function getMarkdownFiles(dir, filesList = []) {
   if (!fs.existsSync(dir)) return filesList;
   const files = fs.readdirSync(dir);
@@ -24,6 +24,14 @@ function getMarkdownFiles(dir, filesList = []) {
   return filesList;
 }
 
+// Limpia bloques HTML puramente decorativos de grillas antes de indexar en RAG
+function cleanDecorativeHtml(markdown) {
+  return markdown
+    .replace(/<div class="dashboard-grid">[\s\S]*?<\/div>/g, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
 // Extrae el título del frontmatter de forma simple y devuelve el cuerpo limpio
 function extractTitleAndBody(filePath, fallbackName) {
   try {
@@ -36,7 +44,7 @@ function extractTitleAndBody(filePath, fallbackName) {
 
     if (match) {
       const yamlBlock = match[1];
-      body = content.replace(yamlRegex, '').trim(); // Cuerpo sin frontmatter
+      body = content.replace(yamlRegex, '').trim();
 
       yamlBlock.split('\n').forEach(line => {
         const parts = line.split(':');
@@ -48,7 +56,7 @@ function extractTitleAndBody(filePath, fallbackName) {
       });
     }
 
-    return { title, body };
+    return { title, body: cleanDecorativeHtml(body) };
   } catch (err) {
     console.error(`Error leyendo archivo en ${filePath}:`, err);
     return { title: fallbackName, body: '' };
@@ -116,6 +124,10 @@ async function indexDocumentation() {
     if (!response.ok) {
       throw new Error(`Gateway respondió con status ${response.status}`);
     }
+
+    // Limpiar base de conocimientos previa para evitar fragmentos duplicados u obsoletos
+    await fetch(`${gatewayUrl}/store`, { method: 'DELETE' });
+    console.log('Store de RAG limpiado previamente para re-indexación limpia.');
   } catch (err) {
     console.warn('\n[WARN] El servicio local api-conocimiento-rag (puerto 3600 / Gateway 3000) no responde.');
     console.warn('Saltando la indexación RAG de documentación para no interrumpir el build.\n');
@@ -124,13 +136,16 @@ async function indexDocumentation() {
 
   // 2. Escanear y recopilar todos los documentos Markdown
   const mdFiles = getMarkdownFiles(docsContentDir);
-  console.log(`Se encontraron ${mdFiles.length} documentos para indexar.`);
+  console.log(`Se encontraron ${mdFiles.length} documentos limpios para indexar.`);
 
   let indexedCount = 0;
   let failedCount = 0;
 
   for (const filePath of mdFiles) {
     const relativePath = path.relative(docsContentDir, filePath).replace(/\\/g, '/');
+    const urlSlug = relativePath === 'index.md'
+      ? '/'
+      : '/' + relativePath.replace(/\.(md|mdx)$/, '') + '/';
     const fallbackName = path.basename(filePath, path.extname(filePath));
     const { title, body } = extractTitleAndBody(filePath, fallbackName);
 
@@ -156,6 +171,7 @@ async function indexDocumentation() {
           metadata: {
             source: 'documentacion-ia',
             file: relativePath,
+            url: urlSlug,
             section: chunk.section,
             chunk_index: chunk.chunkIndex,
             total_chunks: chunk.totalChunks
@@ -183,7 +199,7 @@ async function indexDocumentation() {
     }
   }
 
-  console.log(`\nSincronización RAG finalizada: ${indexedCount} indexados con éxito, ${failedCount} fallidos.\n`);
+  console.log(`\nSincronización RAG finalizada: ${indexedCount} chunks indexados con éxito (${mdFiles.length} documentos), ${failedCount} fallidos.\n`);
 }
 
 indexDocumentation();
