@@ -400,5 +400,34 @@ site-search {
 	line-height: 1 !important;
 }
 
+/* Contenedor visual para diagramas de arquitectura Mermaid renderizados en SVG */
+.mermaid-diagram {
+	background-color: var(--sl-color-bg-sidebar) !important;
+	border: 1px solid var(--sl-color-gray-5) !important;
+	border-radius: 12px !important;
+	padding: 1.5rem !important;
+	margin: 1.5rem 0 !important;
+	display: flex !important;
+	justify-content: center !important;
+	align-items: center !important;
+	overflow-x: auto !important;
+}
+
+.mermaid-diagram svg {
+	max-width: 100% !important;
+	height: auto !important;
+}
+
+/* Etiquetas de metadatos dentro de las tarjetas del catálogo */
+.card-meta {
+	font-size: 0.72rem !important;
+	font-weight: 600 !important;
+	text-transform: uppercase !important;
+	letter-spacing: 0.04em !important;
+	color: var(--sl-color-text-accent) !important;
+	margin-bottom: 0.35rem !important;
+	display: inline-block !important;
+}
+
 
 

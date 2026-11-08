@@ -1,9 +1,10 @@
 ---
 title: "centro-editorial"
-description: "Ficha técnica y documentación de la aplicación centro-editorial."
+description: "Ficha técnica y documentación de la aplicación Centro Editorial y Visor A4 (centro-editorial)."
 ---
 
 *   **Ruta física**: [`docs/editorial/`](file:///C:/Users/jjtei/Desktop/IA_Proyectos/docs/editorial)
+*   **Nombre Comercial**: Centro Editorial y Visor A4
 *   **Tipo**: `vanilla`
 *   **Creado el**: 2026-10-18
 *   **Autor**: JoelJuana

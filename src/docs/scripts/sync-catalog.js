@@ -225,13 +225,14 @@ No se encontró un archivo \`README.md\` local en el directorio del proyecto.
 
     const publicUrlMeta = p.publicUrl ? `\n*   **URL Pública**: [${p.publicUrl}](${p.publicUrl})` : '';
     const tagsMeta = Array.isArray(p.tags) && p.tags.length > 0 ? `\n*   **Etiquetas**: ${p.tags.map(t => `\`${t}\``).join(', ')}` : '';
+    const titleMeta = p.title ? `\n*   **Nombre Comercial**: ${p.title}` : '';
 
     const appFileContent = `---
 title: "${p.name}"
-description: "Ficha técnica y documentación de la aplicación ${p.name}."
+description: "Ficha técnica y documentación de la aplicación ${p.title || p.name} (${p.name})."
 ---
 
-*   **Ruta física**: [\`${relativePath.replace(/\\/g, '/')}/\`](file:///${absolutePath.replace(/\\/g, '/')})
+*   **Ruta física**: [\`${relativePath.replace(/\\/g, '/')}/\`](file:///${absolutePath.replace(/\\/g, '/')})${titleMeta}
 *   **Tipo**: \`${p.type}\`
 *   **Creado el**: ${p.createdAt || '-'}
 *   **Autor**: ${p.author || 'JoelJuana'}${publicUrlMeta}${tagsMeta}
@@ -263,9 +264,10 @@ ${docBody}
   let bpCards = '';
   let bpBullets = '';
   businessPlans.forEach(bp => {
-    bpCards += `  <a href="/proyectos-ia/business-plans/${bp.name}/" class="dashboard-card">\n    <h3>${bp.name}</h3>\n    <p>${bp.description}</p>\n  </a>\n`;
-    const urlBadge = bp.publicUrl ? ` — [ Producción](${bp.publicUrl})` : '';
-    bpBullets += `*   **[${bp.name}](/proyectos-ia/business-plans/${bp.name}/)**: ${bp.description}${urlBadge}\n`;
+    const displayTitle = bp.title ? `${bp.title}` : bp.name;
+    bpCards += `  <a href="/proyectos-ia/business-plans/${bp.name}/" class="dashboard-card">\n    <span class="card-meta">${bp.name}</span>\n    <h3>${displayTitle}</h3>\n    <p>${bp.description}</p>\n  </a>\n`;
+    const urlBadge = bp.publicUrl ? ` — [Producción](${bp.publicUrl})` : '';
+    bpBullets += `*   **[${bp.name}](/proyectos-ia/business-plans/${bp.name}/)** (*${displayTitle}*): ${bp.description}${urlBadge}\n`;
   });
 
   const bpIntroContent = `---
@@ -708,7 +710,7 @@ ${parsed.body}
         const link = hasDetail ? `/configuracion/plugins/${p}/` : '#';
         const stateText = isEnabled ? 'Activo' : 'En reserva';
         pluginsList += `| **[${p}](${link})** | \`${stateText}\` | ${description} |\n`;
-        cardsContent += `  <a href="${link}" class="dashboard-card">\n    <h3>${p}</h3>\n    <p>${description}</p>\n  </a>\n`;
+        cardsContent += `  <a href="${link}" class="dashboard-card">\n    <span class="card-meta">${stateText}</span>\n    <h3>${p}</h3>\n    <p>${description}</p>\n  </a>\n`;
       }
     });
 

@@ -59,7 +59,7 @@ Relación de sitios publicados mediante **Firebase Hosting Multisite** y sus sub
 | **Documentación Farmacia** | `documentacion-farmacia` | `https://protocolo-farmacia.gironacc.com` | Astro Starlight |
 | **Calendario Farmacia** | `app-calendario-farmacia` | `https://turnos-farmacia.gironacc.com` | React + Vite |
 | **Comunidad Paradas** | `app-comunidad-paradas` | `https://paradas.gironacc.com` | React + Vite |
-| **Notebook Studio** | `app-notebook-studio` | `https://notebook-studio.gironacc.com` | React + Vite |
+| **Notebook Studio** | `app-notebook-studio` | `https://notebook-studio.web.app` | React + Vite |
 | **BP Caravanas** | `app-bp-caravanas` | `https://caravanas.gironacc.com` | Vanilla + Vite |
 | **BP Ramón Turró** | `app-bp-ramon-turro` | `https://ramon-turro.gironacc.com` | Vanilla + Vite |
 | **BP Compra Farmacia** | `app-bp-compra-farmacia` | `https://compra-farmacia.gironacc.com` | Vanilla + Vite |

@@ -1,9 +1,10 @@
 ---
 title: "app-bp-inversion-compra-piso"
-description: "Ficha técnica y documentación de la aplicación app-bp-inversion-compra-piso."
+description: "Ficha técnica y documentación de la aplicación Business Plan · Inversión Compra Piso (app-bp-inversion-compra-piso)."
 ---
 
 *   **Ruta física**: [`apps/business-plans/app-bp-inversion-compra-piso/`](file:///C:/Users/jjtei/Desktop/IA_Proyectos/apps/business-plans/app-bp-inversion-compra-piso)
+*   **Nombre Comercial**: Business Plan · Inversión Compra Piso
 *   **Tipo**: `vanilla`
 *   **Creado el**: 2026-08-08
 *   **Autor**: JoelJuana

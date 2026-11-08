@@ -13,34 +13,28 @@ El proyecto **IA_Infraestructura** es un monorepositorio local diseñado para or
 
 ---
 
-## 🗺️ Arquitectura de Red y API Gateway
+## Arquitectura de Red y API Gateway
 
 Toda la comunicación de los agentes de IA y las aplicaciones clientes se realiza a través de un **API Gateway** centralizador en el puerto **3000** (`infra-gateway`). Este actúa como proxy reverso, redirigiendo el tráfico a los puertos internos dedicados de cada microservicio:
 
 ```mermaid
-graph TD
-    Client[Cliente / Agente de IA] -->|Petición HTTP / Puerto 3000| Gateway[infra-gateway :3000]
+flowchart TD
+    Client["Cliente / Agente de IA"] -->|"Petición HTTP (:3000)"| Gateway["infra-gateway (:3000)"]
     
-    subgraph IA_Infraestructura [Ecosistema de Microservicios Locales]
-        Gateway -->|/api/git/*| Git[infra-github :3100]
-        Gateway -->|/api/fb/*| FB[infra-firebase :3200]
-        Gateway -->|/api/proj/*| Proj[infra-project-creator :3300]
-        Gateway -->|/api/dns/*| DNS[infra-domain-manager :3400]
-        Gateway -->|/api/design/*| Design[api-design-assets :3500]
-        Gateway -->|/api/rag/*| RAG[api-conocimiento-rag :3600]
-        Gateway -->|/api/scrape/*| Scrape[api-utilidades-scraping :3700]
+    subgraph IA_Infraestructura ["Ecosistema de Microservicios Locales"]
+        Gateway -->|"/api/git/*"| Git["infra-github (:3100)"]
+        Gateway -->|"/api/fb/*"| FB["infra-firebase (:3200)"]
+        Gateway -->|"/api/proj/*"| Proj["infra-project-creator (:3300)"]
+        Gateway -->|"/api/dns/*"| DNS["infra-domain-manager (:3400)"]
+        Gateway -->|"/api/design/*"| Design["api-design-assets (:3500)"]
+        Gateway -->|"/api/rag/*"| RAG["api-conocimiento-rag (:3600)"]
+        Gateway -->|"/api/scrape/*"| Scrape["api-utilidades-scraping (:3700)"]
     end
-
-    classDef default fill:#1e1e2e,stroke:#cdd6f4,stroke-width:1px,color:#cdd6f4;
-    classDef gw fill:#313244,stroke:#a6e3a1,stroke-width:2px,color:#a6e3a1;
-    classDef client fill:#181825,stroke:#89b4fa,stroke-width:2px,color:#89b4fa;
-    class Gateway gw;
-    class Client client;
 ```
 
 ---
 
-## 🚀 Modos de Ejecución y Arranque
+## Modos de Ejecución y Arranque
 
 Los servicios pueden gestionarse en dos modalidades desde la raíz de `IA_Infraestructura`:
 
@@ -59,10 +53,10 @@ Para un entorno robusto de ejecución persistente con autoreinicio ante fallos, 
 
 ---
 
-## 💻 Panel de Control de Observabilidad (Dashboard)
+## Panel de Control de Observabilidad (Dashboard)
 
 Al iniciar la suite (`npm run start`), puedes acceder directamente a la interfaz web de observabilidad desde tu navegador en:
-👉 **[http://localhost:3000](http://localhost:3000)**
+**[http://localhost:3000](http://localhost:3000)**
 
 El dashboard permite:
 1.  **Monitorizar Salud**: Visualizar en tiempo real el estado (`saludable`/`degradado`/`desconectado`) de cada microservicio.

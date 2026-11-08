@@ -17,7 +17,7 @@ Esta habilidad instruye al agente en el estándar de redacción, maquetación, o
 
 Los portales de documentación están construidos con **Astro Starlight** y se ubican en las siguientes rutas del monorepositorio:
 
-*   **Portal de Farmacia**: `c:\Users\jjtei\Desktop\Proyectos_IA\apps\documentacion\app-documentacion-farmacia\src\docs`
+*   **Portal de Farmacia**: `C:\Users\jjtei\Desktop\IA_Proyectos\apps\documentacion-farmacia\src\docs`
     *   Contenidos: `src/content/docs/`
 *   **Portal de IA**: `C:\Users\jjtei\Desktop\IA_Documentacion\src\docs`
     *   Contenidos: `src/content/docs/`
@@ -188,8 +188,8 @@ import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 
 Para evitar enlaces rotos (*404*) en los builds de producción o tras despliegues en Firebase Multisite:
 *   **Formato de Slug Absoluto**: Todos los enlaces internos entre páginas deben hacer referencia al slug absoluto de la aplicación (ruta web), y **nunca al archivo físico `.md` o `.mdx`**.
-    *   *Incorrecto*: `[Manual](file:///c:/Users/jjtei/Desktop/Proyectos_IA/apps/documentacion/app-documentacion-farmacia/src/docs/src/content/docs/referencia/protocolo-organizativo.md)` o `[Manual](../referencia/protocolo-organizativo.md)`
-    *   *Correcto*: `[Manual](/referencia/protocolo-organizativo/)`
+    *   *Incorrecto*: `[Matriz de Puertos](../referencia/puertos-y-endpoints.md)`
+    *   *Correcto*: `[Matriz de Puertos](/referencia/puertos-y-endpoints/)`
 *   Asegúrate de incluir la barra diagonal final `/` en los enlaces internos para un enrutamiento correcto y SEO limpio.
 
 ---

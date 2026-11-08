@@ -1,9 +1,10 @@
 ---
 title: "app-calendario-farmacia"
-description: "Ficha técnica y documentación de la aplicación app-calendario-farmacia."
+description: "Ficha técnica y documentación de la aplicación Calendario y Turnos de Farmacia (app-calendario-farmacia)."
 ---
 
 *   **Ruta física**: [`apps/app-calendario-farmacia/`](file:///C:/Users/jjtei/Desktop/IA_Proyectos/apps/app-calendario-farmacia)
+*   **Nombre Comercial**: Calendario y Turnos de Farmacia
 *   **Tipo**: `react`
 *   **Creado el**: 2026-07-11
 *   **Autor**: JoelJuana

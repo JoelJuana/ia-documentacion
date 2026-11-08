@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "node scripts/sync-catalog.js && astro dev",
     "start": "node scripts/sync-catalog.js && astro dev",
-    "build": "node scripts/sync-catalog.js && astro build && node scripts/index-rag.js",
+    "audit": "node scripts/audit-portal.js",
+    "build": "node scripts/sync-catalog.js && node scripts/audit-portal.js && astro build && node scripts/index-rag.js",
     "deploy": "npm run build && firebase deploy --only hosting:documentacion-ia",
     "preview": "astro preview",
     "astro": "astro"

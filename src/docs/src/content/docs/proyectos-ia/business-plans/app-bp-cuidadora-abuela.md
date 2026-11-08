@@ -1,9 +1,10 @@
 ---
 title: "app-bp-cuidadora-abuela"
-description: "Ficha técnica y documentación de la aplicación app-bp-cuidadora-abuela."
+description: "Ficha técnica y documentación de la aplicación Business Plan · Cuidados Asistenciales (app-bp-cuidadora-abuela)."
 ---
 
 *   **Ruta física**: [`apps/business-plans/app-bp-cuidadora-abuela/`](file:///C:/Users/jjtei/Desktop/IA_Proyectos/apps/business-plans/app-bp-cuidadora-abuela)
+*   **Nombre Comercial**: Business Plan · Cuidados Asistenciales
 *   **Tipo**: `vanilla`
 *   **Creado el**: 2026-08-27
 *   **Autor**: JoelJuana

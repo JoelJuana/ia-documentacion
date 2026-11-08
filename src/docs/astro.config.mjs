@@ -40,6 +40,69 @@ export default defineConfig({
 						href: 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap',
 					},
 				},
+				{
+					tag: 'script',
+					attrs: {
+						type: 'module',
+					},
+					content: `
+						import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+						async function renderMermaidDiagrams() {
+							const isDark = document.documentElement.dataset.theme !== 'light';
+							mermaid.initialize({
+								startOnLoad: false,
+								theme: isDark ? 'dark' : 'neutral',
+								fontFamily: 'Inter, system-ui, sans-serif',
+							});
+
+							const codeBlocks = document.querySelectorAll('pre[data-language="mermaid"]');
+							for (const pre of codeBlocks) {
+								const figure = pre.closest('.expressive-code') || pre;
+								if (figure.dataset.mermaidProcessed === 'true') continue;
+								const lines = Array.from(pre.querySelectorAll('.ec-line .code'));
+								const source = (lines.length ? lines.map(l => l.textContent).join('\\n') : pre.textContent || '').trim();
+								if (!source) continue;
+
+								const container = document.createElement('div');
+								container.className = 'mermaid-diagram not-content';
+								container.dataset.mermaidSource = source;
+								figure.dataset.mermaidProcessed = 'true';
+								figure.replaceWith(container);
+							}
+
+							const diagrams = document.querySelectorAll('.mermaid-diagram[data-mermaid-source]');
+							let idx = 0;
+							for (const el of diagrams) {
+								const src = el.dataset.mermaidSource;
+								if (!src) continue;
+								try {
+									const id = 'mermaid-svg-' + Date.now() + '-' + (idx++);
+									const { svg } = await mermaid.render(id, src);
+									el.innerHTML = svg;
+								} catch (e) {
+									console.warn('Error al renderizar diagrama Mermaid:', e);
+								}
+							}
+						}
+
+						if (document.readyState === 'loading') {
+							document.addEventListener('DOMContentLoaded', renderMermaidDiagrams);
+						} else {
+							renderMermaidDiagrams();
+						}
+
+						const observer = new MutationObserver((mutations) => {
+							for (const m of mutations) {
+								if (m.attributeName === 'data-theme') {
+									renderMermaidDiagrams();
+									break;
+								}
+							}
+						});
+						observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+					`,
+				},
 			],
 			customCss: [
 				'./src/styles/custom.css',

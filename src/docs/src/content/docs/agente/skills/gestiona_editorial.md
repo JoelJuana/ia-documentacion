@@ -105,7 +105,7 @@ Validadas con el usuario en las Fases 1 y 2 de Álabe Ingenieros:
 
 ### Paso 1: Clasificación y Selección de Plantilla
 * Identificar el ámbito (`oca_global`, `actas_comunidad`, `dossier_financiero` o `seat_124_taller`) y leer el `IDENTIDAD_CORPORATIVA.md` y el archivo `reglas_<tipo>.md` correspondiente de `presets/<preset>/`.
-* Para inicializar rápidamente una carpeta nueva, puedes usar el script [`new-doc.ps1`](file:///C:/Users/jjtei/.gemini/config/skills/gestiona_editorial/scripts/new-doc.ps1):
+* Para inicializar rápidamente una carpeta nueva (aprovisionando además su subcarpeta `_identidad/` si no existe), puedes usar el script [`new-doc.ps1`](file:///C:/Users/jjtei/.gemini/config/skills/gestiona_editorial/scripts/new-doc.ps1):
   ```powershell
   & "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\new-doc.ps1" -Preset oca_global -Tipo due_diligence -Slug "due-diligence-empresa"
   ```
@@ -115,7 +115,7 @@ Ejecutar el CLI Node.js [`build_editorial.js`](file:///C:/Users/jjtei/.gemini/co
 1. Renderizar el PDF A4 vectorial con Microsoft Edge Headless.
 2. Generar las capturas de verificación en `preview/page_1.png`, `preview/page_2.png`, etc.
 3. Verificar que no supere el objetivo de páginas (`--max-pages <N>`).
-4. Exportar automáticamente el archivo **Word (`.docx`)** tanto en documentos de **OCA Global** (`export-oca-docx.py`) como de **Comunidad de Propietarios** (`export-comunidad-docx.py`):
+4. Exportar automáticamente el archivo **Word (`.docx`)** en documentos de **OCA Global** (`export-oca-docx.py`), **Comunidad de Propietarios** (`export-comunidad-docx.py`) y **Dossiers Financieros** (`export-dossier-docx.py`):
 
 ```powershell
 node "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\build_editorial.js" "C:\ruta\a\la\carpeta\documento.html" --max-pages 2
