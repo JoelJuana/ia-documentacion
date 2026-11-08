@@ -45,7 +45,7 @@ Selecciona una de las habilidades en la barra lateral o a través de las siguien
   </a>
   <a href="/agente/skills/gestiona_editorial/" class="dashboard-card">
     <h3>gestiona_editorial</h3>
-    <p>Maquetacion profesional de documentos en formato editorial con calidad de imprenta y exportacion instantanea a PDF vectorial (A4). Soporta multiples presets de estilo (actas de comunidad, informes ejecutivos, contratos, propuestas, informes tecnicos OCA Global) con control granular de saltos de pagina y tipografia avanzada.</p>
+    <p>Maquetacion profesional de documentos en formato editorial con calidad de imprenta y exportacion instantanea a PDF vectorial (A4) y Word (.docx). Soporta 4 presets corporativos y tecnicos (oca_global, actas_comunidad, dossier_financiero, seat_124_taller) con control granular de saltos de pagina y tipografia avanzada.</p>
   </a>
   <a href="/agente/skills/gestiona_fierbase/" class="dashboard-card">
     <h3>gestiona_fierbase</h3>

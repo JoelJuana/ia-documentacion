@@ -1,6 +1,6 @@
 ---
 title: gestiona_editorial
-description: Maquetacion profesional de documentos en formato editorial con calidad de imprenta y exportacion instantanea a PDF vectorial (A4). Soporta multiples presets de estilo (actas de comunidad, informes ejecutivos, contratos, propuestas, informes tecnicos OCA Global) con control granular de saltos de pagina y tipografia avanzada.
+description: Maquetacion profesional de documentos en formato editorial con calidad de imprenta y exportacion instantanea a PDF vectorial (A4) y Word (.docx). Soporta 4 presets corporativos y tecnicos (oca_global, actas_comunidad, dossier_financiero, seat_124_taller) con control granular de saltos de pagina y tipografia avanzada.
 ---
 
 *   **Ruta de Configuración**: [`IA_Configuracion/skills/gestiona_editorial/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/skills/gestiona_editorial/SKILL.md)
@@ -9,184 +9,133 @@ description: Maquetacion profesional de documentos en formato editorial con cali
 
 # Habilidad: gestiona_editorial
 
-Esta habilidad dota al agente de capacidades completas de **editorial y maquetador profesional**, permitiendo convertir textos en bruto, actas, minutas o borradores de Google Docs en documentos PDF maquetados con diseno de alta calidad estetica y precision milimetrica en los saltos de pagina.
+Esta habilidad dota al agente de capacidades completas de **editorial y maquetador profesional**, permitiendo convertir textos en bruto, actas, minutas, dossiers financieros o borradores de Google Docs en documentos **PDF vectoriales (A4)** y **Word (`.docx`)** maquetados con diseño de alta calidad estética y precisión milimétrica en los saltos de página.
 
 ---
 
-## Regla de Clasificación Inicial Obligatoria (Personal vs. Trabajo)
+## Regla de Clasificación Inicial Obligatoria (4 Ámbitos / Presets)
 
-> **REGLA FUNDAMENTAL**: Siempre que el usuario solicite crear, maquetar o editar un documento, **es obligatorio identificar o preguntar si se trata de un documento personal o de trabajo (empresa)**, ya que su naturaleza, identidad visual y estructura son completamente diferentes:
-> 
-> 1. **Documento Personal / Comunitario**:
->    - Ámbito: Actas de propietarios, estatutos de comunidad, reglamentos particulares, acuerdos privados.
->    - Preset asignado: `actas_comunidad` (estilo institucional sobrio, tipografía Serif *Merriweather*, azul clásico `#1B3A5C`).
-> 
-> 2. **Documento de Trabajo / Corporativo (OCA Global)**:
->    - Ámbito: Informes técnicos, auditorías, memorias de inspección, dictámenes periciales, propuestas técnicas o actas laborales para la empresa **OCA Global**.
->    - Preset asignado: `oca_global` (estilo ejecutivo técnico, tipografía corporativa *Arial* + *Arial Black* según manual OCA, azul marino `#0B3356`, rojo del logo `#DE473C`, metadatos en grid, tablas normalizadas y firmas técnicas).
+> **REGLA FUNDAMENTAL**: Siempre que el usuario solicite crear, maquetar o editar un documento, **es obligatorio identificar a cuál de los 4 ámbitos pertenece** (o preguntarlo si es ambiguo), ya que su identidad visual, tipografía, arquitectura de paginación y tono son completamente diferentes:
+>
+> 1. **Documento de Trabajo / Corporativo (`oca_global`)**:
+>    - **Ámbito**: Due Diligence preliminar (Fase 1), Protocolos y Checklists de Auditoría Técnica (Fase 2), informes técnicos de inspección, memorias de innovación o propuestas internas para **OCA Global**.
+>    - **Identidad**: Tipografía corporativa *Arial* + *Arial Black* según manual OCA (sin Google Fonts), azul marino `#0B3356`, rojo del logo `#DE473C`, logo recortado de `40 pt` a la derecha, metadatos en grid de 2 columnas, tablas con badges de estado y firma sobria con barra roja.
+>
+> 2. **Documento Jurídico / Comunidad de Propietarios (`actas_comunidad`)**:
+>    - **Ámbito**: Actas de junta, sesiones de trabajo y acuerdos (Modalidad A) o Estatutos y Reglamentos de Régimen Interno articulados conforme al Libro Quinto del CCCat (Modalidad B), como en **CP Mercat Devesa**.
+>    - **Identidad**: Estilo institucional jurídico, encabezados y tablas en `'Inter'`, cuerpo expositivo en `'Merriweather'` (Serif), azul clásico `#1B3A5C` y azul acuerdos `#2B6CB0`.
+>
+> 3. **Dossier Financiero / Plan de Negocio e Inversión (`dossier_financiero`)**:
+>    - **Ámbito**: Planes de negocio para bancos e inversores, dossiers estratégicos de compraventa (ej. *Compra Farmacia*, *Ramón Turró*) y estudios de optimización fiscal (IRPF / IS / IVA) vinculados a simuladores de `apps/business-plans/`.
+>    - **Identidad**: Arquitectura de **Hojas A4 de Ocupación 100 % (`<section class="hoja-a4">` con `height: 275.5mm` y `justify-content: space-between`)** + modificador `.hoja-densa` para páginas de alta densidad, tiras de 5 KPIs (`.kpi-strip`), bandas en degradado azul, tablas comparativas de escenarios (`.tabla-datos`), tarjetas multicolumna (`.ficha-bloque`) y pie de síntesis (`.diligencia-cierre`).
+>
+> 4. **Manual Técnico de Taller e Ingeniería (`seat_124_taller`)**:
+>    - **Ámbito**: Manuales de instalación eléctrica, restauración técnica, fichas de circuitos SVG y tablas de pines DIN 72552 / FLRY-B (ej. *SEAT 124 FL*).
+>    - **Identidad**: Estética SEAT Sport / Bosch Classic (`#C8102E`, `#111827`, `#D97706`), tipografías `'Barlow Condensed'` + `'IBM Plex Sans'` + `'JetBrains Mono'` y esquemas vectoriales SVG sincronizados con `ESPECIFICACION.md`.
 
 ---
 
 ## Cuándo activar
 
 Activa esta habilidad cuando el usuario o los requisitos soliciten:
-* "Maqueta esto con el estilo actas_comunidad"
-* "Maqueta este informe para OCA Global" / "Haz un informe técnico con estilo de empresa"
-* "Maqueta este texto con el estilo X"
-* "Pasa este documento a PDF con formato profesional / editorial"
-* "Crea un nuevo estilo editorial llamado X"
-* "Ajusta la paginacion para que no queden huecos / no se corten los puntos"
-
-## Arquitectura de Reglas por Tipo de Documento (`reglas/` y `docs/editorial/_reglas/`)
-
-Las reglas específicas de maquetación, tono y estructura por cada tipo de documento están modularizadas tanto dentro de la skill (`reglas/`) como visibles en el propio workspace del usuario (`IA_Proyectos/docs/editorial/_reglas/`):
-
-1. **`00_paginacion_y_maquetacion_a4.md`**: Reglas universales de saltos de página (`break-inside: avoid` en `p` y `li`, nunca en `ul`), control de huérfanas y calibración A4.
-2. **`oca_01_identidad_y_tono_corporativo.md`**: Manual visual OCA Global (`Arial` + `Arial Black`, `#0B3356` + `#DE473C`, logo a la derecha), cero invención de datos, lenguaje llano sin anglicismos y tratamiento de manifestaciones de terceros no verificadas.
-3. **`oca_02_due_diligence_y_notas_reunion.md`**: Cuestionario previo obligatorio y estructura de 5 secciones para Due Diligence preliminar y notas de evaluación de empresas/herramientas.
-4. **`oca_03_informes_tecnicos_y_propuestas.md`**: Estructura para informes técnicos de inspección, memorias de innovación y propuestas internas de OCA Global.
-5. **`comunidad_01_actas_y_acuerdos.md`**: Reglas de Actas de Junta, Sesiones de Trabajo y Documentos de Alineación (Preset `actas_comunidad` — Modalidad A).
-6. **`comunidad_02_estatutos_y_reglamentos.md`**: Reglas de Estatutos y Reglamentos de Régimen Interno articulados conforme al Libro Quinto del CCCat (Preset `actas_comunidad` — Modalidad B).
+* "Maqueta esto con el estilo `oca_global` / `actas_comunidad` / `dossier_financiero` / `seat_124_taller`"
+* "Maqueta este informe para OCA Global" / "Haz el protocolo de Fase 2 para..."
+* "Prepara el dossier estratégico / plan financiero en PDF A4 de N páginas completas"
+* "Pasa este acta / estatuto / reglamento a PDF y Word con formato profesional"
+* "Ajusta la paginación para que cada hoja quede al 100 % sin huecos ni cortes"
 
 ---
 
-## Biblioteca de Presets de Estilo (`presets/` y `docs/editorial/_plantillas/`)
+## Arquitectura Simétrica de Carpetas: `presets/<preset>/` y `<Ámbito>/_identidad/`
 
-Los presets se almacenan de forma modular en `presets/<nombre_preset>/` (y se replican en `docs/editorial/_plantillas/<nombre_preset>/`):
+Tanto la biblioteca interna de la skill (`presets/<nombre_preset>/`) como cada carpeta de proyecto en el workspace del usuario (`IA_Proyectos/docs/editorial/<Ámbito>/_identidad/`) comparten exactamente la misma estructura modular por ámbito y por tipo de documento:
 
-### 1. Preset `actas_comunidad` (Comunidad de Propietarios: Actas, Estatutos y Reglamentos)
-* **Objetivo**: Todos los documentos de la Comunidad de Propietarios y ámbito personal/jurídico, con soporte nativo para **dos modalidades** en el mismo `style.css`:
-  1. **Modalidad A — Actas de Reunión, Sesiones de Trabajo y Acuerdos** (`.header`, `.punto`, `.punto-header`, `.punto-num`, `.acuerdo`, `.compromisos-lista`, `.nota-final`).
-  2. **Modalidad B — Estatutos, Reglamentos de Régimen Interno y Textos Articulados** (`.doc-header`, `.titulo-seccion`, `.articulo-titulo`, `.art-num`, `.subapartado-titulo`, `.tabla-fincas`, `.caja-resalte`, `.diligencia-cierre`, `.seccion-firmas`).
-* **Tipografías**: 
-  - Títulos, encabezados, tablas y fichas: `'Inter'` (Sans-serif, 700 / 600).
-  - Cuerpo de texto: `'Merriweather'` (Serif, 9 pt, interlineado 1.48, texto justificado con `hyphens: auto` y `text-wrap: pretty`).
-* **Paleta de Color**:
-  - Azul institucional primario: `#1B3A5C` (cabeceras, badges numéricos, cabeceras de tabla, bordes destacados).
-  - Azul secundario: `#2B6CB0` (cajas de compromiso/acuerdo clave, viñetas y subapartados).
-  - Fondos suaves: `#F8FAFC` (tarjetas de metadatos), `#EDF2F7` (acuerdos) y `#EFF6FF` (cajas de resalte normativo).
-  - Texto principal: `#1A202C` / `#2D3748` sobre blanco `#FFFFFF`.
-* **Cabecera y pie `@page`**: Cabecera corrida en páginas 2+ (`@top-left` y `@top-right`, suprimida en `:first`) y numeración `"Página X de Y"` en `@bottom-right`.
-
-### 2. Preset `oca_global` (Informes Técnicos, Auditorías y Documentos Corporativos de Trabajo)
-* **Objetivo**: Informes técnicos, notas internas, valoraciones, due diligence y documentación de trabajo para **OCA Global**.
-* **Referencia validada**: `IA_Proyectos/docs/editorial/OCA Global/2026-10-due-diligence-alabe-ingenieros/` (aprobado por el usuario, oct-2026).
-* **Archivos del preset**: `style.css`, `template.html` y `logo_oca_global.png` (logo ya recortado sin márgenes transparentes). Copiar los tres a la carpeta del nuevo documento.
-* **Tipografías** (según el manual corporativo publicado por OCA: [documento de ejemplo](https://docs.google.com/document/d/1NPv-Hk3bLkLnzbUDpJb5Dz7Dj5ntp_5rSk99zi8OOlQ/edit)):
-  - **Arial** para todo el cuerpo (10 pt, interlineado 1.45), ficha (9 pt), tablas (9 pt), etiquetas, kicker y números de subapartado.
-  - **Arial Black** (con `font-weight: normal` para evitar negrita sintética) para el título del documento y los títulos de sección `.oca-h1` y sus números.
-  - Fuentes de sistema: no usar `@import` de Google Fonts. No usar Inter ni fuentes monoespaciadas.
-* **Paleta de Color Corporativa**:
-  - Azul marino: `#0B3356` (coincide con manual y logo: títulos, raya de cabecera, cabeceras de tabla).
-  - Rojo corporativo: `#DE473C` (muestreado del logo; el manual usa `#D43235` en algún texto): números de sección, viñetas, "Confidencial", barra de firma.
-  - Texto principal `#262626` (manual). Filas alternas de tabla `#F2F2F2` (manual).
-  - Fondos: `#F8FAFC` (ficha y callouts primarios), `#FFF9F8` (callout de valoración). Secundarios `#555C66` / `#64748B`, bordes `#CBD5E1` / `#E2E8F0`.
-* **Componentes Semánticos** (ver `template.html`):
-  - `.doc-head`: `.doc-head-tag` sin caja a la izquierda ("CONFIDENCIAL" en rojo + "Uso interno" en gris) y **logo (40 pt de alto) siempre a la derecha**, como en los documentos de OCA. Etiqueta alineada con la línea base de "GLOBAL". Raya azul inferior con acento rojo bajo el logo.
-  - `.doc-kicker` + `.doc-title` + `.doc-subtitle`: bloque de título en la primera página (sin portada independiente en documentos cortos).
-  - `.oca-meta-grid` / `.oca-meta-field`: ficha de 2 columnas con número par de campos.
-  - `.oca-h1` (números 1, 2, 3) y `.oca-h2` (2.1, 2.2) con `.sec-num` en rojo en ambos niveles (Arial Black en secciones, Arial negrita en subsecciones).
-  - `.oca-p` (justificado, `text-wrap: pretty`) y `.oca-list` (alineada a la izquierda, viñeta cuadrada roja).
-  - `.oca-callout-accent` (valoración/recomendación) y `.oca-callout-primary` (manifestaciones de terceros).
-  - `.oca-table` + `.badge-status` (`badge-conforme` verde, `badge-no-conforme` rojo, `badge-observacion` ámbar para *Pendiente*, `badge-valorar` azul para *A valorar*).
-  - `.keep-together`: agrupa título + intro + lista corta para que no se partan.
-  - `.doc-signoff`: firma sin caja (nombre en negrita + cargo, barra roja a la izquierda, 26 pt de separación).
-  - `@page`: cabecera corrida discreta en páginas 2+ (tipo de documento a la izquierda / "OCA GLOBAL" a la derecha) y pie con "Página X de Y". Sustituir los textos `[entre corchetes]` del CSS.
-
-### 3. Preset `seat_124_taller` / `manual_tecnico` (Manuales Técnicos de Taller e Ingeniería Automotriz)
-* **Objetivo**: Manuales de instalación eléctrica, restauración técnica, fichas de mazos de cableado y esquemas DIN/Bosch (como `SEAT 124 FL - Instalacion Electrica`).
-* **Tipografías**: `'Barlow Condensed'` (títulos y cabeceras), `'IBM Plex Sans'` (cuerpo técnico) y `'JetBrains Mono'` (pines, bornes DIN 72552 y secciones en mm²).
-* **Paleta de Color**: Rojo SEAT Competición (`#C8102E`), Carbón Chasis (`#111827`), Ámbar Bosch (`#D97706`) y Gris Acero (`#334155`).
+| Preset en la Skill (`presets/`) | Carpeta en Workspace (`docs/editorial/`) | Manual de Marca y Hoja de Estilos | Reglas y Plantillas por Tipo de Documento |
+|---|---|---|---|
+| [`presets/oca_global/`](file:///C:/Users/jjtei/.gemini/config/skills/gestiona_editorial/presets/oca_global) | [`OCA Global/_identidad/`](file:///c:/Users/jjtei/Desktop/IA_Proyectos/docs/editorial/OCA%20Global/_identidad) | `IDENTIDAD_CORPORATIVA.md`<br>`style.css`<br>`logo_oca_global.png` | • `reglas_due_diligence.md` + `plantilla_due_diligence.html`<br>• `reglas_informe_tecnico.md` + `plantilla_informe_tecnico.html` *(incluye Fase 2 / Checklists)* |
+| [`presets/actas_comunidad/`](file:///C:/Users/jjtei/.gemini/config/skills/gestiona_editorial/presets/actas_comunidad) | [`CP Mercat Devesa/_identidad/`](file:///c:/Users/jjtei/Desktop/IA_Proyectos/docs/editorial/CP%20Mercat%20Devesa/_identidad) | `IDENTIDAD_CORPORATIVA.md`<br>`style.css` | • `reglas_acta_reunion.md` + `plantilla_acta_reunion.html` *(Modalidad A)*<br>• `reglas_estatutos_reglamento.md` + `plantilla_estatutos_reglamento.html` *(Modalidad B)* |
+| [`presets/dossier_financiero/`](file:///C:/Users/jjtei/.gemini/config/skills/gestiona_editorial/presets/dossier_financiero) | [`Compra Farmacia/_identidad/`](file:///c:/Users/jjtei/Desktop/IA_Proyectos/docs/editorial/Compra%20Farmacia/_identidad)<br>[`Ramon Turro/_identidad/`](file:///c:/Users/jjtei/Desktop/IA_Proyectos/docs/editorial/Ramon%20Turro/_identidad) | `IDENTIDAD_CORPORATIVA.md`<br>`style.css` | • `reglas_dossier_financiero.md` + `plantilla_dossier_financiero.html` *(Hojas `.hoja-a4` 100 %)* |
+| [`presets/seat_124_taller/`](file:///C:/Users/jjtei/.gemini/config/skills/gestiona_editorial/presets/seat_124_taller) | [`SEAT 124 FL - Instalacion Electrica/_identidad/`](file:///c:/Users/jjtei/Desktop/IA_Proyectos/docs/editorial/SEAT%20124%20FL%20-%20Instalacion%20Electrica/_identidad) | `IDENTIDAD_CORPORATIVA.md`<br>`style.css` | • `reglas_manual_electrico.md` + `plantilla_ficha_circuito.html` |
 
 ---
 
-## Reglas Fundamentales de Maquetacion y Paginacion A4
+## Dos Filosofías de Paginación A4 (Flujo Continuo vs. Hoja-Bloque 100 %)
 
-Para evitar paginas con grandes espacios en blanco o parrafos cortados de forma antiestetica, el agente debe aplicar estrictamente estas directrices:
+Según el preset elegido, la paginación A4 sigue una de estas dos arquitecturas:
 
-1. **Proteccion Granular a nivel de Parrafo**:
-   - Cada parrafo (`p`), elemento de lista (`li`), tabla (`.oca-table-wrapper`) y caja (`.oca-callout`) debe llevar `page-break-inside: avoid; break-inside: avoid;`.
-   - **No** aplicar `break-inside: avoid` a la lista `ul` completa: si es larga salta entera y deja un hueco grande en la página anterior. Proteger cada `li` y, si el bloque es corto, envolver título + intro + lista en `.keep-together`.
-   - Los titulos (`.oca-h1`, `.oca-h2`, `.punto-header`) deben llevar siempre `page-break-after: avoid; break-after: avoid;` para que nunca queden huerfanos al final de pagina.
-2. **Distribucion Homogenea por Paginas**:
-   - En lugar de forzar que secciones gigantescas queden enteras en una pagina (lo que genera grandes huecos en la anterior), se permite el salto natural entre parrafos o se usa la clase `.nueva-pagina` (`page-break-before: always;`) en los puntos de inicio deseados.
-   - Un hueco de 2-3 líneas al final de una página es preferible a partir un bloque título + lista.
-   - Si la firma o un bloque final salta solo a una página nueva, compactar primero el ritmo vertical (márgenes de títulos y listas) o fusionar párrafos muy cortos, en vez de reducir la fuente.
-3. **Calibracion de Capacidad A4**:
-   - A4 estandar (margenes 16-18 mm, fuente 9.2-9.5 pt, interlineado 1.5) admite aproximadamente **48 a 54 lineas de texto por hoja**.
+### Modo A — Flujo Editorial Continuo (`oca_global` y `actas_comunidad`)
+1. **Protección granular a nivel de elemento**:
+   - Cada párrafo (`p`), elemento de lista (`li`), tabla (`.oca-table-wrapper`, `.tabla-fincas`) y caja (`.oca-callout`, `.acuerdo`, `.caja-resalte`) lleva `page-break-inside: avoid; break-inside: avoid;`.
+   - **Nunca** aplicar `break-inside: avoid` al `ul` completo: si la lista es larga salta entera y deja un hueco enorme en la página anterior. Si un bloque título + intro + lista corta debe ir unido, envolverlo en `.keep-together`.
+   - Todos los títulos (`.oca-h1`, `.oca-h2`, `.punto-header`, `.titulo-seccion`, `.articulo-titulo`) llevan `page-break-after: avoid; break-after: avoid;` para no quedar nunca huérfanos al pie de página.
+2. **Ajuste del cierre**:
+   - Si la firma o diligencia final salta sola a una página extra, compactar primero el ritmo vertical (márgenes de secciones y listas) o condensar párrafos cortos, sin reducir la fuente por debajo del estándar del manual.
+
+### Modo B — Hoja-Bloque de Ocupación 100 % A4 (`dossier_financiero` y fichas técnicas)
+1. **Cada página es un contenedor `<section class="hoja-a4">`**:
+   - Tiene `height: 275.5mm; display: flex; flex-direction: column; justify-content: space-between; break-after: page; overflow: hidden;`.
+   - Distribuye automáticamente los componentes de arriba abajo (cabecera → titular → intro → `.kpi-strip` → `.grupo-seccion` con tabla/tarjetas → `.diligencia-cierre`) para que **la página quede llena al 100 % y el bloque de cierre descanse exactamente en el borde inferior**.
+2. **Doble escala tipográfica**:
+   - Usar `<section class="hoja-a4">` para páginas ejecutivas de lectura amplia (inversores/bancos).
+   - Usar `<section class="hoja-a4 hoja-densa">` cuando una página concentre tablas de 6 escenarios, matrices fiscales y múltiples bloques que requieran la escala compacta para no recortarse por `overflow: hidden`.
 
 ---
 
-## Lecciones Aprendidas: Documentos de Trabajo OCA Global
+## Reglas de Oro: Documentos de Trabajo OCA Global (`oca_global`)
 
-Validadas con el usuario en la Due Diligence preliminar de Álabe Ingenieros (oct-2026). Aplicar siempre en documentos de trabajo para OCA Global.
+Validadas con el usuario en las Fases 1 y 2 de Álabe Ingenieros:
 
 ### Contenido y tono
-1. **No inventar nada**. Solo hechos que el usuario confirme. Nada de flujos técnicos, arquitecturas, certificaciones, porcentajes de compra, comités, referencias de expediente o direcciones de sede que no se hayan dado.
-2. **Preguntar antes de redactar** (con `ask_question`, varias preguntas en un solo bloque): tipo de documento, destinatario, autor y cargo, fecha, asistentes, objeto real de la reunión, qué se vio/dijo realmente, valoración que se quiere transmitir, dudas/riesgos y próximos pasos reales.
-3. **Tono sobrio y llano**, sin parecer más técnico de lo que es: evitar anglicismos y jerga ("human-in-the-loop", "pipeline", "time-to-market", "foso defensivo", "M&A") salvo que el usuario los use.
-4. **Afirmaciones de terceros no verificadas** (certificaciones ISO, documentación, cifras): recogerlas como *"Manifestación de la dirección de [Empresa]"* en `.oca-callout-primary`, con una nota en cursiva: *"Se recoge tal y como nos lo trasladaron. No hemos podido verificarlo."*. Nunca afirmarlas como hechos de OCA.
-5. **Separar hechos de valoración**: "Lo que vimos" (hechos) / "Por qué nos interesa" (valoración) / "Puntos pendientes" (tabla con lo que no sabemos y badge Pendiente / A valorar) / "Próximos pasos" (solo reales o marcados como propuesta).
-6. **Destacar lo que aporta valor**, no lo obvio: p. ej., en lugar de "tienen conocimiento del negocio" (se da por hecho), destacar mejora continua, optimización, automatización y metodología común.
-7. **Títulos honestos**: mantener calificativos como "preliminar" cuando el alcance es limitado; el "Objeto" de la ficha describe lo que fue realmente la reunión (p. ej., "Demostración de la herramienta y sus funcionalidades").
-8. **Extensión**: 2-3 páginas para notas de reunión/valoraciones iniciales.
+1. **No inventar nada**: Solo hechos confirmados por el usuario (nada de arquitecturas, porcentajes de compra, comités, códigos de expediente o sedes no aportados).
+2. **Cuestionario previo (Fase 1)**: Si faltan datos antes de redactar una nota de reunión o Due Diligence preliminar, preguntar en un solo bloque: fecha, asistentes con cargos, objeto real de la cita, qué se vio/dijo realmente, valoración para dirección, dudas/riesgos y próximos pasos reales.
+3. **Tono sobrio y llano**: Evitar anglicismos y jerga (*human-in-the-loop*, *pipeline*, *time-to-market*, *foso defensivo*, *M&A*, *stack*) salvo que el usuario los utilice.
+4. **Manifestaciones de terceros no verificadas** (certificaciones ISO 12207/90003/25000, cifras declaradas): Recogerlas siempre dentro de `.oca-callout-primary` bajo el título *"Manifestación de la dirección de [Empresa]"*, cerrando con nota en cursiva de que no se ha verificado aún o de que se revisará en Fase 2.
+5. **Separar hechos de valoración**: *"Lo que vimos"* (hechos) / *"Por qué nos interesa"* (valoración) / *"Puntos pendientes"* o *"Matriz de verificación técnica"* (tabla con `.badge-observacion` *Pendiente* y `.badge-valorar` *A valorar*) / *"Próximos pasos"*.
 
-### Formato
-1. **Sin portada independiente** en documentos cortos: cabecera con logo + kicker + título + subtítulo + ficha en la primera página.
-2. **Logo**: siempre **a la derecha** (convención de los documentos de OCA). Usar el PNG recortado sin márgenes transparentes (el original de 1024×684 tiene mucho aire y se ve diminuto). Altura 40 pt.
-3. **Etiqueta de cabecera**: a la izquierda, sin caja ni fuente monoespaciada. "CONFIDENCIAL" (rojo, mayúsculas espaciadas) + "Uso interno" (gris). Alineada abajo con la línea base de "GLOBAL" (no arriba ni centrada). No poner códigos de referencia inventados. Si un texto con `letter-spacing` va alineado a la derecha, compensar el espaciado final con `margin-right` negativo.
-4. **Firma**: sin caja ni "Elaborado por". Nombre en negrita + cargo, barra roja fina a la izquierda y ~26 pt de separación del último párrafo. Autor por defecto: *Joel Juana Teixidor · Responsable de Innovación · OCA Global*.
-5. **Numeración coherente**: números en rojo corporativo en secciones y subsecciones.
-6. **Listas alineadas a la izquierda** (el justificado crea huecos en líneas cortas); párrafos justificados con `text-wrap: pretty` para evitar palabras sueltas.
-7. **Cabecera corrida en páginas 2+** vía `@page` margin boxes: `@top-left` con el tipo de documento (gris) y `@top-right` con "OCA GLOBAL" (azul, negrita espaciada), suprimida en `@page :first`. Pie con "Página X de Y".
-8. **HTML siempre con atributos entre comillas** (`class="..."`, `style="..."`) y `content: "..."` en CSS: se detectó un documento con las comillas eliminadas que rompía estilos.
-9. **Tipografía corporativa**: Arial (cuerpo) + Arial Black (títulos), como el manual de OCA. No usar Inter, monoespaciadas ni Google Fonts.
+### Formato visual
+1. **Sin portada independiente** en documentos de 2–4 páginas: cabecera con logo + kicker + título + subtítulo + ficha `.oca-meta-grid` en la primera página.
+2. **Logo siempre a la derecha (`40 pt` de alto)** usando `logo_oca_global.png` (recortado sin márgenes transparentes).
+3. **Etiqueta de cabecera a la izquierda**: Sin caja ni fuente monoespaciada (`CONFIDENCIAL` en rojo + `Uso interno` en gris), alineada con la base de la palabra `"GLOBAL"`.
+4. **Tipografía corporativa**: `Arial` (cuerpo `10 pt`, ficha y tablas `9 pt`) + `Arial Black` (`font-weight: normal`, títulos `.doc-title` y `.oca-h1`). Prohibido usar `@import` de Google Fonts.
+5. **Firma (`.doc-signoff`)**: Sin recuadro ni *"Elaborado por:"*. Barra roja a la izquierda, nombre en negrita azul y cargo debajo (por defecto: *Joel Juana Teixidor · Responsable de Innovación · OCA Global*).
 
 ---
 
 ## Protocolo Operativo del Agente (Paso a Paso)
 
-Cuando se solicite maquetar un documento:
+### Paso 1: Clasificación y Selección de Plantilla
+* Identificar el ámbito (`oca_global`, `actas_comunidad`, `dossier_financiero` o `seat_124_taller`) y leer el `IDENTIDAD_CORPORATIVA.md` y el archivo `reglas_<tipo>.md` correspondiente de `presets/<preset>/`.
+* Para inicializar rápidamente una carpeta nueva, puedes usar el script [`new-doc.ps1`](file:///C:/Users/jjtei/.gemini/config/skills/gestiona_editorial/scripts/new-doc.ps1):
+  ```powershell
+  & "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\new-doc.ps1" -Preset oca_global -Tipo due_diligence -Slug "due-diligence-empresa"
+  ```
 
-### Paso 1: Clasificación del Documento
-* **Determinar siempre si es Personal o de Trabajo (OCA Global)**. Si no viene especificado en la petición, **preguntar al usuario** antes de generar la plantilla.
+### Paso 2: Compilación Editorial en 1 Comando (`build_editorial.js`)
+Ejecutar el CLI Node.js [`build_editorial.js`](file:///C:/Users/jjtei/.gemini/config/skills/gestiona_editorial/scripts/build_editorial.js) para:
+1. Renderizar el PDF A4 vectorial con Microsoft Edge Headless.
+2. Generar las capturas de verificación en `preview/page_1.png`, `preview/page_2.png`, etc.
+3. Verificar que no supere el objetivo de páginas (`--max-pages <N>`).
+4. Exportar automáticamente el archivo **Word (`.docx`)** tanto en documentos de **OCA Global** (`export-oca-docx.py`) como de **Comunidad de Propietarios** (`export-comunidad-docx.py`):
 
-### Paso 2: Recepcion y Estructuracion del Texto
-* Si es un enlace de Google Docs o borrador local: estructurarlo en secciones, metadatos y tablas.
-* Si es OCA Global: copiar `style.css`, `template.html` y `logo_oca_global.png` del preset a la carpeta del documento (`IA_Proyectos/docs/editorial/OCA Global/<aaaa-mm-nombre>/`), hacer las preguntas de la sección "Lecciones Aprendidas" y sustituir todos los `[placeholders]` (también los de `@page` en el CSS).
-
-### Paso 3: Compilación Editorial en 1 Comando (`build_editorial.js` o `compile-pdf.ps1`)
-Ejecutar el CLI Node.js **`build_editorial.js`** para renderizar el PDF A4 vectorial con Edge Headless, generar automáticamente las capturas de verificación en `preview/page_1.png`, `preview/page_2.png`, etc., comprobar que no exceda el objetivo de páginas (`--max-pages <N>`) y exportar automáticamente el archivo **Word (`.docx`)** en documentos de **OCA Global**:
 ```powershell
 node "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\build_editorial.js" "C:\ruta\a\la\carpeta\documento.html" --max-pages 2
 ```
 * Opciones soportadas por `build_editorial.js`:
-  - `--max-pages <N>`: Verifica que el PDF resultante no supere `N` páginas; si las supera, imprime una alerta destacada en consola indicando qué página revisar.
-  - `--pdf <ruta.pdf>`: Personaliza el nombre o ruta del archivo PDF de salida.
+  - `--max-pages <N>`: Verifica que el PDF resultante no supere `N` páginas; si las supera, muestra una alerta indicando qué página revisar.
+  - `--pdf <ruta.pdf>`: Personaliza el nombre o ruta del archivo PDF (y DOCX) de salida.
   - `--dpi <N>`: Resolución de las capturas PNG en `preview/` (por defecto `130`).
-  - `--no-docx`: Omite la generación automática del archivo `.docx` en documentos de OCA Global.
-* Alternativa en PowerShell (`compile-pdf.ps1`):
-```powershell
-& "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\compile-pdf.ps1" -HtmlPath "C:\ruta\a\la\carpeta\documento.html" -Preview
-```
-* Si se desea regenerar únicamente el archivo Word (`.docx`):
-```powershell
-python "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\export-oca-docx.py" "C:\ruta\a\la\carpeta\documento.html"
-```
+  - `--no-docx`: Omite la generación automática del archivo `.docx`.
 
-### Paso 4: Verificacion Visual Obligatoria y Limpieza
-* Revisar las capturas generadas en `preview/page_1.png`, `preview/page_2.png`, etc. con `view_file` (huecos, títulos huérfanos, firma desbordada, número de páginas).
-* Para detalles finos (alineaciones de cabecera), renderizar un recorte a 200 dpi con `clip=pymupdf.Rect(...)`.
-* Si el documento va a servirse en el **Centro Editorial y Visor Documental** (`docs/editorial/index.html`), conservar `preview/page_1.png`, `preview/page_2.png`, etc. para que el visor modal interactivo muestre las páginas al instante.
+### Paso 3: Verificación Visual Obligatoria y Registro en el Visor
+* Inspeccionar siempre las capturas generadas en `preview/page_1.png`, `preview/page_2.png`, etc. con `read_file` para comprobar que no haya huecos, títulos huérfanos, firmas desbordadas ni cortes en bloques `.hoja-a4`.
+* Conservar la carpeta `preview/` y registrar el documento en [`docs/editorial/index.html`](file:///c:/Users/jjtei/Desktop/IA_Proyectos/docs/editorial/index.html) (`EDITORIAL_DOCS`) y en [`docs/editorial/README.md`](file:///c:/Users/jjtei/Desktop/IA_Proyectos/docs/editorial/README.md) para que el Centro Editorial interactivo esté siempre al día.
 
 ---
 
-## Procedimiento para Guardar Nuevos Presets de Estilo
+## Procedimiento para Crear o Actualizar Presets
 
-Cuando el usuario pida: *"Guarda este formato como estilo X"*:
-1. Crear la subcarpeta `presets/<nombre_preset>/` en ambas rutas de la skill:
-   - `C:/Users/jjtei/Desktop/IA_Configuracion/skills/gestiona_editorial/presets/<nombre_preset>/`
+Cuando se cree o mejore un preset de estilo:
+1. Actualizar `presets/<nombre_preset>/` en ambas rutas de la skill:
    - `C:/Users/jjtei/.gemini/config/skills/gestiona_editorial/presets/<nombre_preset>/`
-2. Guardar `style.css` con todas las fuentes, paleta y reglas CSS Paged Media.
-3. Guardar `template.html` como plantilla estructural de referencia.
-4. Actualizar el catalogo de presets en el `SKILL.md` de ambas carpetas.
+   - `C:/Users/jjtei/Desktop/IA_Configuracion/skills/gestiona_editorial/presets/<nombre_preset>/`
+2. Sincronizar la carpeta `<Ámbito>/_identidad/` correspondiente dentro de `C:/Users/jjtei/Desktop/IA_Proyectos/docs/editorial/`.

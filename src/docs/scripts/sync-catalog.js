@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename);
 
 // Rutas absolutas a los proyectos
 const configuracionRoot = 'C:/Users/jjtei/Desktop/IA_Configuracion';
+const geminiActiveConfigRoot = 'C:/Users/jjtei/.gemini/config';
 const proyectosRoot = 'C:/Users/jjtei/Desktop/IA_Proyectos';
 const infraestructuraRoot = 'C:/Users/jjtei/Desktop/IA_Infraestructura';
 const documentacionRoot = 'C:/Users/jjtei/Desktop/IA_Documentacion';
@@ -417,6 +418,20 @@ ${skillData.body}
       const targetPath = path.join(targetSkillsDir, filename);
       fs.writeFileSync(targetPath, fileContent, 'utf8');
       console.log(`Ficha de skill individual creada en: ${targetPath}`);
+
+      // Sincronizar también al directorio activo de Antigravity (~/.gemini/config/skills/<item>) como carpeta física real (nunca Junction/ReparsePoint)
+      try {
+        const activeSkillDir = path.join(geminiActiveConfigRoot, 'skills', item);
+        if (fs.existsSync(activeSkillDir)) {
+          const lstat = fs.lstatSync(activeSkillDir);
+          if (lstat.isSymbolicLink()) {
+            fs.rmSync(activeSkillDir, { recursive: true, force: true });
+          }
+        }
+        fs.cpSync(itemPath, activeSkillDir, { recursive: true, force: true });
+      } catch (err) {
+        console.warn(`Aviso al sincronizar skill activa ${item}:`, err.message);
+      }
     }
   });
 
@@ -886,6 +901,7 @@ if (process.argv.includes('--watch')) {
     { targetPath: skillsDir, recursive: true },
     { targetPath: proyectosReglasDir, recursive: true },
     { targetPath: projectsJsonPath, recursive: false },
+    { targetPath: path.join(proyectosRoot, 'docs', 'editorial'), recursive: false },
     { targetPath: path.join(documentacionRoot, 'CHANGELOG.md'), recursive: false }
   ];
 

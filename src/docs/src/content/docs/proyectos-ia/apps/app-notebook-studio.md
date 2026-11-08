@@ -7,8 +7,8 @@ description: "Ficha técnica y documentación de la aplicación app-notebook-stu
 *   **Tipo**: `react`
 *   **Creado el**: 2026-08-14
 *   **Autor**: JoelJuana
-*   **URL Pública**: [https://notebook-studio.gironacc.com](https://notebook-studio.gironacc.com)
-*   **Etiquetas**: `React`, `Notebooks`, `Conocimiento`, `Estudio`, `Vite`
+*   **URL Pública**: [https://notebook-studio.web.app](https://notebook-studio.web.app)
+*   **Etiquetas**: `React`, `Notebooks`, `Conocimiento`, `Estudio`
 
 ---
 

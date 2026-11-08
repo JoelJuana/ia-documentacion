@@ -66,7 +66,7 @@ Selecciona la sección correspondiente para acceder de forma inmediata a los con
 <div class="dashboard-grid">
   <div class="dashboard-card">
     <h3>Proyectos Registrados</h3>
-    <p class="stat-number">12</p>
+    <p class="stat-number">13</p>
   </div>
   <div class="dashboard-card">
     <h3>Skills de Agente</h3>

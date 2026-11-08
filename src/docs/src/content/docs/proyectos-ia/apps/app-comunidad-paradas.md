@@ -8,7 +8,7 @@ description: "Ficha técnica y documentación de la aplicación app-comunidad-pa
 *   **Creado el**: 2026-06-28
 *   **Autor**: JoelJuana
 *   **URL Pública**: [https://paradas.gironacc.com](https://paradas.gironacc.com)
-*   **Etiquetas**: `Comunidad`, `Paradas`, `React`, `Finanzas`, `Vite`
+*   **Etiquetas**: `Comunidad`, `Paradas`, `React`, `Finanzas`
 
 ---
 

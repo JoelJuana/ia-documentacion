@@ -8,7 +8,7 @@ description: "Ficha técnica y documentación de la aplicación app-bp-inversion
 *   **Creado el**: 2026-08-08
 *   **Autor**: JoelJuana
 *   **URL Pública**: [https://compra-piso.gironacc.com](https://compra-piso.gironacc.com)
-*   **Etiquetas**: `Finanzas`, `Business Plan`, `Vanilla`, `Inmobiliaria`
+*   **Etiquetas**: `Finanzas`, `Business Plan`, `Inmobiliaria`
 
 ---
 

@@ -7,8 +7,8 @@ description: "Ficha técnica y documentación de la aplicación app-bp-cuidadora
 *   **Tipo**: `vanilla`
 *   **Creado el**: 2026-08-27
 *   **Autor**: JoelJuana
-*   **URL Pública**: [https://cuidadora-abuela.gironacc.com](https://cuidadora-abuela.gironacc.com)
-*   **Etiquetas**: `Finanzas`, `Business Plan`, `Vanilla`, `Cuidados`, `Familia`
+*   **URL Pública**: [https://bp-cuidadora-abuela.web.app](https://bp-cuidadora-abuela.web.app)
+*   **Etiquetas**: `Finanzas`, `Business Plan`, `Cuidados`, `Familia`
 
 ---
 

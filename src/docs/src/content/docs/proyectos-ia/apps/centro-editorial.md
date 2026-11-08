@@ -7,86 +7,92 @@ description: "Ficha técnica y documentación de la aplicación centro-editorial
 *   **Tipo**: `vanilla`
 *   **Creado el**: 2026-10-18
 *   **Autor**: JoelJuana
-*   **Etiquetas**: `Editorial`, `Documentación`, `PDF`, `OCA Global`, `Vanilla`
+*   **Etiquetas**: `Editorial`, `Dossiers`, `PDF`, `OCA Global`
 
 ---
 
-# IA_Editorial — Estudio de Maquetación y Publicación de Documentos (v2.0)
+# IA_Editorial — Estudio de Maquetación y Publicación de Documentos
 
-Espacio de trabajo centralizado para la redacción, maquetación profesional y exportación simultánea a **PDF vectorial (A4)** y **Word / Google Docs (`.docx`)** de documentos corporativos de **OCA Global** y documentos jurídicos/comunitarios de la **Comunidad de Propietarios**.
+Espacio de trabajo centralizado para la redacción, maquetación profesional y exportación simultánea a **PDF vectorial (A4)** y **Word / Google Docs (`.docx`)** mediante la skill [`gestiona_editorial`](file:///C:/Users/jjtei/.gemini/config/skills/gestiona_editorial/SKILL.md).
+
+Cada uno de los **ámbitos del estudio** tiene su propia carpeta **`_identidad/`** con el mismo esquema simétrico: su manual de **Identidad Corporativa** (`IDENTIDAD_CORPORATIVA.md`), su hoja de estilos maestra (`style.css`) y las **reglas y plantillas separadas por cada tipo de documento**.
 
 ---
 
-## Arquitectura de Carpetas del Estudio Editorial
+## Arquitectura de Carpetas (Simétrica por Ámbito y Preset)
 
 ```text
 docs/editorial/
-├── _reglas/                                      # 📖 Reglas modulares por ámbito y tipo de documento
-│   ├── 00_paginacion_y_maquetacion_a4.md         # Reglas universales de saltos de página, viudas/huérfanas y A4
-│   ├── oca_01_identidad_y_tono_corporativo.md    # Manual visual OCA Global (Arial/Arial Black) y tono sobrio
-│   ├── oca_02_due_diligence_y_notas_reunion.md   # Cuestionario previo y estructura de Due Diligence preliminar
-│   ├── oca_03_informes_tecnicos_y_propuestas.md  # Estructura de informes técnicos, auditorías y memorias OCA
-│   ├── comunidad_01_actas_y_acuerdos.md          # Estructura de Actas de Junta y Sesiones de Trabajo (Modalidad A)
-│   ├── comunidad_02_estatutos_y_reglamentos.md   # Estructura de Estatutos y Reglamentos articulados (Modalidad B)
-│   └── taller_01_manual_electrico_seat124.md     # Reglas técnicas y fuente única de verdad SEAT 124 FL
 │
-├── _plantillas/                                  # 🎨 Plantillas base y hojas de estilo maestras (espejo de la skill)
-│   ├── oca_global/                               # style.css, template.html y logo_oca_global.png
-│   ├── actas_comunidad/                          # style.css y template.html (Modalidad A + Modalidad B)
-│   └── seat_124_taller/                          # style.css y template.html (Manual técnico automotriz)
+├── 🏢 OCA Global/                                    # 1. PRESET: oca_global (Ámbito Corporativo)
+│   ├── _identidad/                                   # 🎨 Imagen Corporativa y Plantillas de OCA Global
+│   │   ├── IDENTIDAD_CORPORATIVA.md                  # Colores (#0B3356, #DE473C), Arial/Arial Black, cabeceras y tono
+│   │   ├── style.css                                 # Hoja de estilos corporativa maestra
+│   │   ├── logo_oca_global.png                       # Logotipo oficial recortado (40 pt)
+│   │   ├── reglas_due_diligence.md                   # Reglas para Due Diligence preliminar (Fase 1) y notas de reunión
+│   │   ├── plantilla_due_diligence.html              # Plantilla base Due Diligence
+│   │   ├── reglas_informe_tecnico.md                 # Reglas para Informes Técnicos, Propuestas y Protocolos Fase 2
+│   │   └── plantilla_informe_tecnico.html            # Plantilla base Informe Técnico / Checklist
+│   │
+│   ├── 2026-10-due-diligence-alabe-ingenieros/       # 📄 Due Diligence Preliminar Fase 1 (HTML + PDF + DOCX)
+│   └── 2026-10-due-diligence-tecnica-alabe-fase2/    # 📄 Protocolo y Checklist Técnico Fase 2 (HTML + PDF + DOCX)
 │
-├── OCA Global/                                   # 🏢 Producción documental corporativa (OCA Global)
-│   └── 2026-10-due-diligence-alabe-ingenieros/   # HTML + CSS + PDF vectorial + Word (.docx)
+├── 🏛️ CP Mercat Devesa/                              # 2. PRESET: actas_comunidad (Ámbito Jurídico / Comunidad)
+│   ├── _identidad/                                   # 🎨 Imagen Institucional y Plantillas de la Comunidad
+│   │   ├── IDENTIDAD_CORPORATIVA.md                  # Colores (#1B3A5C, #2B6CB0), Inter + Merriweather y estilo legal
+│   │   ├── style.css                                 # Hoja de estilos institucional maestra
+│   │   ├── reglas_acta_reunion.md                    # Reglas para Actas de Junta, Sesiones y Acuerdos (Modalidad A)
+│   │   ├── plantilla_acta_reunion.html               # Plantilla exclusiva para Actas de Reunión
+│   │   ├── reglas_estatutos_reglamento.md            # Reglas para Estatutos y Reglamentos Libro V CCCat (Modalidad B)
+│   │   └── plantilla_estatutos_reglamento.html       # Plantilla exclusiva para Estatutos y Reglamentos
+│   │
+│   ├── 2026-08-acta-devesa/                          # 📄 Acta de Sesión de Trabajo (HTML + PDF + DOCX)
+│   ├── 2026-10-acta-devesa/                          # 📄 Documento de Alineación Técnica (HTML + PDF + DOCX)
+│   ├── 2026-10-estatutos-devesa/                     # 📄 Texto Refundido de los Estatutos (HTML + PDF + DOCX)
+│   └── 2026-10-reglamento-almacenes/                 # 📄 Reglamento Interno de Almacenes (HTML + PDF + DOCX)
 │
-├── CP Mercat Devesa/                             # 🏛️ Producción documental Comunidad de Propietarios
-│   ├── 2026-08-acta-devesa/                      # Acta de Sesión de Trabajo (HTML + PDF + DOCX)
-│   ├── 2026-10-acta-devesa/                      # Documento de Alineación Técnica (HTML + PDF + DOCX)
-│   ├── 2026-10-estatutos-devesa/                 # Texto Refundido de los Estatutos (HTML + PDF + DOCX)
-│   └── 2026-10-reglamento-almacenes/             # Reglamento Interno de Almacenes (HTML + PDF + DOCX)
+├── 📈 Compra Farmacia/ & 🏨 Ramon Turro/             # 3. PRESET: dossier_financiero (Inversión, Banca y Fiscalidad)
+│   ├── _identidad/                                   # 🎨 Imagen Ejecutiva de Planes de Negocio (.hoja-a4 100%)
+│   │   ├── IDENTIDAD_CORPORATIVA.md                  # Colores (#1B3A5C, #0F766E, #B45309, #5B21B6), Inter + Merriweather
+│   │   ├── style.css                                 # Hoja de estilos maestra (.hoja-a4 Inversores + .hoja-densa)
+│   │   ├── reglas_dossier_financiero.md              # Reglas de Dossiers Financieros, KPIs y Estrategia Fiscal
+│   │   └── plantilla_dossier_financiero.html         # Plantilla base de Hoja A4 al 100% de ocupación
+│   │
+│   ├── 2026-11-plan-financiero-estrategia-real/      # 📄 Dossier Compraventa Farmacia: Socios, Vendedor y Comprador (3 Págs.)
+│   └── 2026-10-plan-financiero-estrategia-real/      # 📄 Plan de Negocio y Anexos Ramón Turró — Girona (9 Págs.)
 │
-└── SEAT 124 FL - Instalacion Electrica/          # 🔧 Manual de Taller e Instalación Eléctrica (SEAT 124 FL)
-    ├── circuitos/ESPECIFICACION.md               # Fuente única de verdad (fusibles, relés, conectores y pines)
-    ├── Manual_Instalacion_Electrica_SEAT_124_FL  # Manual completo HTML + PDF
-    └── Hoja_Ayuda_Leyenda_y_Pines_SEAT_124_FL    # Hoja de ayuda rápida de taller HTML + PDF
+└── 🔧 SEAT 124 FL - Instalacion Electrica/           # 4. PRESET: seat_124_taller (Ingeniería y Manual de Taller)
+    ├── _identidad/                                   # 🎨 Imagen Técnica SEAT Sport / Bosch Classic
+    │   ├── IDENTIDAD_CORPORATIVA.md                  # Colores (#C8102E, #111827, #D97706), Barlow + IBM Plex + Mono
+    │   ├── style.css                                 # Hoja de estilos técnica de taller
+    │   ├── reglas_manual_electrico.md                # Reglas de esquemas SVG y tablas de pines DIN 72552
+    │   └── plantilla_ficha_circuito.html             # Plantilla base para fichas de circuito
+    │
+    ├── circuitos/                                    # ⚡ ESPECIFICACION.md + C01..C15.html + generar_manual.py
+    ├── manual_original/                              # 📚 Esquemas originales de referencia
+    ├── style.css                                     # Hoja de estilos activa del manual
+    ├── Manual_Instalacion_Electrica_SEAT_124_FL.html # 📄 Fuente HTML unificada del manual
+    └── Manual_Instalacion_Electrica_SEAT_124_FL.pdf  # 📄 Manual completo en PDF vectorial (10 Hojas)
 ```
 
 ---
 
-## Scripts Automatizados (Skill `gestiona_editorial`)
+## Catálogo de los 4 Presets Editoriales
 
-1. **Inicializar un nuevo documento (`new-doc.ps1`)**:
-   Crea automáticamente la subcarpeta con fecha `AAAA-MM-slug` dentro de `OCA Global/` o `CP Mercat Devesa/` y copia la plantilla y el CSS oficial:
-   ```powershell
-   & "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\new-doc.ps1" -Preset oca_global -Slug "informe-ejemplo"
-   ```
-
-2. **Compilar a PDF vectorial + Word/Google Docs (`.docx`) en un paso (`compile-pdf.ps1`)**:
-   Genera simultáneamente el `.pdf` con Edge Headless y el `.docx` nativo (usando `export-oca-docx.py` o `export-comunidad-docx.py`), además de las capturas de verificación si se añade `-Preview`:
-   ```powershell
-   & "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\compile-pdf.ps1" -HtmlPath ".\ruta\al\documento.html" -Preview
-   ```
+| Preset | Ámbito / Proyectos | Colores Principales | Tipografías | Tipos de Documento y Paginación |
+|---|---|---|---|---|
+| **`oca_global`** | **OCA Global** | Azul marino `#0B3356` · Rojo logo `#DE473C` · Gris tabla `#F2F2F2` | `Arial Black` (títulos) + `Arial` (cuerpo y tablas) | 1. **Due Diligence Preliminar (Fase 1)**<br>2. **Protocolo Técnico (Fase 2) / Informe Técnico**<br>*(Flujo editorial continuo + DOCX)* |
+| **`actas_comunidad`** | **CP Mercat Devesa** | Azul clásico `#1B3A5C` · Azul noche `#0D1F33` · Azul acuerdos `#2B6CB0` | `Inter` (títulos, fichas y tablas) + `Merriweather` (cuerpo Serif) | 1. **Acta de Reunión y Acuerdos (Mod. A)**<br>2. **Estatutos y Reglamentos CCCat (Mod. B)**<br>*(Flujo editorial continuo + DOCX)* |
+| **`dossier_financiero`** | **Compra Farmacia**<br>**Ramón Turró** | Azul banca `#1B3A5C` · Esmeralda `#0F766E` · Ámbar `#B45309` · Púrpura `#5B21B6` | `Inter` (títulos, KPIs, tablas y fichas) + `Merriweather` (introducción) | 1. **Dossier Bancario / Socios (`.hoja-a4`)**<br>2. **Anexos Fiscales Densos (`.hoja-densa`)**<br>*(Ocupación exacta 100 % por página A4)* |
+| **`seat_124_taller`** | **SEAT 124 FL** | Rojo SEAT `#C8102E` · Carbón `#111827` · Ámbar Bosch `#D97706` | `Barlow Condensed` + `IBM Plex Sans` + `JetBrains Mono` | 1. **Manual Eléctrico y Fichas de Circuito SVG**<br>*(Alta densidad técnica + DIN 72552)* |
 
 ---
 
-## Inventario de Documentos Publicados
+## Compilación en 1 Comando (PDF + Previews PNG + Word `.docx`)
 
-### 1. `OCA Global/` (Ámbito Laboral y Corporativo)
+Para compilar cualquier documento a **`.pdf`**, regenerar sus capturas **`preview/page_X.png`**, validar el límite de páginas y exportar automáticamente a **`.docx`** (en OCA Global y Comunidad de Propietarios):
 
-| Fecha | Carpeta | Entregables (PDF + Word / Google Docs) | Tipo / Regla Aplicada | Estado |
-|---|---|---|---|---|
-| 2026-10 | `OCA Global/2026-10-due-diligence-alabe-ingenieros/` | `due_diligence_alabe_ingenieros.pdf` + `.docx` (2 págs.) | `oca_02_due_diligence` | ✅ Validado |
+```powershell
+node "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\build_editorial.js" ".\ruta\al\documento.html" --max-pages 3
+```
 
-### 2. `CP Mercat Devesa/` (Comunidad de Propietarios)
-
-| Fecha | Carpeta | Entregables (PDF + Word / Google Docs) | Tipo / Regla Aplicada | Estado |
-|---|---|---|---|---|
-| 2026-08 | `CP Mercat Devesa/2026-08-acta-devesa/` | `Acta_Sesion_Trabajo_Devesa.pdf` + `.docx` | `comunidad_01_actas` | ✅ Finalizado |
-| 2026-10 | `CP Mercat Devesa/2026-10-acta-devesa/` | `Documento_Alineacion_Estatutos_Devesa_Octubre_2026.pdf` + `.docx` | `comunidad_01_actas` | ✅ Finalizado |
-| 2026-10 | `CP Mercat Devesa/2026-10-estatutos-devesa/` | `Estatutos_Comunidad_General_Mercado_Devesa_Octubre_2026.pdf` + `.docx` | `comunidad_02_estatutos` | ✅ Finalizado |
-| 2026-10 | `CP Mercat Devesa/2026-10-reglamento-almacenes/` | `Reglamento_Interno_Comunidad_Almacenes_Devesa.pdf` + `.docx` | `comunidad_02_estatutos` | 📝 Pendiente datos registrales |
-
-### 3. `SEAT 124 FL - Instalacion Electrica/` (Ingeniería y Manual de Taller)
-
-| Fecha | Carpeta | Entregables (PDF + HTML + SVG) | Tipo / Regla Aplicada | Estado |
-|---|---|---|---|---|
-| 2026-10 | `SEAT 124 FL - Instalacion Electrica/` | `Manual_Instalacion_Electrica_SEAT_124_FL.pdf` + `Hoja_Ayuda_Leyenda_y_Pines_SEAT_124_FL.pdf` | `taller_01_manual_electrico` | ✅ En evolución |

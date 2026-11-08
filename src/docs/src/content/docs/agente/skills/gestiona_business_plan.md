@@ -50,3 +50,16 @@ Todos los simuladores deben compartir exactamente la misma línea estética limp
 2. **Columna "Año" y Cabeceras Fijas (Sticky 100% Responsive Mobile)**:
    - Cabecera fija (`sticky top-0 z-30`) y primera columna fija en horizontal (`sticky left-0 z-20 bg-slate-900`).
 3. **Interactividad Total**: Hacer clic en cualquier fila selecciona ese ejercicio (`window.selectYearFromTable(year)`), sincroniza en la nube y actualiza las tarjetas de P&G, Flujo de Caja y Balance.
+
+## Reglas de Rigor Financiero, Auditoría Bancaria y Librería Compartida (`bp-core.js`)
+1. **Librería Compartida (`apps/business-plans/shared/bp-core.js`)**:
+   - Todos los simuladores deben importar las utilidades comunes desde `../../shared/bp-core.js` (`formatCurrency`, `formatNumber`, `initAutohideHeader`, `initYearButtons`, `createCloudSync`, `exportToCSV`, `bindTooltipSystem`).
+2. **CAPEX Total de la Operación vs. Base Financiable LTV**:
+   - `capexTotal` debe reflejar el coste total real de la inversión (`capexFinanciable + costesTramites`), incluyendo gastos de escritura, AJD, licencias de obra y honorarios técnicos, explicando en su tooltip qué importe constituye la base financiable mediante hipoteca/préstamo y qué importe se cubre con fondos propios (*Equity*).
+3. **Límite de Póliza de Crédito (TVA / Circulante)**:
+   - El límite recomendado de póliza de crédito (`limitePoliza` / `necesidadMaximaPoliza`) debe calcularse evaluando el máximo global de toda la proyección (`0..25` años): `Math.max(picoIvaPoliza + polizaDispuestaAno0, maxPolizaCierre)`, garantizando que cubra tanto el puente de IVA del Año 0 como cualquier déficit transitorio de explotación durante el *ramp-up*.
+4. **Desglose Explícito en Tooltips Contables y Fiscales**:
+   - En el bloque `3. Resultados (P&G Contable AEAT)`, las partidas de amortización deben indicar explícitamente la tasa anual y la base amortizable de cada componente (p. ej., `2%` sobre construcción excluido suelo y `2%`/`5%`/`10%` sobre obra civil, instalaciones y mobiliario), diferenciando entre amortización contable (PGC) y ajuste extracontable de amortización fiscal acelerada (Art. 103 LIS).
+5. **Sincronización Inicial de HTML Estático y Dossier Bancario PDF**:
+   - Los valores por defecto renderizados en `src/index.html` deben coincidir exactamente con el escenario base de `src/js/engine.js` para evitar parpadeos (*flash of stale values*) al cargar la página.
+   - Si el proyecto dispone de Dossier Bancario en el Centro Editorial (`docs/editorial/`), el archivo PDF compilado debe copiarse también en `src/public/docs/` del simulador para que el botón de descarga sirva siempre la última versión auditada.

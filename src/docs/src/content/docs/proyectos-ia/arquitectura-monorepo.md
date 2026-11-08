@@ -13,31 +13,37 @@ Este artículo explica la arquitectura, el diseño conceptual y los motivos orga
 
 El monorepositorio `IA_Proyectos` está organizado físicamente en carpetas especializadas que facilitan la administración autónoma por parte de agentes de IA y desarrolladores:
 
-```
+```text
 IA_Proyectos/
-├── .agents/                    # Reglas específicas del workspace de proyectos
-│   └── AGENTS.md               # Sincronizado automáticamente desde IA_Configuracion
-├── apps/                       # Subproyectos individuales (APIs, Web Apps, Simuladores)
-│   ├── api-administrador-comunidad-paradas/  # API modular para gestión de alquileres (FastAPI)
-│   ├── app-calendario-farmacia/ # Planificador de turnos de la farmacia 2026 (React)
-│   ├── documentacion-farmacia/ # Validador y portal de procedimientos de farmacia (Starlight)
-│   ├── workspace-skill-lab/    # Servidor MCP local para control de Google Workspace (Node/TS)
-│   └── business-plans/         # Suite integrada de simuladores financieros
-│       ├── app-bp-caravanas/   # Simulador para alquiler de caravanas
-│       ├── app-bp-comunidad-trasteros/  # Simulador para alquiler de trasteros
-│       ├── app-bp-velero/      # Planificador de costes y amortización de barcos
-│       ├── landing/            # Landing page unificada de acceso
-│       └── build-all.js        # Script de compilación masiva de business plans
-├── dist/                       # Catálogo web unificado compilado para producción
-├── docs/                       # Documentos adicionales y archivos de soporte
-│   ├── _documentos/            # Esquemas y assets de diseño
-│   └── _plantillas/            # Plantillas HTML/CSS y layouts
-├── scripts/                    # Scripts de orquestación de compilación y creación
-│   ├── build-portfolio.js      # Genera el portafolio estático dinámico en dist/
-│   ├── create_project.ps1      # Automatiza la creación y registro de apps
-│   └── sincronizar-antigravity-manager.ps1 # Utilidad de sincronización
-├── projects.json               # Inventario centralizado de proyectos activos
-└── package.json                # Configuración básica de dependencias raíz
+├── .agents/                                  # Reglas específicas del workspace de proyectos
+│   └── AGENTS.md                             # Sincronizado automáticamente desde IA_Configuracion
+├── apps/                                     # Subproyectos individuales (Web Apps, Portales y Simuladores)
+│   ├── app-calendario-farmacia/              # Planificador de turnos y guardias de farmacia (React)
+│   ├── app-comunidad-paradas/                # Panel de gestión Comunidad Mercat de la Devesa (React)
+│   ├── app-notebook-studio/                  # Entorno interactivo de cuadernos digitales IA (React)
+│   ├── documentacion-farmacia/               # Portal de PNT y protocolos de farmacia (Astro Starlight)
+│   ├── workspace-skill-lab/                  # Servidor MCP local para Google Workspace (Node/TS)
+│   └── business-plans/                       # Suite integrada de 6 simuladores financieros (Vanilla + Vite)
+│       ├── app-bp-caravanas/                 # Custodia y alquiler de caravanas en naves industriales
+│       ├── app-bp-compra-farmacia/           # Compraventa de Oficina de Farmacia (Comprador vs Vendedor)
+│       ├── app-bp-cuidadora-abuela/          # Planificación familiar y costes de cuidados asistenciales
+│       ├── app-bp-inversion-compra-piso/     # Viabilidad financiera y fiscal de inversión en vivienda
+│       ├── app-bp-ramon-turro/               # Rehabilitación y explotación hotelera a 25 años (Girona)
+│       └── app-bp-velero/                    # Inversión, chárter y amortización de embarcaciones
+├── dist/                                     # Catálogo web unificado compilado para producción
+├── docs/                                     # Documentación corporativa y Estudio Editorial A4
+│   └── editorial/                            # Centro Editorial y Visor Documental A4 (PDF + DOCX)
+│       ├── _reglas/                          # Reglas modulares de paginación A4 y estilo por ámbito
+│       ├── _plantillas/                      # Presets maestros (oca_global, actas_comunidad, dossier_financiero, seat_124_taller)
+│       ├── OCA Global/                       # Informes técnicos, auditorías y due diligence corporativa
+│       ├── CP Mercat Devesa/                 # Actas de junta, estatutos y reglamentos comunitarios
+│       ├── Finanzas_y_Dossiers/              # Dossiers ejecutivos bancarios A4 vinculados a Business Plans
+│       └── SEAT 124 FL - Instalacion Electrica/ # Manual eléctrico de taller y esquemas técnicos
+├── scripts/                                  # Scripts de orquestación y compilación del portafolio
+│   └── build-portfolio.js                    # Genera el portafolio estático dinámico en dist/
+├── firebase.json                             # Configuración de Firebase Hosting Multisite
+├── projects.json                             # Inventario centralizado de los 13 proyectos activos
+└── package.json                              # Scripts y configuración raíz del monorepositorio
 ```
 
 ---

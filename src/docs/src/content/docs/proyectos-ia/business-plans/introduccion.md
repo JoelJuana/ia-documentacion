@@ -19,38 +19,43 @@ Los simuladores de negocio comparten recursos de estilo y estándares arquitect�
 
 ---
 
-## Simuladores Financieros Disponibles (5)
+## Simuladores Financieros Disponibles (6)
 
 Selecciona uno de los simuladores para consultar su ficha técnica detallada:
 
 <div class="dashboard-grid">
   <a href="/proyectos-ia/business-plans/app-bp-caravanas/" class="dashboard-card">
     <h3>app-bp-caravanas</h3>
-    <p>Analizador de modelo de negocio para alquiler de caravanas en naves industriales.</p>
+    <p>Simulador financiero y fiscal de modelo de negocio para custodia y alquiler de caravanas en naves industriales.</p>
   </a>
   <a href="/proyectos-ia/business-plans/app-bp-ramon-turro/" class="dashboard-card">
     <h3>app-bp-ramon-turro</h3>
-    <p>Simulador de viabilidad financiera para modelos de explotación inmobiliaria (Hotel Boutique, Coliving, Alquiler Tradicional) en Ramón Turró, Girona.</p>
+    <p>Modelo financiero y fiscal a 25 años para rehabilitación y explotación de hotel de 26 habitaciones en C/ Ramon Turró (Girona), con dossier bancario A4 de 9 páginas.</p>
+  </a>
+  <a href="/proyectos-ia/business-plans/app-bp-compra-farmacia/" class="dashboard-card">
+    <h3>app-bp-compra-farmacia</h3>
+    <p>Simulador comparativo Comprador vs Vendedor para compraventa de Oficina de Farmacia (2 M€): 6 opciones estratégicas, S.L. de Parafarmacia, Fondo de Comercio (7,5%) e IRPF/IS.</p>
   </a>
   <a href="/proyectos-ia/business-plans/app-bp-velero/" class="dashboard-card">
     <h3>app-bp-velero</h3>
-    <p>Planificador de inversión y amortización para adquisición de embarcaciones recreativas.</p>
+    <p>Planificador de inversión, explotación en chárter, financiación y amortización fiscal para adquisición de embarcaciones recreativas.</p>
   </a>
   <a href="/proyectos-ia/business-plans/app-bp-inversion-compra-piso/" class="dashboard-card">
     <h3>app-bp-inversion-compra-piso</h3>
-    <p>Simulador genérico de viabilidad y Business Plan para adquisición, reforma y explotación inmobiliaria de piso.</p>
+    <p>Simulador de viabilidad financiera y fiscal para adquisición, reforma, hipoteca y explotación en alquiler de vivienda.</p>
   </a>
   <a href="/proyectos-ia/business-plans/app-bp-cuidadora-abuela/" class="dashboard-card">
     <h3>app-bp-cuidadora-abuela</h3>
-    <p>Simulador de costes y Business Plan de cuidados asistenciales para contratación de cuidadora del hogar, Seguridad Social y consumo de patrimonio.</p>
+    <p>Simulador de costes y planificación familiar para contratación de cuidadora del hogar, Seguridad Social, ayudas de dependencia y consumo de patrimonio.</p>
   </a>
 </div>
 
-*   **[app-bp-caravanas](/proyectos-ia/business-plans/app-bp-caravanas/)**: Analizador de modelo de negocio para alquiler de caravanas en naves industriales. — [ Producción](https://caravanas.gironacc.com)
-*   **[app-bp-ramon-turro](/proyectos-ia/business-plans/app-bp-ramon-turro/)**: Simulador de viabilidad financiera para modelos de explotación inmobiliaria (Hotel Boutique, Coliving, Alquiler Tradicional) en Ramón Turró, Girona. — [ Producción](https://ramon-turro.gironacc.com)
-*   **[app-bp-velero](/proyectos-ia/business-plans/app-bp-velero/)**: Planificador de inversión y amortización para adquisición de embarcaciones recreativas. — [ Producción](https://velero.gironacc.com)
-*   **[app-bp-inversion-compra-piso](/proyectos-ia/business-plans/app-bp-inversion-compra-piso/)**: Simulador genérico de viabilidad y Business Plan para adquisición, reforma y explotación inmobiliaria de piso. — [ Producción](https://compra-piso.gironacc.com)
-*   **[app-bp-cuidadora-abuela](/proyectos-ia/business-plans/app-bp-cuidadora-abuela/)**: Simulador de costes y Business Plan de cuidados asistenciales para contratación de cuidadora del hogar, Seguridad Social y consumo de patrimonio. — [ Producción](https://cuidadora-abuela.gironacc.com)
+*   **[app-bp-caravanas](/proyectos-ia/business-plans/app-bp-caravanas/)**: Simulador financiero y fiscal de modelo de negocio para custodia y alquiler de caravanas en naves industriales. — [ Producción](https://caravanas.gironacc.com)
+*   **[app-bp-ramon-turro](/proyectos-ia/business-plans/app-bp-ramon-turro/)**: Modelo financiero y fiscal a 25 años para rehabilitación y explotación de hotel de 26 habitaciones en C/ Ramon Turró (Girona), con dossier bancario A4 de 9 páginas. — [ Producción](https://ramon-turro.gironacc.com)
+*   **[app-bp-compra-farmacia](/proyectos-ia/business-plans/app-bp-compra-farmacia/)**: Simulador comparativo Comprador vs Vendedor para compraventa de Oficina de Farmacia (2 M€): 6 opciones estratégicas, S.L. de Parafarmacia, Fondo de Comercio (7,5%) e IRPF/IS. — [ Producción](https://compra-farmacia.gironacc.com)
+*   **[app-bp-velero](/proyectos-ia/business-plans/app-bp-velero/)**: Planificador de inversión, explotación en chárter, financiación y amortización fiscal para adquisición de embarcaciones recreativas. — [ Producción](https://velero.gironacc.com)
+*   **[app-bp-inversion-compra-piso](/proyectos-ia/business-plans/app-bp-inversion-compra-piso/)**: Simulador de viabilidad financiera y fiscal para adquisición, reforma, hipoteca y explotación en alquiler de vivienda. — [ Producción](https://compra-piso.gironacc.com)
+*   **[app-bp-cuidadora-abuela](/proyectos-ia/business-plans/app-bp-cuidadora-abuela/)**: Simulador de costes y planificación familiar para contratación de cuidadora del hogar, Seguridad Social, ayudas de dependencia y consumo de patrimonio. — [ Producción](https://bp-cuidadora-abuela.web.app)
 
 
 ---

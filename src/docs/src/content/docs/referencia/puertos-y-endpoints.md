@@ -62,9 +62,10 @@ Relación de sitios publicados mediante **Firebase Hosting Multisite** y sus sub
 | **Notebook Studio** | `app-notebook-studio` | `https://notebook-studio.gironacc.com` | React + Vite |
 | **BP Caravanas** | `app-bp-caravanas` | `https://caravanas.gironacc.com` | Vanilla + Vite |
 | **BP Ramón Turró** | `app-bp-ramon-turro` | `https://ramon-turro.gironacc.com` | Vanilla + Vite |
+| **BP Compra Farmacia** | `app-bp-compra-farmacia` | `https://compra-farmacia.gironacc.com` | Vanilla + Vite |
 | **BP Velero** | `app-bp-velero` | `https://velero.gironacc.com` | Vanilla + Vite |
 | **BP Inversión Compra Piso** | `app-bp-inversion-compra-piso` | `https://compra-piso.gironacc.com` | Vanilla + Vite |
-| **BP Cuidadora Abuela** | `app-bp-cuidadora-abuela` | `https://cuidadora-abuela.gironacc.com` | Vanilla + Vite |
+| **BP Cuidadora Abuela** | `app-bp-cuidadora-abuela` | `https://bp-cuidadora-abuela.web.app` | Vanilla + Vite |
 
 ---
 

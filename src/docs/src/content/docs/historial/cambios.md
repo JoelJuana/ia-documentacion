@@ -15,6 +15,22 @@ Todos los cambios y tareas notables de este monorepositorio y del ecosistema de 
 
 ---
 
+## [2026-11-08] — Sincronización con Centro Editorial v2.1 (4 Presets), Nuevo Simulador `app-bp-compra-farmacia` y Guía Diátaxis Editorial
+
+### Añadido
+- **Ficha Técnica `app-bp-compra-farmacia`**: Incorporación automática al catálogo de `Suite Business Plans` del nuevo simulador comparativo Comprador vs. Vendedor para compraventa de Oficina de Farmacia (`https://compra-farmacia.gironacc.com`), elevando el inventario a **13 proyectos activos**.
+- **Guía Operativa Editorial (`guias/maquetar-documento-editorial.md`)**: Nueva guía paso a paso bajo estándar Diátaxis para inicializar, maquetar y exportar documentos A4 (PDF vectorial + Word `.docx`) con los 4 presets oficiales de `gestiona_editorial`.
+
+### Mejorado
+- **Sincronización Física de Skills en Antigravity (`~/.gemini/config/skills`)**: Reemplazo de enlaces NTFS (`ReparsePoint` / Junctions) por directorios físicos reales y sincronización automática desde `sync-catalog.js`, garantizando que el escáner nativo de Antigravity en Windows cargue siempre las 12 habilidades del ecosistema.
+- **Actualización de `gestiona_business_plan`**: Incorporación de las reglas de auditoría financiera y bancaria (`bp-core.js`, CAPEX Total vs. Base Financiable LTV, dimensionamiento del límite de Póliza de Crédito evaluando `0..25` años y sincronización del Dossier Bancario PDF en `src/public/docs/`).
+- **Sincronización con `centro-editorial` y `gestiona_editorial`**: Actualización de las fichas técnicas con el cuarto preset oficial (`dossier_financiero`), la nueva carpeta `Finanzas_y_Dossiers/` (Dossiers ejecutivos de Ramón Turró y Compra de Farmacia) y las reglas modulares `_reglas/finanzas_01_dossiers_ejecutivos.md`.
+- **Arquitectura del Monorepo y Referencia de Dominios**: Actualización del árbol real de `IA_Proyectos` en `proyectos-ia/arquitectura-monorepo.md` (incluyendo los 6 simuladores financieros y la estructura completa de `docs/editorial/`) y de la tabla de dominios productivos en `referencia/puertos-y-endpoints.md`.
+- **Observador en `sync-catalog.js`**: Inclusión de `IA_Proyectos/docs/editorial` en los objetivos de observación del modo `--watch`.
+- **Binarios Nativos Windows ARM64 (`src/docs`)**: Instalación de bindings nativos `@rollup/rollup-win32-arm64-msvc` y `@esbuild/win32-arm64` para compilación directa en Snapdragon X Elite sin emulación.
+
+---
+
 ## [2026-10-19] — Optimización Integral Diátaxis, Purga de Duplicados y Enriquecimiento RAG
 
 ### Añadido
