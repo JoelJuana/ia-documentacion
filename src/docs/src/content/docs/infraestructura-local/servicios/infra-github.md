@@ -3,7 +3,7 @@ title: "GitHub Service (infra-github)"
 description: "Ficha técnica detallada del microservicio infra-github."
 ---
 
-*   **Ruta física**: [`infra-github/`](file:///c:/Users/jjtei/Desktop/IA_Infraestructura/infra-github)
+*   **Ruta en repositorio**: `IA_Infraestructura/infra-github/`
 
 ---
 

@@ -3,7 +3,7 @@ title: "Gateway (infra-gateway)"
 description: "Ficha técnica detallada del microservicio infra-gateway."
 ---
 
-*   **Ruta física**: [`infra-gateway/`](file:///c:/Users/jjtei/Desktop/IA_Infraestructura/infra-gateway)
+*   **Ruta en repositorio**: `IA_Infraestructura/infra-gateway/`
 
 ---
 

@@ -3,7 +3,7 @@ title: Plugin "git-auto-sync"
 description: "Skill para automatizar el control de versiones con Git (commits semánticos, branches, push)."
 ---
 
-*   **Ruta física**: [`plugins/git-auto-sync/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/plugins/git-auto-sync)
+*   **Ruta en repositorio**: `IA_Configuracion/plugins/git-auto-sync/`
 *   **Versión**: `v1.0.0`
 *   **Estado**: En reserva (`SKILL.md.disabled`)
 

@@ -3,7 +3,7 @@ title: Plugin "local-backup-manager"
 description: "Skill para generar copias de seguridad locales antes de cambios masivos en el código."
 ---
 
-*   **Ruta física**: [`plugins/local-backup-manager/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/plugins/local-backup-manager)
+*   **Ruta en repositorio**: `IA_Configuracion/plugins/local-backup-manager/`
 *   **Versión**: `v1.0.0`
 *   **Estado**: En reserva (`SKILL.md.disabled`)
 

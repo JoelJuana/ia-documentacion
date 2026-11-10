@@ -3,7 +3,7 @@ title: "Conocimiento y RAG (api-conocimiento-rag)"
 description: "Ficha técnica detallada del microservicio api-conocimiento-rag."
 ---
 
-*   **Ruta física**: [`api-conocimiento-rag/`](file:///c:/Users/jjtei/Desktop/IA_Infraestructura/api-conocimiento-rag)
+*   **Ruta en repositorio**: `IA_Infraestructura/api-conocimiento-rag/`
 
 ---
 

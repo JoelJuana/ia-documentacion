@@ -3,7 +3,7 @@ title: "app-bp-velero"
 description: "Ficha técnica y documentación de la aplicación Business Plan · Inversión Velero (app-bp-velero)."
 ---
 
-*   **Ruta física**: [`apps/business-plans/app-bp-velero/`](file:///C:/Users/jjtei/Desktop/IA_Proyectos/apps/business-plans/app-bp-velero)
+*   **Ruta en repositorio**: `IA_Proyectos/apps/business-plans/app-bp-velero/`
 *   **Nombre Comercial**: Business Plan · Inversión Velero
 *   **Tipo**: `vanilla`
 *   **Creado el**: 2026-06-28

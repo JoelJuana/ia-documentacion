@@ -7,7 +7,7 @@ sidebar:
 
 El proyecto **IA_Infraestructura** es un monorepositorio local diseñado para orquestar la suite de microservicios de desarrollo y soporte del ecosistema de agentes. Cuenta con un **API Gateway** centralizador, runner multiplataforma, panel web interactivo de observabilidad y soporte para orquestación mediante **PM2**.
 
-*   **Ubicación física**: [`IA_Infraestructura/`](file:///c:/Users/jjtei/Desktop/IA_Infraestructura)
+*   **Repositorio local**: `IA_Infraestructura/`
 *   **Gestión de Procesos**: PM2 o runner standalone en background.
 *   **Puerto unificado**: `3000` (coordinado por el Gateway).
 

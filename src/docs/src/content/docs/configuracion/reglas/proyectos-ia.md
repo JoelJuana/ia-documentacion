@@ -3,7 +3,7 @@ title: Reglas de "Proyectos IA"
 description: Directrices y reglas obligatorias específicas del repositorio Proyectos IA.
 ---
 
-*   **Ruta física**: [`proyectos-reglas/proyectos-ia.md`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/proyectos-reglas/proyectos-ia.md)
+*   **Ruta en repositorio**: `IA_Configuracion/proyectos-reglas/proyectos-ia.md`
 
 ---
 

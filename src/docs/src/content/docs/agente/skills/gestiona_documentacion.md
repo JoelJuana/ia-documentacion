@@ -3,7 +3,7 @@ title: gestiona_documentacion
 description: Redacta, estructura, maqueta y valida documentación técnica y de procedimientos en portales Astro Starlight del monorepositorio bajo el estándar Diátaxis y el estándar corporativo sin emojis.
 ---
 
-*   **Ruta de Configuración**: [`IA_Configuracion/skills/gestiona_documentacion/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/skills/gestiona_documentacion/SKILL.md)
+*   **Ruta de Configuración**: `IA_Configuracion/skills/gestiona_documentacion/SKILL.md`
 
 ---
 

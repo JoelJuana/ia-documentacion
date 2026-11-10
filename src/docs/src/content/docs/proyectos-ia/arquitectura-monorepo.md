@@ -53,7 +53,7 @@ IA_Proyectos/
 El uso de esta estructura proporciona tres ventajas operativas clave:
 
 1.  **Coherencia en el Control de Versiones**: Un único historial de Git unificado para todas las aplicaciones de negocio facilita comprender el impacto global de los cambios y simplifica la gestión del repositorio.
-2.  **Portafolio Centralizado**: El catálogo centralizado en [projects.json](file:///c:/Users/jjtei/Desktop/IA_Proyectos/projects.json) permite que scripts automáticos lee la metadata de cada aplicación y actualicen un portal estático unificado en `dist/` que consolida todos los desarrollos.
+2.  **Portafolio Centralizado**: El catálogo centralizado en `IA_Proyectos/projects.json` (ver [Inventario de Proyectos](/proyectos-ia/catalogo-general/)) permite que scripts automáticos lean la metadata de cada aplicación y actualicen un portal estático unificado en `dist/` que consolida todos los desarrollos.
 3.  **Compartición de Estilos e Infraestructura**: Facilita que proyectos similares (como la suite de Business Plans) adopten el mismo libro de estilo CSS de forma nativa sin duplicar archivos.
 
 ---

@@ -3,7 +3,7 @@ title: "Domain Manager (infra-domain-manager)"
 description: "Ficha técnica detallada del microservicio infra-domain-manager."
 ---
 
-*   **Ruta física**: [`infra-domain-manager/`](file:///c:/Users/jjtei/Desktop/IA_Infraestructura/infra-domain-manager)
+*   **Ruta en repositorio**: `IA_Infraestructura/infra-domain-manager/`
 
 ---
 

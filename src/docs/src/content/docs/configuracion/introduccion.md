@@ -3,7 +3,7 @@ title: Introducción a la Configuración
 description: Guía de introducción técnica al repositorio de configuración del agente de IA.
 ---
 
-*   **Ruta física**: [`IA_Configuracion/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion)
+*   **Ruta en repositorio**: `IA_Configuracion/`
 
 ---
 

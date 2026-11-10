@@ -3,7 +3,7 @@ title: "Design Assets (api-design-assets)"
 description: "Ficha técnica detallada del microservicio api-design-assets."
 ---
 
-*   **Ruta física**: [`api-design-assets/`](file:///c:/Users/jjtei/Desktop/IA_Infraestructura/api-design-assets)
+*   **Ruta en repositorio**: `IA_Infraestructura/api-design-assets/`
 
 ---
 

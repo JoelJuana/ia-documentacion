@@ -5,7 +5,7 @@ sidebar:
   order: 2
 ---
 
-Este documento detalla el catálogo completo de **13 proyectos activos** registrados en el archivo central [projects.json](file:///c:/Users/jjtei/Desktop/IA_Proyectos/projects.json) en la raíz del monorepositorio.
+Este documento detalla el catálogo completo de **13 proyectos activos** registrados en el archivo central `IA_Proyectos/projects.json` en la raíz del monorepositorio.
 
 ---
 

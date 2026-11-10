@@ -3,7 +3,7 @@ title: Reglas de "IA Infraestructura"
 description: Directrices y reglas obligatorias específicas del repositorio IA Infraestructura.
 ---
 
-*   **Ruta física**: [`proyectos-reglas/ia-infraestructura.md`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/proyectos-reglas/ia-infraestructura.md)
+*   **Ruta en repositorio**: `IA_Configuracion/proyectos-reglas/ia-infraestructura.md`
 
 ---
 

@@ -4,6 +4,25 @@ Todos los cambios y tareas notables de este monorepositorio y del ecosistema de 
 
 ---
 
+## [2026-11-10] — Indexación RAG Incremental SHA-256, Auditoría Avanzada de Anclas/Mermaid, Carga Perezosa y Ampliación Diátaxis
+
+### Añadido
+- **Indexación RAG Incremental con Caché SHA-256 (`src/docs/scripts/index-rag.js`)**: Incorporación de manifiesto `.rag-manifest.json` para omitir automáticamente documentos sin cambios en compilaciones sucesivas, purgar fragmentos obsoletos de archivos modificados o eliminados (`DELETE /documents/:title`) e indexar con concurrencia controlada, además de modo `--force` (`npm run index:rag:force`).
+- **Visor Modal Interactivo de Diagramas Mermaid (`astro.config.mjs` y `custom.css`)**: Incorporación de botón `Ampliar` y lightbox a pantalla completa con cierre por `Esc` en todos los diagramas de arquitectura.
+- **Nuevos Documentos Diátaxis**:
+  - **Tutorial (`tutoriales/crear-simulador-business-plan.md`)**: Recorrido guiado paso a paso para construir, conectar a `bp-core.js` y auditar un simulador financiero desde cero.
+  - **Explicación (`explicaciones/motor-financiero-y-auditoria-bp.md`)**: Diseño arquitectónico del motor determinista `bp-core.js`, invariantes PyG vs. Cash Flow y convergencia con el Centro Editorial A4.
+- **Integración Continua CI (`.github/workflows/ci-portal.yml`)**: Flujo automático en GitHub Actions que ejecuta `npm run audit` y `npx astro build` en cada `push` y `pull_request` sobre `main`.
+- **Orquestador de Despliegue (`src/docs/scripts/deploy-portal.js`)**: Script de publicación que verifica conectividad con `infra-firebase` a través del API Gateway local y despliega el canal Multisite `documentacion-ia` con cabeceras `Cache-Control` inmutables para `/_astro/**` en `firebase.json`.
+
+### Mejorado
+- **Limpieza Anidada de HTML en RAG (`index-rag.js`)**: Sustitución de expresión regular no anidada por analizador de balanceo de etiquetas `<div class="dashboard-grid">...</div>`, eliminando por completo el marcado decorativo de tarjetas en los vectores indexados.
+- **Auditor Unificado de Alta Precisión (`audit-portal.js` y `validate-doc.mjs`)**: Validación de anclas internas (`#seccion`), existencia de recursos estáticos en `public/`, sintaxis de cabeceras en bloques `mermaid`, prohibición de enlaces locales `file:///` rotos en web y detección ampliada de secretos.
+- **Saneamiento de Rutas Privadas (`sync-catalog.js` y guías)**: Reemplazo de enlaces `file:///C:/Users/...` expuestos en producción por rutas relativas limpias de repositorio y sanitizador automático `sanitizeLocalFileLinks`.
+- **Rendimiento Web, Sitemap SEO y Maquetación (`astro.config.mjs`, `generate-sitemap.js` y `custom.css`)**: Generación determinista de `sitemap.xml` y `robots.txt` para `https://antigravity.gironacc.com`, carga perezosa condicional (`import()`) de Mermaid v11 únicamente en páginas que contienen diagramas, conexión loopback IPv4 directa (`127.0.0.1:3000`) con el Gateway sin latencia de fallback IPv6, justificación adaptativa con `hyphens: auto` solo en escritorio y eliminación de ~120 líneas de CSS heredado sin uso y de la carpeta vacía residual `app-documentacion-ia/`.
+
+---
+
 ## [2026-11-08] — Sincronización con Centro Editorial v2.1 (4 Presets), Nuevo Simulador `app-bp-compra-farmacia` y Guía Diátaxis Editorial
 
 ### Añadido

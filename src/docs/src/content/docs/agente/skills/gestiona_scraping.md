@@ -3,7 +3,7 @@ title: gestiona_scraping
 description: Extrae texto limpio y estructurado en formato Markdown de cualquier página web pública para análisis, documentación o alimentación de RAG. Úsalo cuando necesites consultar una URL, leer un artículo o descargar información técnica web a través del endpoint /api/scrape del Gateway.
 ---
 
-*   **Ruta de Configuración**: [`IA_Configuracion/skills/gestiona_scraping/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/skills/gestiona_scraping/SKILL.md)
+*   **Ruta de Configuración**: `IA_Configuracion/skills/gestiona_scraping/SKILL.md`
 
 ---
 

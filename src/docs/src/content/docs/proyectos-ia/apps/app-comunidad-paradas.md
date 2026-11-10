@@ -3,7 +3,7 @@ title: "app-comunidad-paradas"
 description: "Ficha técnica y documentación de la aplicación Comunidad Mercat de la Devesa (app-comunidad-paradas)."
 ---
 
-*   **Ruta física**: [`apps/app-comunidad-paradas/`](file:///C:/Users/jjtei/Desktop/IA_Proyectos/apps/app-comunidad-paradas)
+*   **Ruta en repositorio**: `IA_Proyectos/apps/app-comunidad-paradas/`
 *   **Nombre Comercial**: Comunidad Mercat de la Devesa
 *   **Tipo**: `react`
 *   **Creado el**: 2026-06-28

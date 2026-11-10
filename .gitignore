@@ -2,6 +2,7 @@
 dist/
 src/docs/dist/
 src/docs/.astro/
+src/docs/.rag-manifest.json
 
 # dependencies
 node_modules/

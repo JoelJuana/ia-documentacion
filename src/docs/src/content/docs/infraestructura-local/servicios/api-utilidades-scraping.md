@@ -3,7 +3,7 @@ title: "Scraping Utility (api-utilidades-scraping)"
 description: "Ficha técnica detallada del microservicio api-utilidades-scraping."
 ---
 
-*   **Ruta física**: [`api-utilidades-scraping/`](file:///c:/Users/jjtei/Desktop/IA_Infraestructura/api-utilidades-scraping)
+*   **Ruta en repositorio**: `IA_Infraestructura/api-utilidades-scraping/`
 
 ---
 

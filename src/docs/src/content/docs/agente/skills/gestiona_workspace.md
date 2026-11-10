@@ -3,7 +3,7 @@ title: gestiona_workspace
 description: Habilidad para interactuar con los servicios de Google Workspace (Drive, Sheets, Calendar y Apps Script) mediante el servidor MCP local para gestionar y automatizar tareas de oficina.
 ---
 
-*   **Ruta de Configuración**: [`IA_Configuracion/skills/gestiona_workspace/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/skills/gestiona_workspace/SKILL.md)
+*   **Ruta de Configuración**: `IA_Configuracion/skills/gestiona_workspace/SKILL.md`
 
 ---
 

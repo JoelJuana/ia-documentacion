@@ -3,7 +3,7 @@ title: Reglas de "IA Documentación"
 description: Directrices y reglas obligatorias específicas del repositorio IA Documentación.
 ---
 
-*   **Ruta física**: [`proyectos-reglas/ia-documentacion.md`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/proyectos-reglas/ia-documentacion.md)
+*   **Ruta en repositorio**: `IA_Configuracion/proyectos-reglas/ia-documentacion.md`
 
 ---
 

@@ -3,7 +3,7 @@ title: "Project Creator (infra-project-creator)"
 description: "Ficha técnica detallada del microservicio infra-project-creator."
 ---
 
-*   **Ruta física**: [`infra-project-creator/`](file:///c:/Users/jjtei/Desktop/IA_Infraestructura/infra-project-creator)
+*   **Ruta en repositorio**: `IA_Infraestructura/infra-project-creator/`
 
 ---
 

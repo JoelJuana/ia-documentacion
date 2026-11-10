@@ -3,7 +3,7 @@ title: gestiona_fierbase
 description: Inicializa proyectos de Firebase y gestiona sus servicios (Firestore, Auth, Hosting) de forma centralizada utilizando la API REST local del microservicio infra-firebase. Úsalo cuando el usuario solicite base de datos Firestore, autenticación o despliegues de Firebase, asegurando que todas las peticiones pasen por el Gateway de infraestructura.
 ---
 
-*   **Ruta de Configuración**: [`IA_Configuracion/skills/gestiona_fierbase/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/skills/gestiona_fierbase/SKILL.md)
+*   **Ruta de Configuración**: `IA_Configuracion/skills/gestiona_fierbase/SKILL.md`
 
 ---
 

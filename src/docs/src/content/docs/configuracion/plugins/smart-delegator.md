@@ -3,7 +3,7 @@ title: Plugin "smart-delegator"
 description: "Skill para orquestar subagentes en segundo plano y acelerar tareas complejas mediante ejecución paralela."
 ---
 
-*   **Ruta física**: [`plugins/smart-delegator/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/plugins/smart-delegator)
+*   **Ruta en repositorio**: `IA_Configuracion/plugins/smart-delegator/`
 *   **Versión**: `v1.0.0`
 *   **Estado**: Activo
 

@@ -3,7 +3,7 @@ title: Plugin "autonomous-project-manager"
 description: "Skill para dotar al asistente de autonomía absoluta, estructuración proactiva de proyectos y aplicación automática de buenas prácticas."
 ---
 
-*   **Ruta física**: [`plugins/autonomous-project-manager/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/plugins/autonomous-project-manager)
+*   **Ruta en repositorio**: `IA_Configuracion/plugins/autonomous-project-manager/`
 *   **Versión**: `v1.0.0`
 *   **Estado**: En reserva (`SKILL.md.disabled`)
 

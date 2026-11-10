@@ -3,7 +3,7 @@ title: Plugin "tdd-enforcer"
 description: "Skill para obligar al desarrollo guiado por pruebas (TDD) y ejecución de tests automática."
 ---
 
-*   **Ruta física**: [`plugins/tdd-enforcer/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/plugins/tdd-enforcer)
+*   **Ruta en repositorio**: `IA_Configuracion/plugins/tdd-enforcer/`
 *   **Versión**: `v1.0.0`
 *   **Estado**: En reserva (`SKILL.md.disabled`)
 

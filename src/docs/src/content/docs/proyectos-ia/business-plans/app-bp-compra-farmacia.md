@@ -3,7 +3,7 @@ title: "app-bp-compra-farmacia"
 description: "Ficha técnica y documentación de la aplicación Business Plan · Compra de Farmacia (app-bp-compra-farmacia)."
 ---
 
-*   **Ruta física**: [`apps/business-plans/app-bp-compra-farmacia/`](file:///C:/Users/jjtei/Desktop/IA_Proyectos/apps/business-plans/app-bp-compra-farmacia)
+*   **Ruta en repositorio**: `IA_Proyectos/apps/business-plans/app-bp-compra-farmacia/`
 *   **Nombre Comercial**: Business Plan · Compra de Farmacia
 *   **Tipo**: `vanilla`
 *   **Creado el**: 2026-10-31

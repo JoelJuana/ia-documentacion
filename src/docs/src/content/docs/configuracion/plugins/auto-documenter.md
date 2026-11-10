@@ -3,7 +3,7 @@ title: Plugin "auto-documenter"
 description: "Skill para redactar historiales de cambios y mantener la documentación técnica viva."
 ---
 
-*   **Ruta física**: [`plugins/auto-documenter/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/plugins/auto-documenter)
+*   **Ruta en repositorio**: `IA_Configuracion/plugins/auto-documenter/`
 *   **Versión**: `v1.0.0`
 *   **Estado**: En reserva (`SKILL.md.disabled`)
 

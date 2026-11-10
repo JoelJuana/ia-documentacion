@@ -3,7 +3,7 @@ title: "app-notebook-studio"
 description: "Ficha técnica y documentación de la aplicación Notebook Studio IA (app-notebook-studio)."
 ---
 
-*   **Ruta física**: [`apps/app-notebook-studio/`](file:///C:/Users/jjtei/Desktop/IA_Proyectos/apps/app-notebook-studio)
+*   **Ruta en repositorio**: `IA_Proyectos/apps/app-notebook-studio/`
 *   **Nombre Comercial**: Notebook Studio IA
 *   **Tipo**: `react`
 *   **Creado el**: 2026-08-14

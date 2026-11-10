@@ -3,7 +3,7 @@ title: Plugin "security-guard"
 description: "Skill de auditoría permanente para proteger credenciales y código contra vulnerabilidades."
 ---
 
-*   **Ruta física**: [`plugins/security-guard/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/plugins/security-guard)
+*   **Ruta en repositorio**: `IA_Configuracion/plugins/security-guard/`
 *   **Versión**: `v1.0.0`
 *   **Estado**: En reserva (`SKILL.md.disabled`)
 

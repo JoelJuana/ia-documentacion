@@ -6,7 +6,7 @@ sidebar:
   order: 1
 ---
 
-Las **Skills** (habilidades) son extensiones de automatización personalizadas que se configuran y mantienen de forma centralizada en el repositorio de [IA_Configuracion](file:///c:/Users/jjtei/Desktop/IA_Configuracion/skills).
+Las **Skills** (habilidades) son extensiones de automatización personalizadas que se configuran y mantienen de forma centralizada en el repositorio [`IA_Configuracion`](/configuracion/introduccion/) (`IA_Configuracion/skills/`).
 
 Al arrancar el entorno de desarrollo o compilar el portal, estas habilidades se sincronizan y actualizan automáticamente en las carpetas de proyectos y microservicios locales (`IA_Proyectos`, `IA_Infraestructura` e `IA_Documentacion`).
 

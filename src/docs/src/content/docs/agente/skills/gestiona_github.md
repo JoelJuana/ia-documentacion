@@ -3,7 +3,7 @@ title: gestiona_github
 description: Sin descripción detallada.
 ---
 
-*   **Ruta de Configuración**: [`IA_Configuracion/skills/gestiona_github/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/skills/gestiona_github/SKILL.md)
+*   **Ruta de Configuración**: `IA_Configuracion/skills/gestiona_github/SKILL.md`
 
 ---
 

@@ -3,7 +3,7 @@ title: Plugin "test-dashboard-skill"
 description: "Skill de prueba creada desde el dashboard"
 ---
 
-*   **Ruta física**: [`plugins/test-dashboard-skill/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/plugins/test-dashboard-skill)
+*   **Ruta en repositorio**: `IA_Configuracion/plugins/test-dashboard-skill/`
 *   **Versión**: `v1.0.0`
 *   **Estado**: En reserva (`SKILL.md.disabled`)
 

@@ -3,7 +3,7 @@ title: Plugin "fierbase"
 description: "Inicializa proyectos de Fierbase dinámicamente, configura servicios automáticos (Firestore, Auth, Hosting) y despliega de forma automatizada mediante un Token de CI/CD o variables de entorno."
 ---
 
-*   **Ruta física**: [`plugins/fierbase/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/plugins/fierbase)
+*   **Ruta en repositorio**: `IA_Configuracion/plugins/fierbase/`
 *   **Versión**: `v1.0.0`
 *   **Estado**: Activo
 

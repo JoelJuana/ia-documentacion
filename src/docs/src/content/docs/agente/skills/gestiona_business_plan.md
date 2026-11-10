@@ -3,7 +3,7 @@ title: gestiona_business_plan
 description: Estándar técnico, guía y plantilla base para simuladores financieros y Business Plans interactivos con fiscalidad AEAT avanzada y sincronización remota en la nube.
 ---
 
-*   **Ruta de Configuración**: [`IA_Configuracion/skills/gestiona_business_plan/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/skills/gestiona_business_plan/SKILL.md)
+*   **Ruta de Configuración**: `IA_Configuracion/skills/gestiona_business_plan/SKILL.md`
 
 ---
 

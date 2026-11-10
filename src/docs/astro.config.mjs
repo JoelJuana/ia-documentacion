@@ -46,17 +46,47 @@ export default defineConfig({
 						type: 'module',
 					},
 					content: `
-						import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+						let mermaidInstance = null;
+
+						function openMermaidModal(svgMarkup) {
+							let modal = document.getElementById('mermaid-lightbox');
+							if (!modal) {
+								modal = document.createElement('div');
+								modal.id = 'mermaid-lightbox';
+								modal.className = 'mermaid-lightbox';
+								modal.innerHTML = '<div class="mermaid-lightbox-backdrop"></div><div class="mermaid-lightbox-dialog" role="dialog" aria-modal="true" aria-label="Diagrama ampliado"><button type="button" class="mermaid-lightbox-close">Cerrar (Esc)</button><div class="mermaid-lightbox-body"></div></div>';
+								document.body.appendChild(modal);
+
+								const close = () => modal.classList.remove('is-open');
+								modal.querySelector('.mermaid-lightbox-backdrop')?.addEventListener('click', close);
+								modal.querySelector('.mermaid-lightbox-close')?.addEventListener('click', close);
+								document.addEventListener('keydown', (ev) => {
+									if (ev.key === 'Escape' && modal.classList.contains('is-open')) close();
+								});
+							}
+
+							const body = modal.querySelector('.mermaid-lightbox-body');
+							if (body) body.innerHTML = svgMarkup;
+							modal.classList.add('is-open');
+						}
 
 						async function renderMermaidDiagrams() {
+							const codeBlocks = document.querySelectorAll('pre[data-language="mermaid"]');
+							const existingDiagrams = document.querySelectorAll('.mermaid-diagram[data-mermaid-source]');
+							if (!codeBlocks.length && !existingDiagrams.length) return;
+
+							if (!mermaidInstance) {
+								const mod = await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs');
+								mermaidInstance = mod.default;
+							}
+
 							const isDark = document.documentElement.dataset.theme !== 'light';
-							mermaid.initialize({
+							mermaidInstance.initialize({
 								startOnLoad: false,
 								theme: isDark ? 'dark' : 'neutral',
 								fontFamily: 'Inter, system-ui, sans-serif',
 							});
 
-							const codeBlocks = document.querySelectorAll('pre[data-language="mermaid"]');
 							for (const pre of codeBlocks) {
 								const figure = pre.closest('.expressive-code') || pre;
 								if (figure.dataset.mermaidProcessed === 'true') continue;
@@ -78,8 +108,9 @@ export default defineConfig({
 								if (!src) continue;
 								try {
 									const id = 'mermaid-svg-' + Date.now() + '-' + (idx++);
-									const { svg } = await mermaid.render(id, src);
-									el.innerHTML = svg;
+									const { svg } = await mermaidInstance.render(id, src);
+									el.innerHTML = '<button type="button" class="mermaid-zoom-btn" title="Ampliar diagrama">Ampliar</button><div class="mermaid-svg-wrap">' + svg + '</div>';
+									el.querySelector('.mermaid-zoom-btn')?.addEventListener('click', () => openMermaidModal(svg));
 								} catch (e) {
 									console.warn('Error al renderizar diagrama Mermaid:', e);
 								}

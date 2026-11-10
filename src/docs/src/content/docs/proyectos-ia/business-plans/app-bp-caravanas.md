@@ -3,7 +3,7 @@ title: "app-bp-caravanas"
 description: "Ficha técnica y documentación de la aplicación Business Plan · Parking Caravanas (app-bp-caravanas)."
 ---
 
-*   **Ruta física**: [`apps/business-plans/app-bp-caravanas/`](file:///C:/Users/jjtei/Desktop/IA_Proyectos/apps/business-plans/app-bp-caravanas)
+*   **Ruta en repositorio**: `IA_Proyectos/apps/business-plans/app-bp-caravanas/`
 *   **Nombre Comercial**: Business Plan · Parking Caravanas
 *   **Tipo**: `vanilla`
 *   **Creado el**: 2026-07-06

@@ -27,7 +27,7 @@ Siguiendo este proceso garantizamos que todos los markdown agregados cumplan con
 
 ## Paso 2: Auditar el Borrador Localmente
 
-Antes de copiar el archivo al portal, debes ejecutar el script de auditoría [validate-doc.mjs](file:///c:/Users/jjtei/Desktop/IA_Documentacion/scripts/validate-doc.mjs) para comprobar que cumple con el estándar del portal.
+Antes de copiar el archivo al portal, debes ejecutar el script de auditoría `scripts/validate-doc.mjs` para comprobar que cumple con el estándar del portal.
 
 1.  Abre una terminal en la raíz del proyecto `IA_Documentacion`.
 2.  Ejecuta la validación especificando la ruta al borrador y su categoría temática de destino:

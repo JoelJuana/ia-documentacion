@@ -3,7 +3,7 @@ title: gestiona_editorial
 description: Maquetacion profesional de documentos en formato editorial con calidad de imprenta y exportacion instantanea a PDF vectorial (A4) y Word (.docx). Soporta 4 presets corporativos y tecnicos (oca_global, actas_comunidad, dossier_financiero, seat_124_taller) con control granular de saltos de pagina y tipografia avanzada.
 ---
 
-*   **Ruta de Configuración**: [`IA_Configuracion/skills/gestiona_editorial/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/skills/gestiona_editorial/SKILL.md)
+*   **Ruta de Configuración**: `IA_Configuracion/skills/gestiona_editorial/SKILL.md`
 
 ---
 
@@ -52,10 +52,10 @@ Tanto la biblioteca interna de la skill (`presets/<nombre_preset>/`) como cada c
 
 | Preset en la Skill (`presets/`) | Carpeta en Workspace (`docs/editorial/`) | Manual de Marca y Hoja de Estilos | Reglas y Plantillas por Tipo de Documento |
 |---|---|---|---|
-| [`presets/oca_global/`](file:///C:/Users/jjtei/.gemini/config/skills/gestiona_editorial/presets/oca_global) | [`OCA Global/_identidad/`](file:///c:/Users/jjtei/Desktop/IA_Proyectos/docs/editorial/OCA%20Global/_identidad) | `IDENTIDAD_CORPORATIVA.md`<br>`style.css`<br>`logo_oca_global.png` | • `reglas_due_diligence.md` + `plantilla_due_diligence.html`<br>• `reglas_informe_tecnico.md` + `plantilla_informe_tecnico.html` *(incluye Fase 2 / Checklists)* |
-| [`presets/actas_comunidad/`](file:///C:/Users/jjtei/.gemini/config/skills/gestiona_editorial/presets/actas_comunidad) | [`CP Mercat Devesa/_identidad/`](file:///c:/Users/jjtei/Desktop/IA_Proyectos/docs/editorial/CP%20Mercat%20Devesa/_identidad) | `IDENTIDAD_CORPORATIVA.md`<br>`style.css` | • `reglas_acta_reunion.md` + `plantilla_acta_reunion.html` *(Modalidad A)*<br>• `reglas_estatutos_reglamento.md` + `plantilla_estatutos_reglamento.html` *(Modalidad B)* |
-| [`presets/dossier_financiero/`](file:///C:/Users/jjtei/.gemini/config/skills/gestiona_editorial/presets/dossier_financiero) | [`Compra Farmacia/_identidad/`](file:///c:/Users/jjtei/Desktop/IA_Proyectos/docs/editorial/Compra%20Farmacia/_identidad)<br>[`Ramon Turro/_identidad/`](file:///c:/Users/jjtei/Desktop/IA_Proyectos/docs/editorial/Ramon%20Turro/_identidad) | `IDENTIDAD_CORPORATIVA.md`<br>`style.css` | • `reglas_dossier_financiero.md` + `plantilla_dossier_financiero.html` *(Hojas `.hoja-a4` 100 %)* |
-| [`presets/seat_124_taller/`](file:///C:/Users/jjtei/.gemini/config/skills/gestiona_editorial/presets/seat_124_taller) | [`SEAT 124 FL - Instalacion Electrica/_identidad/`](file:///c:/Users/jjtei/Desktop/IA_Proyectos/docs/editorial/SEAT%20124%20FL%20-%20Instalacion%20Electrica/_identidad) | `IDENTIDAD_CORPORATIVA.md`<br>`style.css` | • `reglas_manual_electrico.md` + `plantilla_ficha_circuito.html` |
+| `presets/oca_global/` | `OCA Global/_identidad/` | `IDENTIDAD_CORPORATIVA.md`<br>`style.css`<br>`logo_oca_global.png` | • `reglas_due_diligence.md` + `plantilla_due_diligence.html`<br>• `reglas_informe_tecnico.md` + `plantilla_informe_tecnico.html` *(incluye Fase 2 / Checklists)* |
+| `presets/actas_comunidad/` | `CP Mercat Devesa/_identidad/` | `IDENTIDAD_CORPORATIVA.md`<br>`style.css` | • `reglas_acta_reunion.md` + `plantilla_acta_reunion.html` *(Modalidad A)*<br>• `reglas_estatutos_reglamento.md` + `plantilla_estatutos_reglamento.html` *(Modalidad B)* |
+| `presets/dossier_financiero/` | `Compra Farmacia/_identidad/`<br>`Ramon Turro/_identidad/` | `IDENTIDAD_CORPORATIVA.md`<br>`style.css` | • `reglas_dossier_financiero.md` + `plantilla_dossier_financiero.html` *(Hojas `.hoja-a4` 100 %)* |
+| `presets/seat_124_taller/` | `SEAT 124 FL - Instalacion Electrica/_identidad/` | `IDENTIDAD_CORPORATIVA.md`<br>`style.css` | • `reglas_manual_electrico.md` + `plantilla_ficha_circuito.html` |
 
 ---
 
@@ -105,13 +105,13 @@ Validadas con el usuario en las Fases 1 y 2 de Álabe Ingenieros:
 
 ### Paso 1: Clasificación y Selección de Plantilla
 * Identificar el ámbito (`oca_global`, `actas_comunidad`, `dossier_financiero` o `seat_124_taller`) y leer el `IDENTIDAD_CORPORATIVA.md` y el archivo `reglas_<tipo>.md` correspondiente de `presets/<preset>/`.
-* Para inicializar rápidamente una carpeta nueva (aprovisionando además su subcarpeta `_identidad/` si no existe), puedes usar el script [`new-doc.ps1`](file:///C:/Users/jjtei/.gemini/config/skills/gestiona_editorial/scripts/new-doc.ps1):
+* Para inicializar rápidamente una carpeta nueva (aprovisionando además su subcarpeta `_identidad/` si no existe), puedes usar el script `new-doc.ps1`:
   ```powershell
   & "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\new-doc.ps1" -Preset oca_global -Tipo due_diligence -Slug "due-diligence-empresa"
   ```
 
 ### Paso 2: Compilación Editorial en 1 Comando (`build_editorial.js`)
-Ejecutar el CLI Node.js [`build_editorial.js`](file:///C:/Users/jjtei/.gemini/config/skills/gestiona_editorial/scripts/build_editorial.js) para:
+Ejecutar el CLI Node.js `build_editorial.js` para:
 1. Renderizar el PDF A4 vectorial con Microsoft Edge Headless.
 2. Generar las capturas de verificación en `preview/page_1.png`, `preview/page_2.png`, etc.
 3. Verificar que no supere el objetivo de páginas (`--max-pages <N>`).
@@ -128,7 +128,7 @@ node "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\build_edit
 
 ### Paso 3: Verificación Visual Obligatoria y Registro en el Visor
 * Inspeccionar siempre las capturas generadas en `preview/page_1.png`, `preview/page_2.png`, etc. con `read_file` para comprobar que no haya huecos, títulos huérfanos, firmas desbordadas ni cortes en bloques `.hoja-a4`.
-* Conservar la carpeta `preview/` y registrar el documento en [`docs/editorial/index.html`](file:///c:/Users/jjtei/Desktop/IA_Proyectos/docs/editorial/index.html) (`EDITORIAL_DOCS`) y en [`docs/editorial/README.md`](file:///c:/Users/jjtei/Desktop/IA_Proyectos/docs/editorial/README.md) para que el Centro Editorial interactivo esté siempre al día.
+* Conservar la carpeta `preview/` y registrar el documento en `docs/editorial/index.html` (`EDITORIAL_DOCS`) y en `docs/editorial/README.md` para que el Centro Editorial interactivo esté siempre al día.
 
 ---
 

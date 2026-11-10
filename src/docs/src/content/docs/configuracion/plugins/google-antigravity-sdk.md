@@ -3,7 +3,7 @@ title: Plugin "google-antigravity-sdk"
 description: "Using the Google Antigravity Python SDK to build AI agents"
 ---
 
-*   **Ruta física**: [`plugins/google-antigravity-sdk/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/plugins/google-antigravity-sdk)
+*   **Ruta en repositorio**: `IA_Configuracion/plugins/google-antigravity-sdk/`
 *   **Versión**: `v0.0.4`
 *   **Estado**: En reserva (`SKILL.md.disabled`)
 

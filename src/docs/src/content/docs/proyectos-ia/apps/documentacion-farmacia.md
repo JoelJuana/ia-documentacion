@@ -3,7 +3,7 @@ title: "documentacion-farmacia"
 description: "Ficha técnica y documentación de la aplicación Protocolos y Documentación Farmacia (documentacion-farmacia)."
 ---
 
-*   **Ruta física**: [`apps/documentacion-farmacia/`](file:///C:/Users/jjtei/Desktop/IA_Proyectos/apps/documentacion-farmacia)
+*   **Ruta en repositorio**: `IA_Proyectos/apps/documentacion-farmacia/`
 *   **Nombre Comercial**: Protocolos y Documentación Farmacia
 *   **Tipo**: `starlight`
 *   **Creado el**: 2026-07-05

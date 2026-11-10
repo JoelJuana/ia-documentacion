@@ -3,7 +3,7 @@ title: gestiona_dominios
 description: Inicia el servidor de Gestión Dominios y automatiza la validación de dominios y creación de subdominios CNAME. Úsalo cuando el usuario pida comprobar la disponibilidad de un dominio, crear registros DNS CNAME, levantar el agente de Gestión Dominios o frases similares.
 ---
 
-*   **Ruta de Configuración**: [`IA_Configuracion/skills/gestiona_dominios/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/skills/gestiona_dominios/SKILL.md)
+*   **Ruta de Configuración**: `IA_Configuracion/skills/gestiona_dominios/SKILL.md`
 
 ---
 

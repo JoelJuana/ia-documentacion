@@ -71,9 +71,17 @@ function fixEncoding(text) {
     .replace(/Â¿/g, '¿');
 }
 
+// Función para limpiar enlaces locales file:/// que no funcionan en navegadores bajo HTTPS
+function sanitizeLocalFileLinks(text) {
+  return text.replace(/\[([^\]]+)\]\(file:\/\/\/[^)]+\)/gi, (_, label) => {
+    const trimmed = label.trim();
+    return trimmed.startsWith('`') && trimmed.endsWith('`') ? trimmed : `\`${trimmed}\``;
+  });
+}
+
 // Función para limpiar emojis de los encabezados markdown (líneas que empiezan con #)
 function cleanEmojisFromHeadings(body) {
-  return body.split('\n').map(line => {
+  return sanitizeLocalFileLinks(body).split('\n').map(line => {
     if (line.trim().startsWith('#')) {
       const headerLevelMatch = line.match(/^#+/);
       const headerLevel = headerLevelMatch ? headerLevelMatch[0] : '#';
@@ -227,12 +235,16 @@ No se encontró un archivo \`README.md\` local en el directorio del proyecto.
     const tagsMeta = Array.isArray(p.tags) && p.tags.length > 0 ? `\n*   **Etiquetas**: ${p.tags.map(t => `\`${t}\``).join(', ')}` : '';
     const titleMeta = p.title ? `\n*   **Nombre Comercial**: ${p.title}` : '';
 
+    const repoDisplayPath = p.name === 'antigravity-joel'
+      ? 'IA_Documentacion/'
+      : `IA_Proyectos/${relativePath.replace(/\\/g, '/')}/`;
+
     const appFileContent = `---
 title: "${p.name}"
 description: "Ficha técnica y documentación de la aplicación ${p.title || p.name} (${p.name})."
 ---
 
-*   **Ruta física**: [\`${relativePath.replace(/\\/g, '/')}/\`](file:///${absolutePath.replace(/\\/g, '/')})${titleMeta}
+*   **Ruta en repositorio**: \`${repoDisplayPath}\`${titleMeta}
 *   **Tipo**: \`${p.type}\`
 *   **Creado el**: ${p.createdAt || '-'}
 *   **Autor**: ${p.author || 'JoelJuana'}${publicUrlMeta}${tagsMeta}
@@ -285,7 +297,7 @@ La **Suite Business Plans** es un conjunto de aplicaciones de simulación financ
 
 Los simuladores de negocio comparten recursos de estilo y estándares arquitectónicos definidos en la habilidad [\`gestiona_business_plan\`](/agente/skills/gestiona_business_plan/):
 
-*   **Ubicación física**: [\`apps/business-plans/\`](file:///c:/Users/jjtei/Desktop/IA_Proyectos/apps/business-plans)
+*   **Ubicación en repositorio**: \`IA_Proyectos/apps/business-plans/\`
 *   **Estilo Visual**: Tema oscuro/claro corporativo, tipografías modernas (Outfit/Inter), controles deslizantes fluidos y gráficos interactivos con Chart.js.
 *   **Despliegue Granular**: Cada simulador se compila y despliega de forma individual en su propio canal/subdominio de Firebase Hosting Multisite.
 
@@ -358,7 +370,7 @@ sidebar:
   order: 2
 ---
 
-Este documento detalla el catálogo completo de **${projects.length} proyectos activos** registrados en el archivo central [projects.json](file:///c:/Users/jjtei/Desktop/IA_Proyectos/projects.json) en la raíz del monorepositorio.
+Este documento detalla el catálogo completo de **${projects.length} proyectos activos** registrados en el archivo central \`IA_Proyectos/projects.json\` en la raíz del monorepositorio.
 
 ---
 
@@ -410,7 +422,7 @@ title: ${skillData.name}
 description: ${skillData.description}
 ---
 
-*   **Ruta de Configuración**: [\`IA_Configuracion/skills/${item}/\`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/skills/${item}/SKILL.md)
+*   **Ruta de Configuración**: \`IA_Configuracion/skills/${item}/SKILL.md\`
 
 ---
 
@@ -455,7 +467,7 @@ sidebar:
   order: 1
 ---
 
-Las **Skills** (habilidades) son extensiones de automatización personalizadas que se configuran y mantienen de forma centralizada en el repositorio de [IA_Configuracion](file:///c:/Users/jjtei/Desktop/IA_Configuracion/skills).
+Las **Skills** (habilidades) son extensiones de automatización personalizadas que se configuran y mantienen de forma centralizada en el repositorio [\`IA_Configuracion\`](/configuracion/introduccion/) (\`IA_Configuracion/skills/\`).
 
 Al arrancar el entorno de desarrollo o compilar el portal, estas habilidades se sincronizan y actualizan automáticamente en las carpetas de proyectos y microservicios locales (\`IA_Proyectos\`, \`IA_Infraestructura\` e \`IA_Documentacion\`).
 
@@ -485,7 +497,7 @@ function syncReglasDocumentacion() {
     return;
   }
   const rawContent = fs.readFileSync(srcReglas, 'utf8');
-  const cleanContent = fixEncoding(rawContent);
+  const cleanContent = sanitizeLocalFileLinks(fixEncoding(rawContent));
 
   const fileContent = `---
 title: Reglas Generales del Agente
@@ -495,7 +507,7 @@ tableOfContents: true
 ---
 
 :::tip[Sincronización Automática]
-Las reglas globales y específicas de agentes se configuran centralizadamente en el repositorio [IA_Configuracion](file:///C:/Users/jjtei/Desktop/IA_Configuracion). Cualquier cambio se propaga de forma automática a los directorios \`.agents/AGENTS.md\` de **IA_Proyectos**, **IA_Infraestructura** e **IA_Documentacion** al ejecutar el script de desarrollo (\`npm run dev\` o \`npm run build\`).
+Las reglas globales y específicas de agentes se configuran centralizadamente en el repositorio [\`IA_Configuracion\`](/configuracion/introduccion/). Cualquier cambio se propaga de forma automática a los directorios \`.agents/AGENTS.md\` de **IA_Proyectos**, **IA_Infraestructura** e **IA_Documentacion** al ejecutar el script de desarrollo (\`npm run dev\` o \`npm run build\`).
 :::
 
 Este documento establece las reglas fundamentales que todo agente de IA debe seguir al trabajar en el monorepositorio **Proyectos IA** y en la máquina de desarrollo local. Estas normas garantizan la seguridad, mantenibilidad, consistencia de código y optimización de recursos.
@@ -569,7 +581,7 @@ title: "${title}"
 description: "${description}"
 ---
 
-*   **Ruta física**: [\`${item}/\`](file:///c:/Users/jjtei/Desktop/IA_Infraestructura/${item})
+*   **Ruta en repositorio**: \`IA_Infraestructura/${item}/\`
 
 ---
 
@@ -612,7 +624,7 @@ title: Introducción a la Configuración
 description: Guía de introducción técnica al repositorio de configuración del agente de IA.
 ---
 
-*   **Ruta física**: [\`IA_Configuracion/\`](file:///C:/Users/jjtei/Desktop/IA_Configuracion)
+*   **Ruta en repositorio**: \`IA_Configuracion/\`
 
 ---
 
@@ -692,7 +704,7 @@ title: Plugin "${p}"
 description: "${description.replace(/"/g, "'")}"
 ---
 
-*   **Ruta física**: [\`plugins/${p}/\`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/plugins/${p})
+*   **Ruta en repositorio**: \`IA_Configuracion/plugins/${p}/\`
 *   **Versión**: \`${versionLabel}\`
 *   **Estado**: ${statusLabel}
 
@@ -769,7 +781,7 @@ title: Reglas de "${title}"
 description: Directrices y reglas obligatorias específicas del repositorio ${title}.
 ---
 
-*   **Ruta física**: [\`proyectos-reglas/${r}\`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/proyectos-reglas/${r})
+*   **Ruta en repositorio**: \`IA_Configuracion/proyectos-reglas/${r}\`
 
 ---
 

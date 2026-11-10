@@ -3,7 +3,7 @@ title: Plugin "auto-previewer"
 description: "Skill para forzar al agente a ejecutar, previsualizar y mostrar visualmente los resultados de cada creación."
 ---
 
-*   **Ruta física**: [`plugins/auto-previewer/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/plugins/auto-previewer)
+*   **Ruta en repositorio**: `IA_Configuracion/plugins/auto-previewer/`
 *   **Versión**: `v1.0.0`
 *   **Estado**: En reserva (`SKILL.md.disabled`)
 

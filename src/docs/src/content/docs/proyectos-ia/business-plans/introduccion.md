@@ -13,7 +13,7 @@ La **Suite Business Plans** es un conjunto de aplicaciones de simulación financ
 
 Los simuladores de negocio comparten recursos de estilo y estándares arquitectónicos definidos en la habilidad [`gestiona_business_plan`](/agente/skills/gestiona_business_plan/):
 
-*   **Ubicación física**: [`apps/business-plans/`](file:///c:/Users/jjtei/Desktop/IA_Proyectos/apps/business-plans)
+*   **Ubicación en repositorio**: `IA_Proyectos/apps/business-plans/`
 *   **Estilo Visual**: Tema oscuro/claro corporativo, tipografías modernas (Outfit/Inter), controles deslizantes fluidos y gráficos interactivos con Chart.js.
 *   **Despliegue Granular**: Cada simulador se compila y despliega de forma individual en su propio canal/subdominio de Firebase Hosting Multisite.
 

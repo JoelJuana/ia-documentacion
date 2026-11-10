@@ -6,7 +6,7 @@ tableOfContents: true
 ---
 
 :::tip[Sincronización Automática]
-Las reglas globales y específicas de agentes se configuran centralizadamente en el repositorio [IA_Configuracion](file:///C:/Users/jjtei/Desktop/IA_Configuracion). Cualquier cambio se propaga de forma automática a los directorios `.agents/AGENTS.md` de **IA_Proyectos**, **IA_Infraestructura** e **IA_Documentacion** al ejecutar el script de desarrollo (`npm run dev` o `npm run build`).
+Las reglas globales y específicas de agentes se configuran centralizadamente en el repositorio [`IA_Configuracion`](/configuracion/introduccion/). Cualquier cambio se propaga de forma automática a los directorios `.agents/AGENTS.md` de **IA_Proyectos**, **IA_Infraestructura** e **IA_Documentacion** al ejecutar el script de desarrollo (`npm run dev` o `npm run build`).
 :::
 
 Este documento establece las reglas fundamentales que todo agente de IA debe seguir al trabajar en el monorepositorio **Proyectos IA** y en la máquina de desarrollo local. Estas normas garantizan la seguridad, mantenibilidad, consistencia de código y optimización de recursos.

@@ -1,0 +1,35 @@
+name: Auditoría y Compilación del Portal IA
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  audit-and-build:
+    name: Auditar Markdown y Compilar Astro
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/docs
+
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: src/docs/package-lock.json
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar auditoría integral del portal
+        run: npm run audit
+
+      - name: Compilar sitio estático Astro + Pagefind y Sitemap
+        run: npx astro build && node scripts/generate-sitemap.js

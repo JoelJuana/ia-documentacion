@@ -45,7 +45,7 @@ Copy-Item "C:\Users\jjtei\Desktop\IA_Configuracion\skills\<nombre_skill>\SKILL.m
 
 ## Paso 3: Sincronizar con el Portal e Indexar en RAG
 
-Ejecuta el build del portal de documentación para que [`sync-catalog.js`](file:///c:/Users/jjtei/Desktop/IA_Documentacion/src/docs/scripts/sync-catalog.js) genere la ficha en `/agente/skills/<nombre_skill>/`, actualice el contador de la portada e indexe su contenido en `api-conocimiento-rag`:
+Ejecuta el build del portal de documentación para que `src/docs/scripts/sync-catalog.js` genere la ficha en `/agente/skills/<nombre_skill>/`, actualice el contador de la portada e indexe su contenido en `api-conocimiento-rag`:
 
 ```powershell
 npm run build --prefix "C:\Users\jjtei\Desktop\IA_Documentacion\src\docs"

@@ -3,7 +3,7 @@ title: "workspace-skill-lab"
 description: "Ficha técnica y documentación de la aplicación Google Workspace MCP Lab (workspace-skill-lab)."
 ---
 
-*   **Ruta física**: [`apps/workspace-skill-lab/`](file:///C:/Users/jjtei/Desktop/IA_Proyectos/apps/workspace-skill-lab)
+*   **Ruta en repositorio**: `IA_Proyectos/apps/workspace-skill-lab/`
 *   **Nombre Comercial**: Google Workspace MCP Lab
 *   **Tipo**: `node`
 *   **Creado el**: 2026-07-10

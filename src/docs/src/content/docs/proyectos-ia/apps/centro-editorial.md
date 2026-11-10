@@ -3,7 +3,7 @@ title: "centro-editorial"
 description: "Ficha técnica y documentación de la aplicación Centro Editorial y Visor A4 (centro-editorial)."
 ---
 
-*   **Ruta física**: [`docs/editorial/`](file:///C:/Users/jjtei/Desktop/IA_Proyectos/docs/editorial)
+*   **Ruta en repositorio**: `IA_Proyectos/docs/editorial/`
 *   **Nombre Comercial**: Centro Editorial y Visor A4
 *   **Tipo**: `vanilla`
 *   **Creado el**: 2026-10-18
@@ -14,7 +14,7 @@ description: "Ficha técnica y documentación de la aplicación Centro Editorial
 
 # IA_Editorial — Estudio de Maquetación y Publicación de Documentos
 
-Espacio de trabajo centralizado para la redacción, maquetación profesional y exportación simultánea a **PDF vectorial (A4)** y **Word / Google Docs (`.docx`)** mediante la skill [`gestiona_editorial`](file:///C:/Users/jjtei/.gemini/config/skills/gestiona_editorial/SKILL.md).
+Espacio de trabajo centralizado para la redacción, maquetación profesional y exportación simultánea a **PDF vectorial (A4)** y **Word / Google Docs (`.docx`)** mediante la skill `gestiona_editorial`.
 
 Cada uno de los **ámbitos del estudio** tiene su propia carpeta **`_identidad/`** con el mismo esquema simétrico: su manual de **Identidad Corporativa** (`IDENTIDAD_CORPORATIVA.md`), su hoja de estilos maestra (`style.css`) y las **reglas y plantillas separadas por cada tipo de documento**.
 
@@ -59,8 +59,8 @@ docs/editorial/
 │   │   ├── reglas_dossier_financiero.md              # Reglas de Dossiers Financieros, KPIs y Estrategia Fiscal
 │   │   └── plantilla_dossier_financiero.html         # Plantilla base de Hoja A4 al 100% de ocupación
 │   │
-│   ├── 2026-11-plan-financiero-estrategia-real/      # 📄 Dossier Compraventa Farmacia: Socios, Vendedor y Comprador (3 Págs.)
-│   └── 2026-10-plan-financiero-estrategia-real/      # 📄 Plan de Negocio y Anexos Ramón Turró — Girona (9 Págs.)
+│   ├── 2026-11-plan-financiero-estrategia-real/      # 📄 Dossier Compraventa Farmacia: Socios, Vendedor y Comprador (3 Págs. · HTML + PDF + DOCX)
+│   └── 2026-10-plan-financiero-estrategia-real/      # 📄 Plan de Negocio y Anexos Ramón Turró — Girona (9 Págs. · HTML + PDF + DOCX)
 │
 └── 🔧 SEAT 124 FL - Instalacion Electrica/           # 4. PRESET: seat_124_taller (Ingeniería y Manual de Taller)
     ├── _identidad/                                   # 🎨 Imagen Técnica SEAT Sport / Bosch Classic
@@ -71,9 +71,11 @@ docs/editorial/
     │
     ├── circuitos/                                    # ⚡ ESPECIFICACION.md + C01..C15.html + generar_manual.py
     ├── manual_original/                              # 📚 Esquemas originales de referencia
+    ├── preview/                                      # 🖼️ 30 capturas verificadas (page_1.png .. page_30.png)
     ├── style.css                                     # Hoja de estilos activa del manual
+    ├── index.html                                    # ⚡ Visor interactivo de los 15 circuitos eléctricos
     ├── Manual_Instalacion_Electrica_SEAT_124_FL.html # 📄 Fuente HTML unificada del manual
-    └── Manual_Instalacion_Electrica_SEAT_124_FL.pdf  # 📄 Manual completo en PDF vectorial (10 Hojas)
+    └── Manual_Instalacion_Electrica_SEAT_124_FL.pdf  # 📄 Manual completo en PDF vectorial (30 Hojas)
 ```
 
 ---
@@ -82,16 +84,16 @@ docs/editorial/
 
 | Preset | Ámbito / Proyectos | Colores Principales | Tipografías | Tipos de Documento y Paginación |
 |---|---|---|---|---|
-| **`oca_global`** | **OCA Global** | Azul marino `#0B3356` · Rojo logo `#DE473C` · Gris tabla `#F2F2F2` | `Arial Black` (títulos) + `Arial` (cuerpo y tablas) | 1. **Due Diligence Preliminar (Fase 1)**<br>2. **Protocolo Técnico (Fase 2) / Informe Técnico**<br>*(Flujo editorial continuo + DOCX)* |
-| **`actas_comunidad`** | **CP Mercat Devesa** | Azul clásico `#1B3A5C` · Azul noche `#0D1F33` · Azul acuerdos `#2B6CB0` | `Inter` (títulos, fichas y tablas) + `Merriweather` (cuerpo Serif) | 1. **Acta de Reunión y Acuerdos (Mod. A)**<br>2. **Estatutos y Reglamentos CCCat (Mod. B)**<br>*(Flujo editorial continuo + DOCX)* |
-| **`dossier_financiero`** | **Compra Farmacia**<br>**Ramón Turró** | Azul banca `#1B3A5C` · Esmeralda `#0F766E` · Ámbar `#B45309` · Púrpura `#5B21B6` | `Inter` (títulos, KPIs, tablas y fichas) + `Merriweather` (introducción) | 1. **Dossier Bancario / Socios (`.hoja-a4`)**<br>2. **Anexos Fiscales Densos (`.hoja-densa`)**<br>*(Ocupación exacta 100 % por página A4)* |
-| **`seat_124_taller`** | **SEAT 124 FL** | Rojo SEAT `#C8102E` · Carbón `#111827` · Ámbar Bosch `#D97706` | `Barlow Condensed` + `IBM Plex Sans` + `JetBrains Mono` | 1. **Manual Eléctrico y Fichas de Circuito SVG**<br>*(Alta densidad técnica + DIN 72552)* |
+| **`oca_global`** | **OCA Global** | Azul marino `#0B3356` · Rojo logo `#DE473C` · Gris tabla `#F2F2F2` | `Arial Black` (títulos) + `Arial` (cuerpo y tablas) | 1. **Due Diligence Preliminar (Fase 1)**<br>2. **Protocolo Técnico (Fase 2) / Informe Técnico**<br>*(Flujo editorial continuo + PDF + DOCX)* |
+| **`actas_comunidad`** | **CP Mercat Devesa** | Azul clásico `#1B3A5C` · Azul noche `#0D1F33` · Azul acuerdos `#2B6CB0` | `Inter` (títulos, fichas y tablas) + `Merriweather` (cuerpo Serif) | 1. **Acta de Reunión y Acuerdos (Mod. A)**<br>2. **Estatutos y Reglamentos CCCat (Mod. B)**<br>*(Flujo editorial continuo + PDF + DOCX)* |
+| **`dossier_financiero`** | **Compra Farmacia**<br>**Ramón Turró** | Azul banca `#1B3A5C` · Esmeralda `#0F766E` · Ámbar `#B45309` · Púrpura `#5B21B6` | `Inter` (títulos, KPIs, tablas y fichas) + `Merriweather` (introducción) | 1. **Dossier Bancario / Socios (`.hoja-a4`)**<br>2. **Anexos Fiscales Densos (`.hoja-densa`)**<br>*(Ocupación exacta 100 % por página A4 + PDF + DOCX)* |
+| **`seat_124_taller`** | **SEAT 124 FL** | Rojo SEAT `#C8102E` · Carbón `#111827` · Ámbar Bosch `#D97706` | `Barlow Condensed` + `IBM Plex Sans` + `JetBrains Mono` | 1. **Manual Eléctrico y Fichas de Circuito SVG**<br>*(Alta densidad técnica + DIN 72552 · 30 Hojas)* |
 
 ---
 
 ## Compilación en 1 Comando (PDF + Previews PNG + Word `.docx`)
 
-Para compilar cualquier documento a **`.pdf`**, regenerar sus capturas **`preview/page_X.png`**, validar el límite de páginas y exportar automáticamente a **`.docx`** (en OCA Global y Comunidad de Propietarios):
+Para compilar cualquier documento a **`.pdf`**, regenerar sus capturas **`preview/page_X.png`**, validar el límite de páginas y exportar automáticamente a **`.docx`** (en OCA Global, Comunidad de Propietarios y Dossiers Financieros):
 
 ```powershell
 node "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\build_editorial.js" ".\ruta\al\documento.html" --max-pages 3

@@ -3,7 +3,7 @@ title: "antigravity-joel"
 description: "Ficha técnica y documentación de la aplicación Antigravity Docs · Portal IA (antigravity-joel)."
 ---
 
-*   **Ruta física**: [`IA_Documentacion/`](file:///C:/Users/jjtei/Desktop/IA_Documentacion)
+*   **Ruta en repositorio**: `IA_Documentacion/`
 *   **Nombre Comercial**: Antigravity Docs · Portal IA
 *   **Tipo**: `starlight`
 *   **Creado el**: 2026-07-01

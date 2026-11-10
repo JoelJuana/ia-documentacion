@@ -3,7 +3,7 @@ title: "Firebase Service (infra-firebase)"
 description: "Ficha técnica detallada del microservicio infra-firebase."
 ---
 
-*   **Ruta física**: [`infra-firebase/`](file:///c:/Users/jjtei/Desktop/IA_Infraestructura/infra-firebase)
+*   **Ruta en repositorio**: `IA_Infraestructura/infra-firebase/`
 
 ---
 

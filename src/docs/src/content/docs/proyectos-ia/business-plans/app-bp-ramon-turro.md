@@ -3,7 +3,7 @@ title: "app-bp-ramon-turro"
 description: "Ficha técnica y documentación de la aplicación Business Plan · Ramón Turró (Girona) (app-bp-ramon-turro)."
 ---
 
-*   **Ruta física**: [`apps/business-plans/app-bp-ramon-turro/`](file:///C:/Users/jjtei/Desktop/IA_Proyectos/apps/business-plans/app-bp-ramon-turro)
+*   **Ruta en repositorio**: `IA_Proyectos/apps/business-plans/app-bp-ramon-turro/`
 *   **Nombre Comercial**: Business Plan · Ramón Turró (Girona)
 *   **Tipo**: `vanilla`
 *   **Creado el**: 2026-06-28

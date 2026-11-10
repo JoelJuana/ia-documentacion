@@ -1,4 +1,4 @@
-/* Tipografía premium de Google Fonts (Outfit e Inter) cargada asíncronamente en astro.config.mjs */
+/* Tipografía corporativa (Outfit e Inter) cargada asíncronamente en astro.config.mjs */
 
 :root {
 	/* Tipografía del sistema y Markdown */
@@ -11,13 +11,13 @@
 	--sl-line-height: 1.75 !important;    /* Interlineado cómodo */
 
 	/* Color de acento de IA - Violeta Eléctrico y Cian Tecnológico */
-	--color-brand-red: #7c3aed;
-	--color-brand-red-dark: #6d28d9;
-	--color-brand-red-light: rgba(124, 58, 237, 0.08);
-	--color-brand-red-border: rgba(124, 58, 237, 0.25);
+	--color-brand-accent: #7c3aed;
+	--color-brand-accent-dark: #6d28d9;
+	--color-brand-accent-light: rgba(124, 58, 237, 0.08);
+	--color-brand-accent-border: rgba(124, 58, 237, 0.25);
 }
 
-/* Aplicar ancho óptimo de lectura (unos 720px) solo en pantallas grandes para asegurar responsividad en móviles */
+/* Aplicar ancho óptimo de lectura solo en pantallas grandes para asegurar responsividad en móviles */
 @media (min-width: 50rem) {
 	:root {
 		--sl-content-width: 76ch !important;
@@ -28,13 +28,11 @@
 /* TEMA OSCURO (Por defecto)                                     */
 /* ------------------------------------------------------------- */
 :root[data-theme='dark'] {
-	/* Colores de Acento (Violeta y Cian) */
 	--sl-color-accent-low: #1e113a;
 	--sl-color-accent: #8b5cf6;
 	--sl-color-accent-high: #a78bfa;
 	--sl-color-text-accent: #06b6d4;
 
-	/* Escala de Grises / Fondos / Contraste */
 	--sl-color-white: #f8fafc;
 	--sl-color-gray-1: #f1f5f9;
 	--sl-color-gray-2: #cbd5e1;
@@ -53,13 +51,11 @@
 /* TEMA CLARO                                                    */
 /* ------------------------------------------------------------- */
 :root[data-theme='light'] {
-	/* Colores de Acento (Violeta y Cian) */
-	--sl-color-accent-low: var(--color-brand-red-light);
-	--sl-color-accent: var(--color-brand-red);
-	--sl-color-accent-high: var(--color-brand-red-dark);
+	--sl-color-accent-low: var(--color-brand-accent-light);
+	--sl-color-accent: var(--color-brand-accent);
+	--sl-color-accent-high: var(--color-brand-accent-dark);
 	--sl-color-text-accent: #0891b2;
 
-	/* Escala de Grises / Fondos / Contraste */
 	--sl-color-white: #0f172a;
 	--sl-color-gray-1: #1e293b;
 	--sl-color-gray-2: #334155;
@@ -75,10 +71,8 @@
 }
 
 /* ------------------------------------------------------------- */
-/* AJUSTES DE MAQUETACIÓN Y COMPONENTES                          */
+/* AJUSTES DE MAQUETACIÓN Y TIPOGRAFÍA                           */
 /* ------------------------------------------------------------- */
-
-/* Estilos de encabezado y legibilidad */
 h1, h2, h3, h4, h5, h6 {
 	font-family: var(--sl-font-headings) !important;
 	letter-spacing: -0.025em;
@@ -104,23 +98,27 @@ h3 {
 	margin-bottom: 0.75rem !important;
 }
 
-/* Forzar line-height y márgenes en párrafos para excelente confort de lectura */
 .content p, .content li {
 	font-size: 1.0625rem !important;
 	line-height: 1.75 !important;
 	margin-bottom: 1.25rem !important;
 	color: var(--sl-color-gray-2) !important;
+	overflow-wrap: break-word !important;
 }
 
-.content p {
-	text-align: justify !important;
+/* Evitar ríos de espacio en pantallas móviles; justificar con guiones automáticos en escritorio */
+@media (min-width: 50rem) {
+	.content p {
+		text-align: justify !important;
+		hyphens: auto !important;
+	}
 }
 
 .content li {
 	margin-bottom: 0.5rem !important;
 }
 
-/* Ajustes de las tablas para que parezcan hojas de cálculo médicas profesionales y sean responsivas */
+/* Tablas técnicas responsivas */
 table {
 	display: block !important;
 	overflow-x: auto !important;
@@ -148,14 +146,10 @@ td {
 	vertical-align: middle !important;
 }
 
-/* Tarjeta / Hero layout */
 .hero {
 	padding: 3rem 0 !important;
 }
 
-/* Estilos de badges e identificadores de soporte */
-
-/* Bloques de advertencias / Info */
 blockquote {
 	border-left-width: 4px !important;
 	border-left-color: var(--sl-color-accent) !important;
@@ -165,127 +159,7 @@ blockquote {
 }
 
 /* ------------------------------------------------------------- */
-/* FLUJO VISUAL COMPACTO DE ATENCIÓN (0 COLAS)                  */
-/* ------------------------------------------------------------- */
-.flow-container-compact {
-	background-color: var(--sl-color-bg-sidebar) !important;
-	border: 1px solid var(--sl-color-gray-5) !important;
-	border-radius: 12px !important;
-	padding: 1rem !important;
-	margin: 1.5rem 0 !important;
-	width: 100% !important;
-	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
-	transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
-}
-
-.flow-container-compact:hover {
-	border-color: var(--color-brand-red-border) !important;
-	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08) !important;
-}
-
-.flow-steps-grid {
-	display: flex !important;
-	align-items: center !important;
-	justify-content: space-between !important;
-	width: 100% !important;
-	gap: 0.5rem !important;
-}
-
-@media (max-width: 768px) {
-	.flow-steps-grid {
-		flex-direction: column !important;
-		gap: 0.75rem !important;
-	}
-	.flow-arrow-compact {
-		transform: rotate(90deg) !important;
-		margin: 0.15rem 0 !important;
-	}
-	.flow-step-compact {
-		width: 100% !important;
-		max-width: 100% !important;
-	}
-}
-
-.flow-step-compact {
-	flex: 1 !important;
-	text-align: center !important;
-	padding: 0.65rem 0.5rem !important;
-	background-color: var(--sl-color-bg) !important;
-	border: 1px solid var(--sl-color-gray-5) !important;
-	border-radius: 8px !important;
-	max-width: 220px !important;
-}
-
-.step-icon-compact {
-	display: none !important;
-}
-
-.flow-step-compact strong {
-	font-size: 0.9rem !important;
-	color: var(--sl-color-white) !important;
-	display: inline-block !important;
-	vertical-align: middle !important;
-}
-
-.flow-step-compact p {
-	font-size: 0.775rem !important;
-	color: var(--sl-color-gray-3) !important;
-	margin: 0.35rem 0 0 0 !important;
-}
-
-.flow-substeps-compact {
-	display: flex !important;
-	gap: 0.25rem !important;
-	margin-top: 0.35rem !important;
-	justify-content: center !important;
-}
-
-.substep-green, .substep-red {
-	font-size: 0.7rem !important;
-	font-weight: 600 !important;
-	padding: 0.15rem 0.4rem !important;
-	border-radius: 4px !important;
-}
-
-.substep-green {
-	background-color: rgba(16, 185, 129, 0.08) !important;
-	color: #10b981 !important;
-	border: 1px solid rgba(16, 185, 129, 0.2) !important;
-}
-
-.substep-red {
-	background-color: rgba(217, 56, 58, 0.08) !important;
-	color: var(--color-brand-red) !important;
-	border: 1px solid rgba(217, 56, 58, 0.2) !important;
-}
-
-.flow-arrow-compact {
-	font-size: 1.25rem !important;
-	color: var(--sl-color-gray-4) !important;
-	user-select: none !important;
-	font-weight: bold !important;
-}
-
-.flow-goal-compact {
-	text-align: center !important;
-	margin-top: 0.75rem !important;
-	padding-top: 0.75rem !important;
-	border-top: 1px solid var(--sl-color-gray-5) !important;
-	font-size: 0.875rem !important;
-	color: var(--sl-color-gray-2) !important;
-}
-
-.goal-highlight-compact {
-	font-weight: 700 !important;
-	color: var(--color-brand-red) !important;
-	background-color: var(--color-brand-red-light) !important;
-	padding: 0.2rem 0.5rem !important;
-	border-radius: 6px !important;
-	border: 1px solid var(--color-brand-red-border) !important;
-}
-
-/* ------------------------------------------------------------- */
-/* DASHBOARD DE PORTADA (MOSAICO DE ACCESOS DIRECTOS)            */
+/* DASHBOARD DE PORTADA Y CATÁLOGOS                              */
 /* ------------------------------------------------------------- */
 .dashboard-grid {
 	display: grid !important;
@@ -314,12 +188,6 @@ blockquote {
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05) !important;
 }
 
-.card-icon {
-	font-size: 2.25rem !important;
-	margin-bottom: 0.75rem !important;
-	display: block !important;
-}
-
 .dashboard-card h3 {
 	font-size: 1.15rem !important;
 	color: var(--sl-color-white) !important;
@@ -332,63 +200,19 @@ blockquote {
 	color: var(--sl-color-gray-3) !important;
 	margin: 0 !important;
 	line-height: 1.4 !important;
+	text-align: left !important;
 }
 
-/* Fin de estilos del portal */
-
-/* Estilos para integrar el selector de tema y búsqueda de Starlight */
-starlight-theme-select {
-	margin-inline-start: 1rem !important;
+.card-meta {
+	font-size: 0.72rem !important;
+	font-weight: 600 !important;
+	text-transform: uppercase !important;
+	letter-spacing: 0.04em !important;
+	color: var(--sl-color-text-accent) !important;
+	margin-bottom: 0.35rem !important;
+	display: inline-block !important;
 }
 
-site-search {
-	margin-inline-end: 1rem !important;
-}
-
-/* Ocultar iconos en notas, advertencias y callouts (asides) de Starlight */
-.aside__icon {
-	display: none !important;
-}
-
-/* Corregir estructura del aside tras eliminar el icono */
-.aside {
-	display: block !important;
-	padding-left: 1.25rem !important;
-}
-
-/* Ocultar iconos automáticos de enlaces externos */
-.content a[href^="http"] svg,
-.content a[target="_blank"] svg {
-	display: none !important;
-}
-
-/* Ajustes estéticos elegantes para la Tabla de Contenidos (TOC) en pantallas grandes */
-@media (min-width: 72rem) {
-	.right-sidebar {
-		border-inline-start: 1px solid var(--sl-color-gray-5) !important;
-		background-color: transparent !important;
-	}
-	
-	starlight-toc a {
-		color: var(--sl-color-gray-3) !important;
-		font-size: 0.875rem !important;
-		transition: color 0.2s ease !important;
-		border-inline-start: 2px solid transparent !important;
-		padding-inline-start: 0.75rem !important;
-	}
-	
-	starlight-toc a[aria-current="true"] {
-		color: var(--sl-color-accent) !important;
-		border-inline-start-color: var(--sl-color-accent) !important;
-		font-weight: 600 !important;
-	}
-
-	starlight-toc a:hover {
-		color: var(--sl-color-white) !important;
-	}
-}
-
-/* Estilo premium para números estadísticos del Dashboard */
 .stat-number {
 	font-size: 2.5rem !important;
 	font-weight: 800 !important;
@@ -400,17 +224,74 @@ site-search {
 	line-height: 1 !important;
 }
 
-/* Contenedor visual para diagramas de arquitectura Mermaid renderizados en SVG */
+/* ------------------------------------------------------------- */
+/* NAVEGACIÓN, ASIDES Y TABLA DE CONTENIDOS                      */
+/* ------------------------------------------------------------- */
+starlight-theme-select {
+	margin-inline-start: 1rem !important;
+}
+
+site-search {
+	margin-inline-end: 1rem !important;
+}
+
+.aside__icon {
+	display: none !important;
+}
+
+.aside {
+	display: block !important;
+	padding-left: 1.25rem !important;
+}
+
+.content a[href^="http"] svg,
+.content a[target="_blank"] svg {
+	display: none !important;
+}
+
+@media (min-width: 72rem) {
+	.right-sidebar {
+		border-inline-start: 1px solid var(--sl-color-gray-5) !important;
+		background-color: transparent !important;
+	}
+
+	starlight-toc a {
+		color: var(--sl-color-gray-3) !important;
+		font-size: 0.875rem !important;
+		transition: color 0.2s ease !important;
+		border-inline-start: 2px solid transparent !important;
+		padding-inline-start: 0.75rem !important;
+	}
+
+	starlight-toc a[aria-current="true"] {
+		color: var(--sl-color-accent) !important;
+		border-inline-start-color: var(--sl-color-accent) !important;
+		font-weight: 600 !important;
+	}
+
+	starlight-toc a:hover {
+		color: var(--sl-color-white) !important;
+	}
+}
+
+/* ------------------------------------------------------------- */
+/* DIAGRAMAS DE ARQUITECTURA MERMAID Y VISOR MODAL               */
+/* ------------------------------------------------------------- */
 .mermaid-diagram {
+	position: relative !important;
 	background-color: var(--sl-color-bg-sidebar) !important;
 	border: 1px solid var(--sl-color-gray-5) !important;
 	border-radius: 12px !important;
-	padding: 1.5rem !important;
+	padding: 2.25rem 1.5rem 1.5rem 1.5rem !important;
 	margin: 1.5rem 0 !important;
+	overflow-x: auto !important;
+}
+
+.mermaid-svg-wrap {
 	display: flex !important;
 	justify-content: center !important;
 	align-items: center !important;
-	overflow-x: auto !important;
+	width: 100% !important;
 }
 
 .mermaid-diagram svg {
@@ -418,16 +299,88 @@ site-search {
 	height: auto !important;
 }
 
-/* Etiquetas de metadatos dentro de las tarjetas del catálogo */
-.card-meta {
-	font-size: 0.72rem !important;
+.mermaid-zoom-btn {
+	position: absolute !important;
+	top: 0.65rem !important;
+	right: 0.75rem !important;
+	background-color: var(--sl-color-bg) !important;
+	color: var(--sl-color-gray-2) !important;
+	border: 1px solid var(--sl-color-gray-5) !important;
+	border-radius: 6px !important;
+	padding: 0.2rem 0.6rem !important;
+	font-size: 0.75rem !important;
 	font-weight: 600 !important;
-	text-transform: uppercase !important;
-	letter-spacing: 0.04em !important;
-	color: var(--sl-color-text-accent) !important;
-	margin-bottom: 0.35rem !important;
-	display: inline-block !important;
+	cursor: pointer !important;
+	transition: border-color 0.15s ease, color 0.15s ease !important;
 }
 
+.mermaid-zoom-btn:hover {
+	border-color: var(--sl-color-accent) !important;
+	color: var(--sl-color-white) !important;
+}
 
+.mermaid-lightbox {
+	display: none;
+	position: fixed;
+	inset: 0;
+	z-index: 9999;
+	align-items: center;
+	justify-content: center;
+	padding: 2rem;
+}
 
+.mermaid-lightbox.is-open {
+	display: flex;
+}
+
+.mermaid-lightbox-backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgba(2, 6, 23, 0.82);
+	backdrop-filter: blur(4px);
+}
+
+.mermaid-lightbox-dialog {
+	position: relative;
+	z-index: 1;
+	background: var(--sl-color-bg-sidebar);
+	border: 1px solid var(--sl-color-gray-4);
+	border-radius: 14px;
+	padding: 3rem 2rem 2rem 2rem;
+	max-width: 94vw;
+	max-height: 90vh;
+	width: 1100px;
+	overflow: auto;
+	box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.mermaid-lightbox-close {
+	position: absolute;
+	top: 0.85rem;
+	right: 1rem;
+	background: var(--sl-color-bg);
+	color: var(--sl-color-white);
+	border: 1px solid var(--sl-color-gray-4);
+	border-radius: 6px;
+	padding: 0.3rem 0.75rem;
+	font-size: 0.8rem;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.mermaid-lightbox-close:hover {
+	border-color: var(--sl-color-accent);
+}
+
+.mermaid-lightbox-body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 300px;
+}
+
+.mermaid-lightbox-body svg {
+	width: 100% !important;
+	max-width: 100% !important;
+	height: auto !important;
+}

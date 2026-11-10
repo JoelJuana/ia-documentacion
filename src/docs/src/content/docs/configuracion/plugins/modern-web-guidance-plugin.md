@@ -3,7 +3,7 @@ title: Plugin "modern-web-guidance-plugin"
 description: "Curated collection of agent skills for modern web development."
 ---
 
-*   **Ruta física**: [`plugins/modern-web-guidance-plugin/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/plugins/modern-web-guidance-plugin)
+*   **Ruta en repositorio**: `IA_Configuracion/plugins/modern-web-guidance-plugin/`
 *   **Versión**: `v1.0.4`
 *   **Estado**: Activo
 

@@ -3,7 +3,7 @@ title: Plugin "skills-dashboard-manager"
 description: "Skill global para arrancar y monitorizar el Cuadro de Mandos de gestion de skills de Antigravity."
 ---
 
-*   **Ruta física**: [`plugins/skills-dashboard-manager/`](file:///C:/Users/jjtei/Desktop/IA_Configuracion/plugins/skills-dashboard-manager)
+*   **Ruta en repositorio**: `IA_Configuracion/plugins/skills-dashboard-manager/`
 *   **Versión**: `v1.0.0`
 *   **Estado**: Activo
 
