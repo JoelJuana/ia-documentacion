@@ -49,6 +49,12 @@ El dossier ejecutivo auditado al 100% de ocupación A4 para Comité de Riesgos y
 
 ## Historial de Versiones del Proyecto
 
+### [2.3.0] - 2026-11-13
+#### Mejorado (Díptico Comercial y Explotación · Páginas 2 y 3 del Dossier Bancario)
+- **Rediseño integral de la Página 2 (`Proyecto y modelo de negocio`)**: enfocada al 100% en la propuesta comercial multiformato (**meses `880–980 €/m`**, **semanas `300–490 €/sem.`** y **días `60–105 €/noche`**), segmentación de los 4 perfiles de cliente en Girona, servicios hoteleros incluidos en cada formato (blindaje del IVA al 10% y devolución REDEME de `288.750 €`), impacto en menores costes de rotación/comisiones (`6,0%`), ahorro solar/domótico y política de cobro anticipado sin riesgo de impago.
+- **Rediseño integral de la Página 3 (`Ingresos y gastos de explotación`)**: nueva tabla maestra multicolumna conciliada al euro entre **Año 1 (`70%` · `240.240 €`)**, **Caso Base constante (`85%` · `291.720 €`)** y **Año 2 nominal (`+2% IPC` · `297.554 €`)**, desglosando ingresos por formato (`59,4%` meses, `23,5%` semanas, `17,1%` días), las **7 partidas exactas de OpEx** del simulador (`106.503 €` base / `108.633 €` A2), tabla de **Economía Unitaria por habitación** (`935 € RevPAR − 341 € OpEx = 594 €/mes EBITDA`) y escalera de puntos de equilibrio (`27,6%` `EBITDA = 0` y `59,9%` `DSCR = 1,00x`).
+- **Conciliación patrimonial transversal (Páginas 1 a 9)**: alineado todo el dossier con el esquema canónico de **hipotecante no deudor** (`valorAportacion: 0` en SL, amortización contable anual `58.330 €` en A1–A10, impuestos y caja neta a 25 años de `2.788.933 €`).
+
 ### [2.2.0] - 2026-11-13
 #### Cambiado
 - **Adopción exclusiva de Hipoteca Promotora Verde Única a 20 años (`4,50%`)** en el simulador y en el Dossier Editorial (PDF/DOCX), eliminando la estructura dual y los botones de conmutación.
