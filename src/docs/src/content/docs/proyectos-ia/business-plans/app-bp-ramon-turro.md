@@ -35,7 +35,7 @@ Simulador interactivo de viabilidad financiera, estructura bancaria y optimizaci
 3. **Tesorería, Freno de Barrido y Solvencia Bancaria (Bloques 3 y 4)**
    - **Puente exacto 1:1 Resultados → Caja → Deuda:** Validado mediante suite automatizada de tests (`npm test` en `tests/engine.test.js`), con conciliación fiscal y de deuda auditada.
    - **Prelación de barrido (*Cash Sweep*) y Freno Estratégico (`Deuda/EBITDA`):** Cancelación prioritaria de la Póliza de Circulante seguida de amortización anticipada de tramos a largo plazo, incorporando un control interactivo de freno estratégico tras liberar el *covenant* de reparto de dividendos (`Deuda/EBITDA ≤ 3,5x`).
-   - **Solvencia en escenarios base y estrés (`3.4 Rentabilidad Socio 25a`):** `DSCR A1` de `1,62x` con 6 meses de carencia (`1,29x` sin carencia), autosuficiencia demostrada bajo **Estrés Severo Combinado** (`DSCR A2 = 1,05x`, póliza máxima `92.036 €` dentro del límite de `115.000 €`) y panel en tiempo real de rentabilidad del socio (`TIR`, `VAN al 6%` y `Payback`).
+   - **Solvencia en escenarios base y estrés (`3.4 Rentabilidad Socio 25a`):** Caso Base evaluado en euros constantes (`IPC 0%`, sin indexación inflacionaria y antes de reposiciones post-deuda) con `DSCR A1` de `1,62x` con 6 meses de carencia (`1,29x` sin carencia), `DSCR A2` de `1,75x`, cancelación total de deuda en `Año 10 y 4 meses`, autosuficiencia bajo **Estrés Severo Combinado** (`DSCR A2 = 1,03x`, póliza en Año 2 de `94.831 €` dentro del límite de `115.000 €`) y panel en tiempo real de rentabilidad del socio (`TIR`, `VAN al 6%` y `Payback`).
 
 ## Dossier Bancario Editorial A4 (9 Páginas + Word)
 
