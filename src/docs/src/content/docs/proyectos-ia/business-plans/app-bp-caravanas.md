@@ -29,3 +29,11 @@ Aplicación de análisis de viabilidad financiera y simulador de inversiones par
 - **Bundler**: Vite
 - **Estilo y Diseño**: Libro de estilo unificado de Business Plans (Outfit + Inter, colores oscuros con acentos cian/esmeralda).
 
+
+---
+
+## Historial de Versiones del Proyecto
+
+### [1.0.0] - 2026-07-06
+- Inicialización de estructura mediante la API de Scaffolding.
+

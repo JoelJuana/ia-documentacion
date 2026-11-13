@@ -28,8 +28,8 @@ jobs:
       - name: Instalar dependencias
         run: npm ci
 
-      - name: Ejecutar auditoría integral del portal
-        run: npm run audit
+      - name: Verificar modo CI seguro de sincronizador y ejecutar auditoría
+        run: npm run sync && npm run audit
 
       - name: Compilar sitio estático Astro + Pagefind y Sitemap
         run: npx astro build && node scripts/generate-sitemap.js

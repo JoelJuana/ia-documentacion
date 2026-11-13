@@ -6,10 +6,10 @@ tableOfContents: true
 ---
 
 :::tip[Sincronización Automática]
-Las reglas globales y específicas de agentes se configuran centralizadamente en el repositorio [`IA_Configuracion`](/configuracion/introduccion/). Cualquier cambio se propaga de forma automática a los directorios `.agents/AGENTS.md` de **IA_Proyectos**, **IA_Infraestructura** e **IA_Documentacion** al ejecutar el script de desarrollo (`npm run dev` o `npm run build`).
+Las reglas globales y específicas de agentes se configuran centralizadamente en el repositorio [`IA_Configuracion`](/configuracion/introduccion/). Cualquier cambio se propaga de forma automática a `~/.gemini/config/AGENTS.md` y a los directorios `.agents/AGENTS.md` de **IA_Proyectos**, **IA_Infraestructura** e **IA_Documentacion**.
 :::
 
-Este documento establece las reglas fundamentales que todo agente de IA debe seguir al trabajar en el monorepositorio **Proyectos IA** y en la máquina de desarrollo local. Estas normas garantizan la seguridad, mantenibilidad, consistencia de código y optimización de recursos.
+Este documento establece las reglas fundamentales que todo agente de IA debe seguir al trabajar en el ecosistema local. Estas normas garantizan seguridad, consistencia de código, publicación documental automática y optimización nativa ARM64.
 
 ---
 
@@ -59,12 +59,18 @@ La máquina local (`IA_Infraestructura`) cuenta con un conjunto de microservicio
 - Evita estrictamente la descarga o uso de software en versiones de 64 bits de Intel/AMD (x64) que fuercen la traducción por emulación (Prism), para prevenir sobrecalentamiento, consumo excesivo de CPU y cuelgues temporales en ejecuciones simultáneas.
 
 ## 6. Creación y Registro de Habilidades (Skills)
-- Cuando crees o modifiques una habilidad (*skill*), debes asegurarse de colocar su especificación (`SKILL.md`) dentro de su respectiva subcarpeta en `C:/Users/jjtei/Desktop/IA_Configuracion/skills/<skill_name>/` para que sea versionada y sincronizada en el portal de documentación de Astro.
+- Cuando crees o modifiques una habilidad (*skill*), debes asegurarte de colocar su especificación (`SKILL.md`) dentro de su respectiva subcarpeta en `C:/Users/jjtei/Desktop/IA_Configuracion/skills/<skill_name>/` para que sea versionada y sincronizada en el portal de documentación de Astro.
 - Además, debes copiarla en el directorio activo del agente: `C:/Users/jjtei/.gemini/config/skills/<skill_name>/SKILL.md` para que la suite de agentes pueda utilizarla inmediatamente de forma local.
-- Asegúrese de incluir el frontmatter obligatorio con `name` y `description` en el `SKILL.md` para evitar fallos de compilación e indexación en el RAG.
+- Asegúrate de incluir el frontmatter obligatorio con `name` y `description` en el `SKILL.md` para evitar fallos de compilación e indexación en el RAG.
 
 ## 7. Modo Autónomo y Ejecución Proactiva ("Modo Turbo")
 - **Autonomía total**: No solicites permisos, planes ni validaciones redundantes al usuario durante el flujo de trabajo. Procede solo y de forma resolutiva de principio a fin.
 - **Acción directa**: Crea los archivos necesarios, compila, prueba, genera los entregables terminados y entrega el resultado final ya listo.
 - **Valores y decisiones por defecto**: Si faltan datos secundarios o específicos, toma decisiones razonables por defecto (placeholders técnicos profesionales bien estructurados) y genera el documento o código completo directamente para que el usuario solo tenga que revisarlo o cambiar el texto.
 - **Cero bloqueos**: No termines las respuestas con preguntas abiertas que frenen el avance. Entrega el trabajo hecho y muestra directamente el siguiente paso ya ejecutado o disponible.
+
+## 8. Publicación Automática Transversal ("Zero-Touch Docs")
+- Siempre que crees, renombres, elimines o actualices funcionalmente un proyecto (`projects.json`, `README.md`, `CHANGELOG.md`), un dossier/manual del Centro Editorial (`docs/editorial/catalog.js`), un microservicio de infraestructura o una habilidad/regla (`SKILL.md`, `AGENTS.md`), ejecuta al cierre de tu tarea:
+  `npm run publish:auto --prefix "C:\Users\jjtei\Desktop\IA_Documentacion\src\docs"`
+- Este orquestador detecta si existen cambios documentales reales y, solo cuando los hay, sincroniza catálogos, audita el portal, compila Astro, indexa incrementalmente en el RAG local, despliega en Firebase Hosting (`https://antigravity.gironacc.com`) y sube el commit documental a GitHub.
+

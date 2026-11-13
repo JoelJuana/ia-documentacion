@@ -43,10 +43,10 @@ Copy-Item "C:\Users\jjtei\Desktop\IA_Configuracion\skills\<nombre_skill>\SKILL.m
 
 ---
 
-## Paso 3: Sincronizar con el Portal e Indexar en RAG
+## Paso 3: Publicar Automáticamente en el Portal, Agente Local y RAG
 
-Ejecuta el build del portal de documentación para que `src/docs/scripts/sync-catalog.js` genere la ficha en `/agente/skills/<nombre_skill>/`, actualice el contador de la portada e indexe su contenido en `api-conocimiento-rag`:
+Ejecuta el orquestador `publish:auto` para que `sync-catalog.js` reconcilie de forma bidireccional `IA_Configuracion/skills/` y `~/.gemini/config/skills/`, genere la ficha en `/agente/skills/<nombre_skill>/`, audite el portal, indexe en `api-conocimiento-rag` y despliegue en Firebase Hosting:
 
 ```powershell
-npm run build --prefix "C:\Users\jjtei\Desktop\IA_Documentacion\src\docs"
+npm run publish:auto --prefix "C:\Users\jjtei\Desktop\IA_Documentacion\src\docs"
 ```

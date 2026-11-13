@@ -2,19 +2,27 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-// Rutas base relativas
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Rutas absolutas a los proyectos
+// Rutas absolutas del ecosistema local
 const configuracionRoot = 'C:/Users/jjtei/Desktop/IA_Configuracion';
 const geminiActiveConfigRoot = 'C:/Users/jjtei/.gemini/config';
 const proyectosRoot = 'C:/Users/jjtei/Desktop/IA_Proyectos';
 const infraestructuraRoot = 'C:/Users/jjtei/Desktop/IA_Infraestructura';
-const documentacionRoot = 'C:/Users/jjtei/Desktop/IA_Documentacion';
+const documentacionRoot = path.resolve(__dirname, '../../..');
+
+// Modo seguro para entornos CI remotos (GitHub Actions Ubuntu) donde no existen los repositorios hermanos
+if (!fs.existsSync(proyectosRoot) && !fs.existsSync(configuracionRoot)) {
+  console.log('[CI Mode] Repositorios hermanos locales no detectados; se conserva el catálogo pre-sincronizado.');
+  process.exit(0);
+}
 
 const projectsJsonPath = path.join(proyectosRoot, 'projects.json');
+const editorialCatalogJsPath = path.join(proyectosRoot, 'docs/editorial/catalog.js');
 const skillsDir = path.join(configuracionRoot, 'skills');
+const pluginsDir = path.join(configuracionRoot, 'plugins');
+const proyectosReglasDir = path.join(configuracionRoot, 'proyectos-reglas');
 
 const targetProyectosMd = path.join(__dirname, '../src/content/docs/proyectos-ia/catalogo-general.md');
 const targetSkillsDir = path.join(__dirname, '../src/content/docs/agente/skills');
@@ -29,14 +37,14 @@ const targetChangelogMd = path.join(__dirname, '../src/content/docs/historial/ca
 const targetIndexMd = path.join(__dirname, '../src/content/docs/index.md');
 
 let countProjects = 0;
+let countGeneralApps = 0;
+let countBusinessPlans = 0;
 let countSkills = 0;
 let countInfra = 0;
-let countPlugins = 0;
+let countActivePlugins = 0;
+let countReservePlugins = 0;
 
-const pluginsDir = path.join(configuracionRoot, 'plugins');
-const proyectosReglasDir = path.join(configuracionRoot, 'proyectos-reglas');
-
-// Rutas de destino para sincronizar reglas específicas de agentes
+// Rutas de destino para propagar reglas específicas de agentes (.agents/AGENTS.md)
 const targetAgentsRules = [
   {
     src: path.join(configuracionRoot, 'proyectos-reglas/ia-documentacion.md'),
@@ -52,7 +60,6 @@ const targetAgentsRules = [
   }
 ];
 
-// Función para corregir encoding corrupto en archivos UTF-8
 function fixEncoding(text) {
   return text
     .replace(/Ã¡/g, 'á')
@@ -71,7 +78,6 @@ function fixEncoding(text) {
     .replace(/Â¿/g, '¿');
 }
 
-// Función para limpiar enlaces locales file:/// que no funcionan en navegadores bajo HTTPS
 function sanitizeLocalFileLinks(text) {
   return text.replace(/\[([^\]]+)\]\(file:\/\/\/[^)]+\)/gi, (_, label) => {
     const trimmed = label.trim();
@@ -79,25 +85,34 @@ function sanitizeLocalFileLinks(text) {
   });
 }
 
-// Función para limpiar emojis de los encabezados markdown (líneas que empiezan con #)
+// Limpia emojis y pictogramas de encabezados Markdown (compatible 100% con audit-portal.js)
 function cleanEmojisFromHeadings(body) {
-  return sanitizeLocalFileLinks(body).split('\n').map(line => {
-    if (line.trim().startsWith('#')) {
-      const headerLevelMatch = line.match(/^#+/);
-      const headerLevel = headerLevelMatch ? headerLevelMatch[0] : '#';
-      const headerText = line.substring(headerLevel.length);
-      
-      // Remover emojis y símbolos decorativos comunes
-      let cleanText = headerText.replace(/\p{Emoji_Modifier_Base}\p{Emoji_Modifier}?|\p{Emoji_Presentation}|\p{Emoji}\uFE0F/gu, '');
-      cleanText = cleanText.replace(/[\uE000-\uF8FF\u2100-\u27BF]/g, '');
-      
-      return `${headerLevel} ${cleanText.replace(/\s+/g, ' ').trim()}`;
-    }
-    return line;
-  }).join('\n');
+  let insideFence = false;
+  return sanitizeLocalFileLinks(body)
+    .split('\n')
+    .map(line => {
+      if (line.trim().startsWith('```')) {
+        insideFence = !insideFence;
+        return line;
+      }
+      if (!insideFence && /^#{1,6}\s+/.test(line.trim())) {
+        const trimmed = line.trim();
+        const headerLevelMatch = trimmed.match(/^#+/);
+        const headerLevel = headerLevelMatch ? headerLevelMatch[0] : '#';
+        const headerText = trimmed.substring(headerLevel.length);
+
+        let cleanText = headerText
+          .replace(/\p{Extended_Pictographic}/gu, '')
+          .replace(/\p{Emoji_Modifier_Base}\p{Emoji_Modifier}?|\p{Emoji_Presentation}|\p{Emoji}\uFE0F/gu, '')
+          .replace(/[\uFE0F\u200D\uE000-\uF8FF\u2100-\u27BF]/g, '');
+
+        return `${headerLevel} ${cleanText.replace(/\s+/g, ' ').trim()}`;
+      }
+      return line;
+    })
+    .join('\n');
 }
 
-// Utilidad para purgar archivos .md obsoletos en un directorio
 function purgeObsoleteMarkdownFiles(dirPath, validFilenamesSet) {
   if (!fs.existsSync(dirPath)) return;
   fs.readdirSync(dirPath).forEach(file => {
@@ -109,17 +124,20 @@ function purgeObsoleteMarkdownFiles(dirPath, validFilenamesSet) {
   });
 }
 
-// Función para parsear el frontmatter YAML de las skills y extraer metadatos de forma robusta
 function parseSkillMetadataAndBody(skillMdPath, fallbackName) {
   try {
     if (!fs.existsSync(skillMdPath)) {
-      return { name: fallbackName, description: 'Sin descripción detallada.', body: 'No hay descripción de instrucciones para esta habilidad.' };
+      return {
+        name: fallbackName,
+        description: 'Sin descripción detallada.',
+        body: 'No hay descripción de instrucciones para esta habilidad.'
+      };
     }
     const rawContent = fs.readFileSync(skillMdPath, 'utf8');
     const content = fixEncoding(rawContent);
     const yamlRegex = /^---\r?\n([\s\S]+?)\r?\n---/;
     const match = content.match(yamlRegex);
-    
+
     let name = fallbackName;
     let description = 'Sin descripción detallada.';
     let body = content;
@@ -142,15 +160,9 @@ function parseSkillMetadataAndBody(skillMdPath, fallbackName) {
           }
           currentKey = keyMatch[1].trim().toLowerCase();
           const inlineVal = keyMatch[2].trim();
-          if (inlineVal === '>') {
-            currentValueLines = [];
-          } else {
-            currentValueLines = [inlineVal];
-          }
-        } else {
-          if (currentKey) {
-            currentValueLines.push(line.trim());
-          }
+          currentValueLines = inlineVal === '>' ? [] : [inlineVal];
+        } else if (currentKey) {
+          currentValueLines.push(line.trim());
         }
       });
 
@@ -169,6 +181,160 @@ function parseSkillMetadataAndBody(skillMdPath, fallbackName) {
   }
 }
 
+// Detecta automáticamente proyectos físicos en IA_Proyectos/apps y apps/business-plans que falten en projects.json
+function discoverUnregisteredProjects(projectsList) {
+  const registeredNames = new Set(projectsList.map(p => p.name));
+  const ignoredDirs = new Set(['business-plans', 'shared', 'node_modules', 'dist', 'build', 'scratch']);
+  let addedAny = false;
+
+  const scanRoots = [
+    path.join(proyectosRoot, 'apps'),
+    path.join(proyectosRoot, 'apps', 'business-plans')
+  ];
+
+  for (const scanRoot of scanRoots) {
+    if (!fs.existsSync(scanRoot)) continue;
+    for (const entry of fs.readdirSync(scanRoot)) {
+      if (entry.startsWith('.') || entry.startsWith('_') || ignoredDirs.has(entry)) continue;
+      if (registeredNames.has(entry)) continue;
+
+      const folderPath = path.join(scanRoot, entry);
+      if (!fs.statSync(folderPath).isDirectory()) continue;
+
+      const pkgPath = path.join(folderPath, 'package.json');
+      const readmePath = path.join(folderPath, 'README.md');
+      const hasProjectMarkers =
+        fs.existsSync(pkgPath) ||
+        fs.existsSync(readmePath) ||
+        fs.existsSync(path.join(folderPath, 'index.html')) ||
+        fs.existsSync(path.join(folderPath, 'src', 'index.html')) ||
+        fs.existsSync(path.join(folderPath, 'requirements.txt'));
+
+      if (!hasProjectMarkers) continue;
+
+      let detectedType = 'vanilla';
+      let detectedDesc = 'Aplicación integrada automáticamente desde el monorepositorio Proyectos IA.';
+
+      if (fs.existsSync(pkgPath)) {
+        try {
+          const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+          const deps = { ...pkg.dependencies, ...pkg.devDependencies };
+          if (deps['@astrojs/starlight'] || deps.astro) detectedType = 'starlight';
+          else if (deps.react) detectedType = 'react';
+          else if (deps.vite) detectedType = 'vanilla';
+          else detectedType = 'node';
+          if (pkg.description) detectedDesc = pkg.description;
+        } catch {
+          // Ignorar errores de parseo de package.json
+        }
+      } else if (fs.existsSync(path.join(folderPath, 'requirements.txt'))) {
+        detectedType = 'python';
+      }
+
+      if (fs.existsSync(readmePath)) {
+        const lines = fixEncoding(fs.readFileSync(readmePath, 'utf8')).split(/\r?\n/);
+        const firstParagraph = lines.find(
+          l => l.trim() && !l.trim().startsWith('#') && !l.trim().startsWith('!') && !l.trim().startsWith('>')
+        );
+        if (firstParagraph) {
+          detectedDesc = firstParagraph.replace(/\*\*/g, '').trim().slice(0, 220);
+        }
+      }
+
+      const stat = fs.statSync(folderPath);
+      const createdDate = (stat.birthtime || stat.mtime).toISOString().split('T')[0];
+
+      const newEntry = {
+        name: entry,
+        title: entry,
+        type: detectedType,
+        description: detectedDesc,
+        author: 'JoelJuana',
+        createdAt: createdDate,
+        hasPosts: fs.existsSync(path.join(folderPath, 'posts')),
+        url: `./${entry}/`,
+        publicUrl: null,
+        tags: entry.startsWith('app-bp-') ? ['Finanzas', 'Business Plan'] : ['IA', detectedType]
+      };
+
+      projectsList.push(newEntry);
+      registeredNames.add(entry);
+      addedAny = true;
+      console.log(`[Auto-Discovery] Nuevo proyecto detectado e incorporado a projects.json: ${entry}`);
+    }
+  }
+
+  if (addedAny) {
+    fs.writeFileSync(projectsJsonPath, JSON.stringify(projectsList, null, 2) + '\n', 'utf8');
+  }
+}
+
+// Formatea el CHANGELOG.md individual de un subproyecto para anexarlo a su ficha técnica
+function extractProjectChangelogSection(projectDir) {
+  const clPath = path.join(projectDir, 'CHANGELOG.md');
+  if (!fs.existsSync(clPath)) return '';
+
+  const raw = fixEncoding(fs.readFileSync(clPath, 'utf8')).trim();
+  if (!raw) return '';
+
+  const lines = raw.split(/\r?\n/);
+  const filteredLines = [];
+  let skippedFirstH1 = false;
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!skippedFirstH1 && /^#\s+/.test(trimmed)) {
+      skippedFirstH1 = true;
+      continue;
+    }
+    if (/^todos los cambios (relevantes|notables)/i.test(trimmed)) {
+      continue;
+    }
+    // Bajar un nivel los encabezados H2/H3 para anidar bajo "## Historial de Versiones del Proyecto"
+    if (/^#{2,5}\s+/.test(trimmed)) {
+      filteredLines.push(`#${trimmed}`);
+    } else {
+      filteredLines.push(line);
+    }
+  }
+
+  const cleaned = cleanEmojisFromHeadings(filteredLines.join('\n')).trim();
+  if (!cleaned) return '';
+
+  return `\n\n---\n\n## Historial de Versiones del Proyecto\n\n${cleaned}\n`;
+}
+
+// Extrae dinámicamente el inventario del Centro Editorial desde docs/editorial/catalog.js
+function buildEditorialCatalogSection() {
+  if (!fs.existsSync(editorialCatalogJsPath)) return '';
+
+  try {
+    const rawJs = fs.readFileSync(editorialCatalogJsPath, 'utf8');
+    const metaMatch = rawJs.match(/window\.EDITORIAL_META\s*=\s*(\{[\s\S]*?\});/);
+    const catMatch = rawJs.match(/window\.EDITORIAL_CATALOG\s*=\s*(\[[\s\S]*?\]);/);
+    if (!catMatch) return '';
+
+    const meta = metaMatch ? JSON.parse(metaMatch[1]) : {};
+    const catalog = JSON.parse(catMatch[1]);
+    if (!Array.isArray(catalog) || catalog.length === 0) return '';
+
+    const sorted = [...catalog].sort((a, b) => (a.order || 99) - (b.order || 99));
+    const lastSyncDate = meta.generatedAt ? meta.generatedAt.split('T')[0] : '-';
+
+    let rows = '';
+    for (const doc of sorted) {
+      const buildDate = doc.lastBuiltAt ? doc.lastBuiltAt.split('T')[0] : doc.date || '-';
+      const formats = doc.docxFile ? 'PDF + DOCX' : 'PDF + HTML';
+      rows += `| **${doc.client || '-'}** | ${doc.title} | \`${doc.preset}\` | ${doc.pages} págs. (${formats}) | ${doc.status || 'Activo'} | ${buildDate} |\n`;
+    }
+
+    return `\n\n---\n\n## Catálogo Vivo de Publicaciones A4 (${meta.totalDocs || sorted.length} Documentos)\n\nInventario sincronizado automáticamente desde \`IA_Proyectos/docs/editorial/catalog.js\` (última compilación editorial: \`${lastSyncDate}\` · **${meta.totalPages || '-'} páginas A4** vectoriales · **${meta.totalDocx || 0} exportaciones Word**):\n\n| Cliente / Ámbito | Título del Documento | Preset | Extensión y Formatos | Estado | Compilado |\n| :--- | :--- | :--- | :--- | :--- | :--- |\n${rows}`;
+  } catch (err) {
+    console.warn('Aviso al parsear docs/editorial/catalog.js:', err.message);
+    return '';
+  }
+}
+
 // 1. Sincronizar Catálogo de Proyectos, Aplicaciones y Suite Business Plans
 function syncProjects() {
   console.log('Sincronizando catálogo de proyectos y fichas técnicas...');
@@ -176,7 +342,9 @@ function syncProjects() {
     console.warn(`No se encontró el archivo ${projectsJsonPath}`);
     return;
   }
+
   const projects = JSON.parse(fs.readFileSync(projectsJsonPath, 'utf8'));
+  discoverUnregisteredProjects(projects);
   countProjects = projects.length;
 
   fs.mkdirSync(targetProyectosAppsDir, { recursive: true });
@@ -195,7 +363,6 @@ function syncProjects() {
       generalProjects.push(p);
     }
 
-    // Determinar la ruta física del proyecto para buscar README.md
     let relativePath = '';
     let absolutePath = '';
     if (p.name === 'antigravity-joel') {
@@ -213,7 +380,6 @@ function syncProjects() {
     }
 
     const readmePath = path.join(absolutePath, 'README.md');
-
     let docBody = '';
     if (fs.existsSync(readmePath)) {
       const rawContent = fs.readFileSync(readmePath, 'utf8');
@@ -229,6 +395,13 @@ No se encontró un archivo \`README.md\` local en el directorio del proyecto.
 *   **Fecha de creación**: ${p.createdAt || '-'}
 *   **Autor**: ${p.author || 'JoelJuana'}
 `;
+    }
+
+    // Inyección dinámica del catálogo A4 para centro-editorial y del CHANGELOG.md para apps de negocio
+    if (p.name === 'centro-editorial') {
+      docBody += buildEditorialCatalogSection();
+    } else if (p.name !== 'antigravity-joel') {
+      docBody += extractProjectChangelogSection(absolutePath);
     }
 
     const publicUrlMeta = p.publicUrl ? `\n*   **URL Pública**: [${p.publicUrl}](${p.publicUrl})` : '';
@@ -267,7 +440,9 @@ ${docBody}
     console.log(`Ficha sincronizada en: ${targetPath}`);
   });
 
-  // Limpiar fichas obsoletas en ambas carpetas y en la raíz de proyectos-ia
+  countGeneralApps = generalProjects.length;
+  countBusinessPlans = businessPlans.length;
+
   purgeObsoleteMarkdownFiles(targetProyectosAppsDir, validAppFiles);
   purgeObsoleteMarkdownFiles(targetProyectosBpDir, validBpFiles);
   purgeObsoleteMarkdownFiles(path.dirname(targetProyectosMd), new Set(['arquitectura-monorepo.md', 'catalogo-general.md']));
@@ -305,7 +480,7 @@ Los simuladores de negocio comparten recursos de estilo y estándares arquitect�
 
 ## Simuladores Financieros Disponibles (${businessPlans.length})
 
-Selecciona uno de los simuladores para consultar su ficha técnica detallada:
+Selecciona uno de los simuladores para consultar su ficha técnica e historial de versiones:
 
 <div class="dashboard-grid">
 ${bpCards}</div>
@@ -327,7 +502,6 @@ npm run build   # Compila únicamente el subproyecto activo
 `;
   fs.writeFileSync(path.join(targetProyectosBpDir, 'introduccion.md'), bpIntroContent, 'utf8');
 
-  // Construir filas de la tabla en catalogo-general.md
   let tableRows = '';
   generalProjects.forEach(p => {
     const prodLink = p.publicUrl ? `[Enlace](${p.publicUrl})` : '-';
@@ -335,7 +509,7 @@ npm run build   # Compila únicamente el subproyecto activo
   });
 
   if (businessPlans.length > 0) {
-    let bpList = businessPlans.map(bp => `• **[${bp.name}](/proyectos-ia/business-plans/${bp.name}/)** (\`${bp.type}\`): ${bp.description}`).join('<br>');
+    const bpList = businessPlans.map(bp => `• **[${bp.name}](/proyectos-ia/business-plans/${bp.name}/)** (\`${bp.type}\`): ${bp.description}`).join('<br>');
     tableRows += `| **[Suite Business Plans](/proyectos-ia/business-plans/introduccion/)** | \`suite\` | Conjunto de ${businessPlans.length} simuladores financieros interactivos:<br>${bpList} | Multisite | - |\n`;
   }
 
@@ -370,7 +544,7 @@ sidebar:
   order: 2
 ---
 
-Este documento detalla el catálogo completo de **${projects.length} proyectos activos** registrados en el archivo central \`IA_Proyectos/projects.json\` en la raíz del monorepositorio.
+Este documento detalla el catálogo completo de **${projects.length} proyectos activos** registrados en el archivo central \`IA_Proyectos/projects.json\` (con detección automática de subcarpetas nuevas en \`apps/\` y \`apps/business-plans/\`).
 
 ---
 
@@ -388,14 +562,49 @@ ${detailSections}`;
   console.log(`Catálogo de proyectos guardado en: ${targetProyectosMd}`);
 }
 
+// Reconciliación bidireccional entre ~/.gemini/config/skills y IA_Configuracion/skills
+function reconcileActiveSkillsIntoConfig() {
+  const activeSkillsRoot = path.join(geminiActiveConfigRoot, 'skills');
+  if (!fs.existsSync(activeSkillsRoot) || !fs.existsSync(skillsDir)) return;
+
+  for (const item of fs.readdirSync(activeSkillsRoot)) {
+    if (item.startsWith('.')) continue;
+    const activeItemDir = path.join(activeSkillsRoot, item);
+    if (!fs.statSync(activeItemDir).isDirectory()) continue;
+
+    const activeSkillMd = path.join(activeItemDir, 'SKILL.md');
+    if (!fs.existsSync(activeSkillMd)) continue;
+
+    const repoItemDir = path.join(skillsDir, item);
+    const repoSkillMd = path.join(repoItemDir, 'SKILL.md');
+
+    if (!fs.existsSync(repoItemDir)) {
+      fs.cpSync(activeItemDir, repoItemDir, { recursive: true, force: true });
+      console.log(`[Auto-Sync Skills] Nueva skill detectada en ~/.gemini/config/skills e importada a IA_Configuracion: ${item}`);
+    } else if (fs.existsSync(repoSkillMd)) {
+      const activeStat = fs.statSync(activeSkillMd);
+      const repoStat = fs.statSync(repoSkillMd);
+      if (activeStat.mtimeMs > repoStat.mtimeMs + 2000) {
+        const aTxt = fs.readFileSync(activeSkillMd, 'utf8');
+        const rTxt = fs.readFileSync(repoSkillMd, 'utf8');
+        if (aTxt !== rTxt) {
+          fs.cpSync(activeItemDir, repoItemDir, { recursive: true, force: true });
+          console.log(`[Auto-Sync Skills] Edición más reciente en ~/.gemini/config/skills sincronizada hacia IA_Configuracion: ${item}`);
+        }
+      }
+    }
+  }
+}
+
 // 2. Sincronizar Catálogo de Habilidades (Skills) Individuales y la Introducción
 function syncSkills() {
-  console.log('Sincronizando catálogo de skills...');
+  console.log('Sincronizando catálogo de skills (bidireccional)...');
   if (!fs.existsSync(skillsDir)) {
     console.warn(`No se encontró el directorio de skills en ${skillsDir}`);
     return;
   }
 
+  reconcileActiveSkillsIntoConfig();
   fs.mkdirSync(targetSkillsDir, { recursive: true });
 
   const items = fs.readdirSync(skillsDir);
@@ -419,7 +628,7 @@ function syncSkills() {
 
       const fileContent = `---
 title: ${skillData.name}
-description: ${skillData.description}
+description: "${skillData.description.replace(/"/g, "'")}"
 ---
 
 *   **Ruta de Configuración**: \`IA_Configuracion/skills/${item}/SKILL.md\`
@@ -433,7 +642,7 @@ ${skillData.body}
       fs.writeFileSync(targetPath, fileContent, 'utf8');
       console.log(`Ficha de skill individual creada en: ${targetPath}`);
 
-      // Sincronizar también al directorio activo de Antigravity (~/.gemini/config/skills/<item>) como carpeta física real (nunca Junction/ReparsePoint)
+      // Sincronizar también al directorio activo de Antigravity (~/.gemini/config/skills/<item>) como carpeta física real
       try {
         const activeSkillDir = path.join(geminiActiveConfigRoot, 'skills', item);
         if (fs.existsSync(activeSkillDir)) {
@@ -467,11 +676,9 @@ sidebar:
   order: 1
 ---
 
-Las **Skills** (habilidades) son extensiones de automatización personalizadas que se configuran y mantienen de forma centralizada en el repositorio [\`IA_Configuracion\`](/configuracion/introduccion/) (\`IA_Configuracion/skills/\`).
+Las **Skills** (habilidades) son extensiones de automatización personalizadas que se configuran y mantienen de forma centralizada en el repositorio [\`IA_Configuracion\`](/configuracion/introduccion/) (\`IA_Configuracion/skills/\`) con sincronización bidireccional hacia \`~/.gemini/config/skills/\`.
 
-Al arrancar el entorno de desarrollo o compilar el portal, estas habilidades se sincronizan y actualizan automáticamente en las carpetas de proyectos y microservicios locales (\`IA_Proyectos\`, \`IA_Infraestructura\` e \`IA_Documentacion\`).
-
-Permiten al agente interactuar con servicios locales y externos de forma autónoma basándose en disparadores de lenguaje natural.
+Al compilar o ejecutar la publicación automática (\`npm run publish:auto\`), estas habilidades se propagan y documentan de inmediato en todo el ecosistema.
 
 ---
 
@@ -488,16 +695,26 @@ ${cardsContent}</div>
   console.log(`Archivo de introducción de skills autogenerado en: ${targetIntroPath}`);
 }
 
-// 3. Sincronizar Reglas Generales en el Portal de Documentación
+// 3. Sincronizar Reglas Generales en el Portal y en ~/.gemini/config/AGENTS.md
 function syncReglasDocumentacion() {
-  console.log('Sincronizando reglas generales en el portal de documentación...');
+  console.log('Sincronizando reglas generales en el portal y en ~/.gemini/config...');
   const srcReglas = path.join(configuracionRoot, 'AGENTS.md');
   if (!fs.existsSync(srcReglas)) {
     console.warn(`No se encontró el archivo de reglas globales en ${srcReglas}`);
     return;
   }
   const rawContent = fs.readFileSync(srcReglas, 'utf8');
-  const cleanContent = sanitizeLocalFileLinks(fixEncoding(rawContent));
+  const utf8Clean = fixEncoding(rawContent);
+  const cleanContent = cleanEmojisFromHeadings(utf8Clean);
+
+  // Propagar también a ~/.gemini/config/AGENTS.md para mantener alineadas las reglas activas del agente
+  try {
+    if (fs.existsSync(geminiActiveConfigRoot)) {
+      fs.writeFileSync(path.join(geminiActiveConfigRoot, 'AGENTS.md'), utf8Clean, 'utf8');
+    }
+  } catch (err) {
+    console.warn('Aviso al sincronizar ~/.gemini/config/AGENTS.md:', err.message);
+  }
 
   const fileContent = `---
 title: Reglas Generales del Agente
@@ -507,10 +724,10 @@ tableOfContents: true
 ---
 
 :::tip[Sincronización Automática]
-Las reglas globales y específicas de agentes se configuran centralizadamente en el repositorio [\`IA_Configuracion\`](/configuracion/introduccion/). Cualquier cambio se propaga de forma automática a los directorios \`.agents/AGENTS.md\` de **IA_Proyectos**, **IA_Infraestructura** e **IA_Documentacion** al ejecutar el script de desarrollo (\`npm run dev\` o \`npm run build\`).
+Las reglas globales y específicas de agentes se configuran centralizadamente en el repositorio [\`IA_Configuracion\`](/configuracion/introduccion/). Cualquier cambio se propaga de forma automática a \`~/.gemini/config/AGENTS.md\` y a los directorios \`.agents/AGENTS.md\` de **IA_Proyectos**, **IA_Infraestructura** e **IA_Documentacion**.
 :::
 
-Este documento establece las reglas fundamentales que todo agente de IA debe seguir al trabajar en el monorepositorio **Proyectos IA** y en la máquina de desarrollo local. Estas normas garantizan la seguridad, mantenibilidad, consistencia de código y optimización de recursos.
+Este documento establece las reglas fundamentales que todo agente de IA debe seguir al trabajar en el ecosistema local. Estas normas garantizan seguridad, consistencia de código, publicación documental automática y optimización nativa ARM64.
 
 ---
 
@@ -519,20 +736,19 @@ ${cleanContent}
 
   fs.mkdirSync(path.dirname(targetReglasMd), { recursive: true });
   fs.writeFileSync(targetReglasMd, fileContent, 'utf8');
-  console.log(`Reglas generales del agente actualizadas en la documentación: ${targetReglasMd}`);
+  console.log(`Reglas generales del agente actualizadas en: ${targetReglasMd}`);
 }
 
 // 4. Sincronizar Reglas Específicas (.agents/AGENTS.md) de los Proyectos
 function syncProjectRules() {
   console.log('Sincronizando reglas específicas de agentes en los proyectos...');
   targetAgentsRules.forEach(rule => {
-    if (!fs.existsSync(rule.src)) {
-      console.warn(`No se encontró el archivo de origen de reglas en ${rule.src}`);
+    if (!fs.existsSync(rule.src) || !fs.existsSync(path.dirname(path.dirname(rule.dest)))) {
       return;
     }
     const content = fs.readFileSync(rule.src, 'utf8');
     const fixedContent = fixEncoding(content);
-    
+
     fs.mkdirSync(path.dirname(rule.dest), { recursive: true });
     fs.writeFileSync(rule.dest, fixedContent, 'utf8');
     console.log(`Reglas actualizadas en: ${rule.dest}`);
@@ -552,7 +768,7 @@ function syncInfraestructura() {
   const items = fs.readdirSync(infraestructuraRoot);
   let localCountInfra = 0;
   const validInfraFiles = new Set();
-  
+
   const serviceTitles = {
     'infra-gateway': 'Gateway (infra-gateway)',
     'infra-github': 'GitHub Service (infra-github)',
@@ -566,12 +782,11 @@ function syncInfraestructura() {
 
   items.forEach(item => {
     const itemPath = path.join(infraestructuraRoot, item);
-    if (fs.statSync(itemPath).isDirectory() && !item.startsWith('.')) {
+    if (fs.statSync(itemPath).isDirectory() && !item.startsWith('.') && item !== 'packages' && item !== 'node_modules' && item !== 'scripts' && item !== 'tests') {
       const readmePath = path.join(itemPath, 'README.md');
       if (fs.existsSync(readmePath)) {
         const rawContent = fs.readFileSync(readmePath, 'utf8');
-        let content = fixEncoding(rawContent);
-        content = cleanEmojisFromHeadings(content);
+        const content = cleanEmojisFromHeadings(fixEncoding(rawContent));
 
         const title = serviceTitles[item] || item;
         const description = `Ficha técnica detallada del microservicio ${item}.`;
@@ -602,7 +817,7 @@ ${content}
   countInfra = localCountInfra;
 }
 
-// 6. Sincronizar Fichas de Configuración del Agente
+// 6. Sincronizar Fichas de Configuración del Agente (Plugins y Reglas)
 function syncConfiguracion() {
   console.log('Sincronizando documentación de configuración...');
   if (!fs.existsSync(configuracionRoot)) {
@@ -614,7 +829,7 @@ function syncConfiguracion() {
   fs.mkdirSync(targetConfigPluginsDir, { recursive: true });
   fs.mkdirSync(targetConfigReglasDir, { recursive: true });
 
-  // A) Introducción (README de la raíz)
+  // A) Introducción
   const readmePath = path.join(configuracionRoot, 'README.md');
   if (fs.existsSync(readmePath)) {
     const rawContent = fs.readFileSync(readmePath, 'utf8');
@@ -631,10 +846,9 @@ description: Guía de introducción técnica al repositorio de configuración de
 ${content}
 `;
     fs.writeFileSync(path.join(targetConfiguracionDir, 'introduccion.md'), fileContent, 'utf8');
-    console.log('Documento de introducción a la configuración sincronizado.');
   }
 
-  // B) Instalación y Setup (install.ps1)
+  // B) Instalación y Setup
   const installPath = path.join(configuracionRoot, 'install.ps1');
   if (fs.existsSync(installPath)) {
     const rawContent = fs.readFileSync(installPath, 'utf8');
@@ -651,27 +865,25 @@ ${content}
 \`\`\`
 `;
     fs.writeFileSync(path.join(targetConfiguracionDir, 'instalacion.md'), fileContent, 'utf8');
-    console.log('Guía de instalación de configuración sincronizada.');
   }
 
-  // C) Plugins Activos y de Reserva
+  // C) Plugins Activos y En Reserva (ordenados: Activos primero)
   if (fs.existsSync(pluginsDir)) {
     const plugins = fs.readdirSync(pluginsDir);
-    let pluginsList = '';
-    let cardsContent = '';
-    let localCountPlugins = 0;
+    const parsedPlugins = [];
     const validPluginFiles = new Set();
+    const validPluginDirs = new Set();
 
     plugins.forEach(p => {
       const pluginPath = path.join(pluginsDir, p);
       if (fs.statSync(pluginPath).isDirectory() && !p.startsWith('.')) {
-        localCountPlugins++;
+        validPluginDirs.add(p);
         const pluginJsonPath = path.join(pluginPath, 'plugin.json');
         let pluginMeta = {};
         if (fs.existsSync(pluginJsonPath)) {
           try {
             pluginMeta = JSON.parse(fs.readFileSync(pluginJsonPath, 'utf8'));
-          } catch (e) {
+          } catch {
             // Ignorar JSON malformado
           }
         }
@@ -716,43 +928,93 @@ ${parsed.body}
           validPluginFiles.add(filename);
           const targetPath = path.join(targetConfigPluginsDir, filename);
           fs.writeFileSync(targetPath, pluginContent, 'utf8');
-          console.log(`Ficha de plugin individual creada en: ${targetPath}`);
         }
 
-        const link = hasDetail ? `/configuracion/plugins/${p}/` : '#';
-        const stateText = isEnabled ? 'Activo' : 'En reserva';
-        pluginsList += `| **[${p}](${link})** | \`${stateText}\` | ${description} |\n`;
-        cardsContent += `  <a href="${link}" class="dashboard-card">\n    <span class="card-meta">${stateText}</span>\n    <h3>${p}</h3>\n    <p>${description}</p>\n  </a>\n`;
+        // Sincronizar plugin hacia ~/.gemini/config/plugins/<p>
+        try {
+          const activePluginDir = path.join(geminiActiveConfigRoot, 'plugins', p);
+          fs.cpSync(pluginPath, activePluginDir, { recursive: true, force: true });
+        } catch (err) {
+          console.warn(`Aviso al sincronizar plugin ${p}:`, err.message);
+        }
+
+        parsedPlugins.push({
+          id: p,
+          isEnabled,
+          hasDetail,
+          description
+        });
       }
     });
 
+    // Purgar plugins obsoletos en ~/.gemini/config/plugins
+    const activePluginsRoot = path.join(geminiActiveConfigRoot, 'plugins');
+    if (fs.existsSync(activePluginsRoot)) {
+      for (const existing of fs.readdirSync(activePluginsRoot)) {
+        const full = path.join(activePluginsRoot, existing);
+        if (fs.statSync(full).isDirectory() && !validPluginDirs.has(existing)) {
+          fs.rmSync(full, { recursive: true, force: true });
+        }
+      }
+    }
+
     purgeObsoleteMarkdownFiles(targetConfigPluginsDir, validPluginFiles);
-    countPlugins = localCountPlugins;
+
+    // Ordenar: Activos primero, luego alfabético
+    parsedPlugins.sort((a, b) => {
+      if (a.isEnabled !== b.isEnabled) return a.isEnabled ? -1 : 1;
+      return a.id.localeCompare(b.id);
+    });
+
+    countActivePlugins = parsedPlugins.filter(p => p.isEnabled).length;
+    countReservePlugins = parsedPlugins.filter(p => !p.isEnabled).length;
+
+    let pluginsList = '';
+    let activeCards = '';
+    let reserveCards = '';
+
+    parsedPlugins.forEach(p => {
+      const link = p.hasDetail ? `/configuracion/plugins/${p.id}/` : '#';
+      const stateText = p.isEnabled ? 'Activo' : 'En reserva';
+      pluginsList += `| **[${p.id}](${link})** | \`${stateText}\` | ${p.description} |\n`;
+      const cardHtml = `  <a href="${link}" class="dashboard-card">\n    <span class="card-meta">${stateText}</span>\n    <h3>${p.id}</h3>\n    <p>${p.description}</p>\n  </a>\n`;
+      if (p.isEnabled) activeCards += cardHtml;
+      else reserveCards += cardHtml;
+    });
 
     const pluginsContent = `---
-title: Plugins Activos
-description: Catálogo completo de plugins de comportamiento y herramientas configurados para el agente.
+title: Plugins Activos y en Reserva
+description: Catálogo completo de plugins de comportamiento y herramientas configurados para el agente (${countActivePlugins} activos y ${countReservePlugins} en reserva).
 ---
 
 Los **Plugins** son módulos de comportamiento, reglas de estilo, sidecars o integraciones MCP que personalizan y amplían las capacidades de los agentes en el entorno de desarrollo.
 
 ---
 
-## Catálogo de Plugins (${countPlugins})
+## Plugins Activos (${countActivePlugins})
 
 <div class="dashboard-grid">
-${cardsContent}</div>
+${activeCards}</div>
 
 ---
 
-## Tabla Resumen de Plugins
+## Plugins en Reserva (${countReservePlugins})
+
+Módulos preservados con especificación \`SKILL.md.disabled\` listos para activarse bajo demanda sin consumir ventana de contexto en reposo:
+
+<div class="dashboard-grid">
+${reserveCards}</div>
+
+---
+
+## Tabla Resumen de Plugins (${countActivePlugins + countReservePlugins})
 
 | Nombre del Plugin | Estado | Descripción |
 | :--- | :--- | :--- |
 ${pluginsList}
 `;
     fs.writeFileSync(path.join(targetConfiguracionDir, 'plugins-activos.md'), pluginsContent, 'utf8');
-    console.log('Catálogo de plugins activos sincronizado.');
+    console.log(`Catálogo de plugins sincronizado (${countActivePlugins} activos, ${countReservePlugins} en reserva).`);
   }
 
   // D) Reglas por Proyecto
@@ -789,8 +1051,6 @@ ${content}
 `;
         const targetPath = path.join(targetConfigReglasDir, r);
         fs.writeFileSync(targetPath, fileContent, 'utf8');
-        console.log(`Regla por proyecto creada en: ${targetPath}`);
-
         reglasList += `*   **[Reglas de ${title}](/configuracion/reglas/${filename}/)**: Directrices para el espacio de trabajo de \`${filename}\`.\n`;
       }
     });
@@ -813,7 +1073,6 @@ Estas directrices son auto-propagadas a partir de la configuración central del 
 ${reglasList}
 `;
     fs.writeFileSync(path.join(targetConfiguracionDir, 'reglas-por-proyecto.md'), reglasIndexContent, 'utf8');
-    console.log('Reglas por proyecto sincronizadas.');
   }
 }
 
@@ -848,7 +1107,7 @@ ${content}
   console.log(`Bitácora de cambios sincronizada en: ${targetChangelogMd}`);
 }
 
-// 8. Inyectar Estadísticas dinámicas en index.md
+// 8. Inyectar Estadísticas dinámicas reales y blindadas en index.md
 function syncStats() {
   console.log('Inyectando estadísticas en la página de inicio...');
   if (!fs.existsSync(targetIndexMd)) {
@@ -857,43 +1116,38 @@ function syncStats() {
   }
   let content = fs.readFileSync(targetIndexMd, 'utf8');
 
-  content = content.replace(/(<h3>Proyectos Registrados<\/h3>\s*<p class="stat-number">).*?(<\/p>)/s, `$1${countProjects}$2`);
-  content = content.replace(/(<h3>Skills de Agente<\/h3>\s*<p class="stat-number">).*?(<\/p>)/s, `$1${countSkills}$2`);
-  content = content.replace(/(<h3>Servicios de Infraestructura<\/h3>\s*<p class="stat-number">).*?(<\/p>)/s, `$1${countInfra}$2`);
-  content = content.replace(/(<h3>Plugins Activos<\/h3>\s*<p class="stat-number">).*?(<\/p>)/s, `$1${countPlugins}$2`);
+  if (countProjects > 0) {
+    content = content.replace(
+      /(<h3>Proyectos Registrados<\/h3>\s*<p class="stat-number">).*?(<\/p>(?:\s*<span class="stat-sub">.*?<\/span>)?)/s,
+      `$1${countProjects}</p>\n    <span class="stat-sub">${countGeneralApps} apps · ${countBusinessPlans} simuladores</span>`
+    );
+  }
+  if (countSkills > 0) {
+    content = content.replace(
+      /(<h3>Skills de Agente<\/h3>\s*<p class="stat-number">).*?(<\/p>(?:\s*<span class="stat-sub">.*?<\/span>)?)/s,
+      `$1${countSkills}</p>\n    <span class="stat-sub">Sincronización bidireccional</span>`
+    );
+  }
+  if (countInfra > 0) {
+    content = content.replace(
+      /(<h3>Servicios de Infraestructura<\/h3>\s*<p class="stat-number">).*?(<\/p>(?:\s*<span class="stat-sub">.*?<\/span>)?)/s,
+      `$1${countInfra}</p>\n    <span class="stat-sub">API Gateway :3000–3700</span>`
+    );
+  }
+  if (countActivePlugins + countReservePlugins > 0) {
+    content = content.replace(
+      /(<h3>Plugins Activos<\/h3>\s*<p class="stat-number">).*?(<\/p>(?:\s*<span class="stat-sub">.*?<\/span>)?)/s,
+      `$1${countActivePlugins}</p>\n    <span class="stat-sub">+${countReservePlugins} módulos en reserva</span>`
+    );
+  }
 
   fs.writeFileSync(targetIndexMd, content, 'utf8');
-  console.log(`Estadísticas inyectadas en index.md. Proyectos: ${countProjects}, Skills: ${countSkills}, Infra: ${countInfra}, Plugins: ${countPlugins}`);
+  console.log(
+    `Estadísticas inyectadas en index.md -> Proyectos: ${countProjects} (${countGeneralApps}+${countBusinessPlans}), Skills: ${countSkills}, Infra: ${countInfra}, Plugins: ${countActivePlugins} activos (+${countReservePlugins} reserva)`
+  );
 }
 
-// Función de debouncing para agrupar cambios rápidos
-function debounce(func, wait) {
-  let timeout;
-  return function(...args) {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func.apply(this, args), wait);
-  };
-}
-
-const debouncedSync = debounce(() => {
-  try {
-    console.log('\n[Watch] Ejecutando re-sincronización de cambios...');
-    syncProjects();
-    syncSkills();
-    syncReglasDocumentacion();
-    syncProjectRules();
-    syncInfraestructura();
-    syncConfiguracion();
-    syncChangelog();
-    syncStats();
-    console.log('[Watch] Sincronización finalizada con éxito.\n');
-  } catch (err) {
-    console.error('[Watch] Error durante la sincronización:', err);
-  }
-}, 300);
-
-// Ejecutar sincronización inicial
-try {
+function runAllSync() {
   syncProjects();
   syncSkills();
   syncReglasDocumentacion();
@@ -902,30 +1156,74 @@ try {
   syncConfiguracion();
   syncChangelog();
   syncStats();
+}
+
+function debounce(func, wait) {
+  let timeout;
+  return function (...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
+
+const debouncedSync = debounce(() => {
+  try {
+    console.log('\n[Watch] Ejecutando re-sincronización de cambios...');
+    runAllSync();
+    console.log('[Watch] Sincronización finalizada con éxito.\n');
+  } catch (err) {
+    console.error('[Watch] Error durante la sincronización:', err);
+  }
+}, 350);
+
+try {
+  runAllSync();
   console.log('Sincronización de catálogos inicial finalizada con éxito.');
 } catch (err) {
   console.error('Error durante la sincronización de catálogos:', err);
+  process.exit(1);
 }
 
-// Activar modo watch si se pasa el argumento --watch
+// Modo de observación integral (--watch) sobre los 4 repositorios
 if (process.argv.includes('--watch')) {
-  console.log('\n[Watch] Modo de sincronización continua activo. Escuchando cambios...');
-  
+  console.log('\n[Watch] Modo de sincronización continua activo sobre los 4 repositorios...');
+
+  const ignoredSegments = /(?:^|[\\/])(node_modules|\.git|dist|\.firebase|\.astro|preview)(?:[\\/]|$)/i;
+
   const watchTargets = [
-    { targetPath: skillsDir, recursive: true },
-    { targetPath: proyectosReglasDir, recursive: true },
-    { targetPath: projectsJsonPath, recursive: false },
-    { targetPath: path.join(proyectosRoot, 'docs', 'editorial'), recursive: false },
-    { targetPath: path.join(documentacionRoot, 'CHANGELOG.md'), recursive: false }
+    { targetPath: skillsDir, recursive: true, filter: null },
+    { targetPath: pluginsDir, recursive: true, filter: null },
+    { targetPath: proyectosReglasDir, recursive: true, filter: null },
+    { targetPath: path.join(configuracionRoot, 'AGENTS.md'), recursive: false, filter: null },
+    { targetPath: projectsJsonPath, recursive: false, filter: null },
+    {
+      targetPath: path.join(proyectosRoot, 'apps'),
+      recursive: true,
+      filter: f => /(?:README|CHANGELOG)\.md$|package\.json$/i.test(f)
+    },
+    {
+      targetPath: path.join(proyectosRoot, 'docs', 'editorial'),
+      recursive: false,
+      filter: f => /(?:README\.md|catalog\.js)$/i.test(f)
+    },
+    {
+      targetPath: infraestructuraRoot,
+      recursive: true,
+      filter: f => /README\.md$/i.test(f)
+    },
+    { targetPath: path.join(documentacionRoot, 'CHANGELOG.md'), recursive: false, filter: null }
   ];
 
-  watchTargets.forEach(({ targetPath: p, recursive }) => {
+  watchTargets.forEach(({ targetPath: p, recursive, filter }) => {
     if (fs.existsSync(p)) {
       fs.watch(p, { recursive }, (eventType, filename) => {
-        if (filename) {
-          console.log(`[Watch] Cambio detectado en: ${filename} (${eventType})`);
-          debouncedSync();
-        }
+        if (!filename) return;
+        const normalized = String(filename);
+        if (ignoredSegments.test(normalized)) return;
+        if (filter && !filter(normalized)) return;
+
+        console.log(`[Watch] Cambio relevante detectado en: ${normalized} (${eventType})`);
+        debouncedSync();
       });
     } else {
       console.warn(`[Watch] Ruta no encontrada para observar: ${p}`);

@@ -1,6 +1,6 @@
 ---
 title: gestiona_fierbase
-description: Inicializa proyectos de Firebase y gestiona sus servicios (Firestore, Auth, Hosting) de forma centralizada utilizando la API REST local del microservicio infra-firebase. Úsalo cuando el usuario solicite base de datos Firestore, autenticación o despliegues de Firebase, asegurando que todas las peticiones pasen por el Gateway de infraestructura.
+description: "Inicializa proyectos de Firebase y gestiona sus servicios (Firestore, Auth, Hosting) de forma centralizada utilizando la API REST local del microservicio infra-firebase. Úsalo cuando el usuario solicite base de datos Firestore, autenticación o despliegues de Firebase, asegurando que todas las peticiones pasen por el Gateway de infraestructura."
 ---
 
 *   **Ruta de Configuración**: `IA_Configuracion/skills/gestiona_fierbase/SKILL.md`
@@ -57,9 +57,9 @@ $config | Format-List
 # Registrar configuración (Token de Firebase o Service Account)
 $body = @{
     projectId = "tu-proyecto-firebase"
-# # Opción A: Usar Token CI
+    # Opción A: Usar Token CI
     firebaseToken = "1//0xxxxxxxxx..."
-# # Opción B: Usar Service Account
+    # Opción B: Usar Service Account
     serviceAccountKeyPath = "C:\Users\jjtei\Desktop\credenciales-firebase.json"
 } | ConvertTo-Json
 

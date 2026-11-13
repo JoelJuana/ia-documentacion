@@ -39,14 +39,15 @@ flowchart TD
 
 En lugar de mantener documentación manual desconectada del código, cada ejecución de `npm run build` en `IA_Documentacion/src/docs` dispara una tubería automatizada en tres etapas:
 
-### Etapa 1: Sincronización Cruzada (`sync-catalog.js`)
-*   Lee `IA_Proyectos/projects.json` y extrae el `README.md` de cada aplicación general y de cada simulador de la suite Business Plans.
-*   Extrae el frontmatter YAML y el cuerpo de todas las habilidades en `IA_Configuracion/skills/*/SKILL.md`.
-*   Propaga automáticamente las reglas de `IA_Configuracion/proyectos-reglas/*.md` hacia los archivos `.agents/AGENTS.md` de cada repositorio.
-*   Purga cualquier ficha `.md` obsoleta para evitar contenido huérfano o duplicado.
+### Etapa 1: Sincronización Cruzada y Auto-Descubrimiento (`sync-catalog.js`)
+*   Escanea físicamente `IA_Proyectos/apps/` y `apps/business-plans/` para auto-registrar cualquier proyecto nuevo en `projects.json`, y extrae tanto el `README.md` como el `CHANGELOG.md` individual de cada aplicación y simulador financiero.
+*   Lee dinámicamente `IA_Proyectos/docs/editorial/catalog.js` para proyectar en vivo todas las publicaciones A4 y exportaciones Word del Centro Editorial.
+*   Reconcilia de forma **bidireccional** `IA_Configuracion/skills/` y `~/.gemini/config/skills/`, y propaga `AGENTS.md`, plugins y reglas específicas `.agents/AGENTS.md` a los cuatro repositorios.
+*   Purga cualquier ficha `.md` obsoleta y protege las estadísticas de portada cuando se ejecuta en entornos CI aislados.
 
-### Etapa 2: Compilación Estática y Buscador (`astro build`)
-*   Compila las páginas Markdown a HTML estático optimizado e indexa el contenido en **Pagefind** para búsqueda instantánea en el navegador.
+### Etapa 2: Orquestación "Zero-Touch" (`auto-publish.js` / `npm run publish:auto`)
+*   Ejecuta la sincronización y comprueba mediante `git status` si existen cambios documentales reales (omitiendo reconstrucciones redundantes cuando el portal ya está al día).
+*   Valida los documentos con `audit-portal.js`, compila HTML estático + **Pagefind** + `sitemap.xml`, gestiona el encendido y apagado **JIT** del Gateway local si estaba en reposo para garantizar la indexación RAG incremental (`SHA-256`), despliega en Firebase Hosting (`documentacion-ia`) y versiona en GitHub.
 
 ### Etapa 3: Fragmentación Híbrida e Ingesta RAG (`index-rag.js`)
 *   Recorre todos los documentos de `src/content/docs/`.

@@ -1,6 +1,6 @@
 ---
 title: gestiona_documentacion
-description: Redacta, estructura, maqueta y valida documentación técnica y de procedimientos en portales Astro Starlight del monorepositorio bajo el estándar Diátaxis y el estándar corporativo sin emojis.
+description: "Redacta, estructura, maqueta y valida documentación técnica y de procedimientos en portales Astro Starlight del monorepositorio bajo el estándar Diátaxis y el estándar corporativo sin emojis."
 ---
 
 *   **Ruta de Configuración**: `IA_Configuracion/skills/gestiona_documentacion/SKILL.md`
@@ -47,13 +47,16 @@ Para evitar el cruce de modos de escritura (*mode-mixing*), los archivos markdow
 
 El archivo `astro.config.mjs` de los proyectos orquesta la inyección de estilos y el comportamiento de la barra lateral:
 
-### 1. Inyección de Hojas de Estilo y Desactivación de Tabla de Contenidos y Búsqueda (TOC & Search)
-Para inyectar el diseño corporativo, asegurar un ancho completo de lectura sin barra lateral derecha ("On this page") y omitir el botón de búsqueda superior, las propiedades `tableOfContents` y `pagefind` deben estar establecidas en `false`:
+### 1. Inyección de Hojas de Estilo, Tabla de Contenidos y Búsqueda (TOC & Pagefind)
+La configuración de `tableOfContents` y `pagefind` depende del propósito de cada portal:
+*   **Portal de Farmacia (`documentacion-farmacia`)**: Para asegurar un ancho limpio de lectura de PNTs sin barra lateral derecha ni buscador superior, establece `tableOfContents: false` y `pagefind: false`.
+*   **Portal de Documentación IA (`IA_Documentacion`)**: Mantiene `tableOfContents: true` y `pagefind: true` para ofrecer búsqueda instantánea indexada, navegación por anclas en fichas extensas y visor interactivo de diagramas Mermaid.
+
 ```javascript
 starlight({
   title: 'Título del Portal',
-  tableOfContents: false,      // Desactiva la barra lateral de Tabla de Contenidos globalmente
-  pagefind: false,             // Desactiva el motor e interfaz de búsqueda interna
+  tableOfContents: true,       // true en IA_Documentacion | false en documentacion-farmacia
+  pagefind: true,              // true en IA_Documentacion | false en documentacion-farmacia
   customCss: [
     './src/styles/custom.css', // Ruta del CSS personalizado
   ],
@@ -123,17 +126,13 @@ Para garantizar un aspecto sobrio y corporativo, se deben ocultar mediante CSS l
         display: none !important;
     }
     ```
-*   **Tabla de Contenidos (TOC) Movil y Escritorio**:
+*   **Tabla de Contenidos (TOC) y Buscador (solo en `documentacion-farmacia`)**:
+    En el Portal de Farmacia se ocultan el índice derecho y el buscador para mantener una lectura limpia de PNTs (mientras que en `IA_Documentacion` permanecen visibles y activos):
     ```css
     .right-sidebar-container,
     starlight-toc,
     mobile-starlight-toc,
-    .right-sidebar {
-        display: none !important;
-    }
-    ```
-*   **Buscador Integrado (Search)**:
-    ```css
+    .right-sidebar,
     site-search,
     button[data-open-modal] {
         display: none !important;
@@ -246,4 +245,4 @@ Antes de finalizar una tarea de documentación, el agente debe validar el cumpli
 *   [ ] **Frontmatter**: ¿Se han definido `title` y `description` de forma descriptiva y única?
 *   [ ] **CSS/Estilos**: ¿Se utilizan las clases oficiales de badges de personal o de flujos, y no estilos inline ad-hoc?
 *   [ ] **MDX Nativos**: ¿Se priorizan los componentes `<Steps>`, `<Aside>` y `<CardGrid>` sobre HTML sucio?
-*   [ ] **Compilación**: ¿Se ha ejecutado `npm run build` en el portal y ha completado satisfactoriamente sin advertencias ni enlaces rotos?
+*   [ ] **Auditoría y Publicación Automática**: ¿Se ha ejecutado `npm run audit` y `npm run publish:auto` (o `npm run deploy`) en `IA_Documentacion/src/docs` completando con `0 errores`, indexación RAG incremental y despliegue en Firebase Multisite?

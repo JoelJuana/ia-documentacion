@@ -224,6 +224,14 @@ blockquote {
 	line-height: 1 !important;
 }
 
+.stat-sub {
+	display: block !important;
+	margin-top: 0.5rem !important;
+	font-size: 0.78rem !important;
+	font-weight: 500 !important;
+	color: var(--sl-color-gray-3) !important;
+}
+
 /* ------------------------------------------------------------- */
 /* NAVEGACIÓN, ASIDES Y TABLA DE CONTENIDOS                      */
 /* ------------------------------------------------------------- */

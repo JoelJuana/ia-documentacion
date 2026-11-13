@@ -1,6 +1,6 @@
 ---
 title: gestiona_infraestructura
-description: Arranca, detiene y verifica el estado de todos los microservicios de infraestructura local (Gateway, GitHub, Firebase, Project Creator, Domain Manager, Design Assets, RAG, Scraping). Úsalo cuando el usuario diga "arranca infra", "activa infraestructura", "levanta los servicios", "para infra", "detén servicios", "estado de infra", "health check" o expresiones similares.
+description: "Arranca, detiene y verifica el estado de todos los microservicios de infraestructura local (Gateway, GitHub, Firebase, Project Creator, Domain Manager, Design Assets, RAG, Scraping). Úsalo cuando el usuario diga 'arranca infra', 'activa infraestructura', 'levanta los servicios', 'para infra', 'detén servicios', 'estado de infra', 'health check' o expresiones similares."
 ---
 
 *   **Ruta de Configuración**: `IA_Configuracion/skills/gestiona_infraestructura/SKILL.md`

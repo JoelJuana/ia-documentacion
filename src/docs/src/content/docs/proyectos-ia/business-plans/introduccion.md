@@ -21,7 +21,7 @@ Los simuladores de negocio comparten recursos de estilo y estándares arquitect�
 
 ## Simuladores Financieros Disponibles (6)
 
-Selecciona uno de los simuladores para consultar su ficha técnica detallada:
+Selecciona uno de los simuladores para consultar su ficha técnica e historial de versiones:
 
 <div class="dashboard-grid">
   <a href="/proyectos-ia/business-plans/app-bp-caravanas/" class="dashboard-card">

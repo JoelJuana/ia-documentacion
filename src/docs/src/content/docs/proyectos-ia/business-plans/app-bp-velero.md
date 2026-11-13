@@ -28,3 +28,11 @@ Simulador interactivo y planificador de costes destinado al cálculo detallado d
 - **Tecnología**: HTML5, Vanilla JavaScript, CSS3 Custom Properties.
 - **Diseño**: Temas e interfaces optimizados bajo el estándar del monorepositorio.
 
+
+---
+
+## Historial de Versiones del Proyecto
+
+### [1.0.0] - 2026-06-27
+- Estructura inicial de "plan-negocio-velero" generada mediante Project Creator.
+

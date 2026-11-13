@@ -1,6 +1,6 @@
 ---
 title: gestiona_github
-description: Sin descripción detallada.
+description: "Sin descripción detallada."
 ---
 
 *   **Ruta de Configuración**: `IA_Configuracion/skills/gestiona_github/SKILL.md`

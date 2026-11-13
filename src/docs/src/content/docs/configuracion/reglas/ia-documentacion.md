@@ -34,9 +34,10 @@ El contenido debe estructurarse estrictamente bajo el estándar **Diátaxis**:
 ## 5. Protocolo de Ciclo de Vida Documental
 Al finalizar cualquier tarea de desarrollo o arquitectura en el ecosistema, el agente de IA debe cumplir obligatoriamente los siguientes pasos:
 1.  **Bitácora**: Registrar de forma breve y precisa la tarea completada en el archivo `CHANGELOG.md` en la raíz de `IA_Documentacion/`.
-2.  **Sincronización y Build**: Ejecutar \`npm run build\` en \`IA_Documentacion/src/docs/\` para:
-    *   Sincronizar todos los cambios de código, skills, READMEs y bitácora con el portal (\`sync-catalog.js\`).
-    *   Compilar el sitio web estático.
-    *   Indexar de forma automática todo el conocimiento actualizado en la base de datos vectorial del RAG local (\`index-rag.js\`).
-3.  **Publicación**: Ejecutar \`npm run deploy\` en \`src/docs/\` para desplegar el portal web en Firebase Hosting.
+2.  **Publicación Unificada (`publish:auto` o `deploy`)**: Ejecutar `npm run publish:auto` (o `npm run deploy`) en `IA_Documentacion/src/docs/` para:
+    *   Sincronizar todos los cambios de proyectos, changelogs de apps, catálogo editorial, skills, plugins, reglas y bitácora con el portal (`sync-catalog.js`).
+    *   Auditar automáticamente enlaces internos, anclas, diagramas Mermaid y ausencia de emojis o secretos (`audit-portal.js`).
+    *   Compilar el sitio web estático y generar `sitemap.xml` / `robots.txt`.
+    *   Indexar de forma incremental (`SHA-256`) todo el conocimiento actualizado en la base vectorial del RAG local (`index-rag.js`), gestionando el encendido/apagado JIT del Gateway si estaba en reposo.
+    *   Publicar en Firebase Hosting (`documentacion-ia`) y versionar en GitHub (`main`).
 

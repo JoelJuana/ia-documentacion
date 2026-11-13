@@ -1,9 +1,10 @@
 {
   "name": "app-documentacion-ia",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "scripts": {
     "dev": "node scripts/sync-catalog.js && astro dev",
+    "sync": "node scripts/sync-catalog.js",
     "sync:watch": "node scripts/sync-catalog.js --watch",
     "start": "node scripts/sync-catalog.js && astro dev",
     "audit": "node scripts/audit-portal.js",
@@ -11,6 +12,8 @@
     "index:rag:force": "node scripts/index-rag.js --force",
     "build": "node scripts/sync-catalog.js && node scripts/audit-portal.js && astro build && node scripts/generate-sitemap.js && node scripts/index-rag.js",
     "deploy": "npm run build && node scripts/deploy-portal.js",
+    "publish:auto": "node scripts/auto-publish.js",
+    "publish:force": "node scripts/auto-publish.js --force",
     "preview": "astro preview",
     "astro": "astro"
   },

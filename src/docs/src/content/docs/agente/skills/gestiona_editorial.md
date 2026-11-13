@@ -1,6 +1,6 @@
 ---
 title: gestiona_editorial
-description: Maquetacion profesional de documentos en formato editorial con calidad de imprenta y exportacion instantanea a PDF vectorial (A4) y Word (.docx). Soporta 4 presets corporativos y tecnicos (oca_global, actas_comunidad, dossier_financiero, seat_124_taller) con control granular de saltos de pagina y tipografia avanzada.
+description: "Maquetacion profesional de documentos en formato editorial con calidad de imprenta y exportacion instantanea a PDF vectorial (A4) y Word (.docx). Soporta 4 presets corporativos y tecnicos (oca_global, actas_comunidad, dossier_financiero, seat_124_taller) con control granular de saltos de pagina y tipografia avanzada."
 ---
 
 *   **Ruta de Configuración**: `IA_Configuracion/skills/gestiona_editorial/SKILL.md`
@@ -105,17 +105,19 @@ Validadas con el usuario en las Fases 1 y 2 de Álabe Ingenieros:
 
 ### Paso 1: Clasificación y Selección de Plantilla
 * Identificar el ámbito (`oca_global`, `actas_comunidad`, `dossier_financiero` o `seat_124_taller`) y leer el `IDENTIDAD_CORPORATIVA.md` y el archivo `reglas_<tipo>.md` correspondiente de `presets/<preset>/`.
-* Para inicializar rápidamente una carpeta nueva (aprovisionando además su subcarpeta `_identidad/` si no existe), puedes usar el script `new-doc.ps1`:
+* Para inicializar rápidamente una carpeta nueva (enlazada automáticamente a `../_identidad/style.css` + `editorial.meta.json`), usar el script `new-doc.ps1`:
   ```powershell
-  & "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\new-doc.ps1" -Preset oca_global -Tipo due_diligence -Slug "due-diligence-empresa"
+  & "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\new-doc.ps1" -Preset oca_global -Tipo due_diligence -Slug "due-diligence-empresa" -Titulo "Due Diligence Preliminar: Empresa"
   ```
 
-### Paso 2: Compilación Editorial en 1 Comando (`build_editorial.js`)
+### Paso 2: Compilación Editorial, Bookmarks PDF, QA Geométrico y Autocatálogo (`build_editorial.js`)
 Ejecutar el CLI Node.js `build_editorial.js` para:
 1. Renderizar el PDF A4 vectorial con Microsoft Edge Headless.
-2. Generar las capturas de verificación en `preview/page_1.png`, `preview/page_2.png`, etc.
-3. Verificar que no supere el objetivo de páginas (`--max-pages <N>`).
-4. Exportar automáticamente el archivo **Word (`.docx`)** en documentos de **OCA Global** (`export-oca-docx.py`), **Comunidad de Propietarios** (`export-comunidad-docx.py`) y **Dossiers Financieros** (`export-dossier-docx.py`):
+2. Inyectar automáticamente **Marcadores/Índice interactivo PDF (Outlines/TOC)** y metadatos corporativos mediante `postprocess-pdf.py`.
+3. Ejecutar **QA geométrico** por página (`%` de ocupación útil, detección de recortes por `overflow: hidden` en `.hoja-a4` y alerta de firmas huérfanas en flujo continuo).
+4. Generar las capturas de verificación en `preview/page_1.png`, `preview/page_2.png`, etc. y verificar `--max-pages <N>`.
+5. Exportar automáticamente el archivo **Word (`.docx`)** (`export-oca-docx.py`, `export-comunidad-docx.py`, `export-dossier-docx.py`).
+6. Actualizar `editorial.meta.json` y regenerar automáticamente `docs/editorial/catalog.js` para el visor interactivo.
 
 ```powershell
 node "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\build_editorial.js" "C:\ruta\a\la\carpeta\documento.html" --max-pages 2
@@ -123,19 +125,20 @@ node "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\build_edit
 * Opciones soportadas por `build_editorial.js`:
   - `--max-pages <N>`: Verifica que el PDF resultante no supere `N` páginas; si las supera, muestra una alerta indicando qué página revisar.
   - `--pdf <ruta.pdf>`: Personaliza el nombre o ruta del archivo PDF (y DOCX) de salida.
+  - `--data <datos.json>`: Actualiza nodos HTML con atributo `data-bind="clave"` antes de compilar (puente con simuladores).
   - `--dpi <N>`: Resolución de las capturas PNG en `preview/` (por defecto `130`).
   - `--no-docx`: Omite la generación automática del archivo `.docx`.
+  - `--sync-catalog`: Escanea `docs/editorial/` y regenera `catalog.js` sin recompilar PDFs.
+  - `--sync-presets`: Propaga los 4 presets a `IA_Configuracion/skills/gestiona_editorial/presets/` y a todas las carpetas `<Ámbito>/_identidad/`.
 
 ### Paso 3: Verificación Visual Obligatoria y Registro en el Visor
 * Inspeccionar siempre las capturas generadas en `preview/page_1.png`, `preview/page_2.png`, etc. con `read_file` para comprobar que no haya huecos, títulos huérfanos, firmas desbordadas ni cortes en bloques `.hoja-a4`.
-* Conservar la carpeta `preview/` y registrar el documento en `docs/editorial/index.html` (`EDITORIAL_DOCS`) y en `docs/editorial/README.md` para que el Centro Editorial interactivo esté siempre al día.
+* Conservar la carpeta `preview/`, ajustar si procede la descripción/tags en `editorial.meta.json` (seguido de `--sync-catalog`) y mantener actualizado `docs/editorial/README.md`.
 
 ---
 
 ## Procedimiento para Crear o Actualizar Presets
 
 Cuando se cree o mejore un preset de estilo:
-1. Actualizar `presets/<nombre_preset>/` en ambas rutas de la skill:
-   - `C:/Users/jjtei/.gemini/config/skills/gestiona_editorial/presets/<nombre_preset>/`
-   - `C:/Users/jjtei/Desktop/IA_Configuracion/skills/gestiona_editorial/presets/<nombre_preset>/`
-2. Sincronizar la carpeta `<Ámbito>/_identidad/` correspondiente dentro de `C:/Users/jjtei/Desktop/IA_Proyectos/docs/editorial/`.
+1. Editar los archivos en `C:/Users/jjtei/.gemini/config/skills/gestiona_editorial/presets/<nombre_preset>/`.
+2. Ejecutar `node "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\build_editorial.js" --sync-presets` para replicarlos automáticamente en `IA_Configuracion/skills/gestiona_editorial/presets/` y en todas las carpetas `<Ámbito>/_identidad/` de `docs/editorial/`.

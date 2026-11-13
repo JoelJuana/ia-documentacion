@@ -45,9 +45,10 @@ Estas son directrices que debes seguir obligatoriamente cuando edites código en
     - Colores base: Fondo `#080c14`, tarjetas `rgba(13, 20, 35, 0.75)`, bordes `rgba(255, 255, 255, 0.07)`.
     - Colores de acento: Índigo (`#6366f1`), cian (`#06b6d4`), esmeralda (`#10b981`) para éxitos y rojo (`#f43f5e`) para pérdidas.
     - Gradiente de títulos: `linear-gradient(135deg, #6366f1, #3b82f6, #06b6d4)`.
-*   **Mantenimiento del Catálogo y Builds**: Tras crear, modificar o mover cualquier proyecto, el agente debe obligatoriamente:
-    - Actualizar el inventario central `projects.json` si corresponde.
-    - Compilar a producción (`npm run build`) en la carpeta del subproyecto si es un frontend.
-    - Correr el script del portafolio (`node scripts/build-portfolio.js`) desde la raíz del monorepositorio para asegurar que la web de catálogo en `dist/` contenga los últimos cambios funcionales.
+*   **Mantenimiento del Catálogo, Documentación y Builds**: Tras crear, modificar funcionalmente o mover cualquier proyecto, el agente debe obligatoriamente:
+    - Actualizar el inventario central `projects.json` y el `README.md` / `CHANGELOG.md` del subproyecto afectado para reflejar fielmente su arquitectura vigente.
+    - Compilar a producción (`npm run build`) únicamente en la carpeta del subproyecto afectado si es un frontend.
+    - Correr el script del portafolio (`node scripts/build-portfolio.js`) desde la raíz del monorepositorio si cambia el inventario de proyectos.
+    - Ejecutar `npm run publish:auto --prefix "C:\Users\jjtei\Desktop\IA_Documentacion\src\docs"` para publicar automáticamente las fichas técnicas, changelogs y catálogo editorial en el portal `https://antigravity.gironacc.com` e indexarlos en el RAG.
 
 

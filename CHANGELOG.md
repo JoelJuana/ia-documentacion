@@ -4,6 +4,22 @@ Todos los cambios y tareas notables de este monorepositorio y del ecosistema de 
 
 ---
 
+## [2026-11-13] — Orquestación "Zero-Touch Docs", Ingesta de Changelogs/Catálogo Editorial, Skills Bidireccionales y Blindaje CI
+
+### Añadido
+- **Orquestador de Publicación Automática (`src/docs/scripts/auto-publish.js` y `npm run publish:auto`)**: Pipeline integral con control de bloqueo concurrente (`.auto-publish.lock`), detección inteligente de cambios reales (`git status`), auditoría automática, compilación Astro + Sitemap, encendido/apagado **JIT** de `IA_Infraestructura` para garantizar siempre la indexación RAG incremental, despliegue en Firebase Hosting (`documentacion-ia`) y commit/push automático a GitHub.
+- **Disparador Automático en `infra-project-creator` (`IA_Infraestructura`)**: Integración de `triggerPortalAutoPublish` en segundo plano al crear, renombrar o eliminar proyectos, además de enrutamiento nativo de simuladores `app-bp-*` hacia `apps/business-plans/`.
+- **Auto-Descubrimiento de Proyectos y Anexo de `CHANGELOG.md` (`sync-catalog.js`)**: Escaneo automático de subcarpetas en `IA_Proyectos/apps/` y `apps/business-plans/` para registrar proyectos nuevos sin intervención manual e inyección automática del historial de versiones (`CHANGELOG.md`) de cada aplicación en su ficha del portal.
+- **Inventario Dinámico del Centro Editorial (`sync-catalog.js`)**: Lectura directa de `IA_Proyectos/docs/editorial/catalog.js` para publicar automáticamente la tabla viva de los 9 documentos A4, 61 páginas vectoriales y 8 exportaciones Word `.docx` en la ficha de `centro-editorial`.
+- **Regla Global Transversal ("Zero-Touch Docs")**: Nueva sección 8 en `IA_Configuracion/AGENTS.md` y reglas por proyecto (`proyectos-ia`, `ia-infraestructura`, `ia-documentacion`) que instruyen a los agentes de cualquier repositorio a ejecutar `npm run publish:auto` tras cambios funcionales o documentales.
+
+### Mejorado
+- **Reconciliación Bidireccional de Configuración (`sync-catalog.js`)**: Importación automática de skills creadas o editadas en `~/.gemini/config/skills/` hacia `IA_Configuracion/skills/`, propagación automática de `AGENTS.md` y `plugins/` hacia `~/.gemini/config/` y ampliación del modo `--watch` a los 4 repositorios.
+- **Métricas Precisas y Blindaje CI (`index.md`, `sync-catalog.js` y workflows)**: Separación exacta entre plugins activos (`4`) y módulos en reserva (`9`), eliminación del plugin residual de prueba `test-dashboard-skill`, modo seguro `[CI Mode]` en `sync-catalog.js` para no sobrescribir estadísticas en runners remotos y retirada del workflow heredado `deploy-docs.yml` (Node 18) en favor de `ci-portal.yml` (Node 22).
+- **Saneamiento UTF-8 y Documentación al Día**: Corrección de codificación UTF-8 en origen en `IA_Configuracion/AGENTS.md` y `~/.gemini/GEMINI.md`, alineación de `gestiona_documentacion/SKILL.md` (`Pagefind` y `TOC` diferenciados entre Farmacia e IA) y actualización integral del `README.md` de `app-bp-ramon-turro` (`v2.2.0`: Hipoteca Promotora Verde Única a 20 años al `4,50%`, inmueble a título personal y freno `Deuda/EBITDA`).
+
+---
+
 ## [2026-11-10] — Indexación RAG Incremental SHA-256, Auditoría Avanzada de Anclas/Mermaid, Carga Perezosa y Ampliación Diátaxis
 
 ### Añadido

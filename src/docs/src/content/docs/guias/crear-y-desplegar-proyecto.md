@@ -24,13 +24,14 @@ Asegúrate de incluir siempre un archivo `README.md` en la raíz del subproyecto
 
 ---
 
-## Paso 2: Registrar el Proyecto en `projects.json`
+## Paso 2: Registro en `projects.json` (Automático o Manual)
 
-Añade la entrada del nuevo proyecto en el archivo `IA_Proyectos/projects.json`:
+Si creas el proyecto mediante `infra-project-creator` (`crea_proyecto`), se registra automáticamente en `IA_Proyectos/projects.json` y dispara en segundo plano la publicación del portal. Asimismo, si creas la carpeta manualmente en `apps/` o `apps/business-plans/`, `sync-catalog.js` cuenta con **detección automática de carpetas nuevas** y genera la entrada base en `projects.json`. Para personalizar su nombre comercial o URL pública:
 
 ```json
 {
   "name": "app-bp-ejemplo",
+  "title": "Business Plan · Ejemplo",
   "type": "vanilla",
   "description": "Simulador financiero de ejemplo con proyección de flujos de caja y ROI.",
   "author": "JoelJuana",
@@ -62,12 +63,10 @@ En el monorepositorio `IA_Proyectos` está prohibido ejecutar scripts de desplie
 
 ---
 
-## Paso 4: Sincronizar el Portal de Documentación
+## Paso 4: Publicación Automática en el Portal y RAG (`publish:auto`)
 
-Por último, actualiza el portal `IA_Documentacion` para que la nueva ficha técnica aparezca en el menú lateral y quede indexada en el RAG:
+Por último, ejecuta el orquestador transversal para que la nueva ficha (junto con su `README.md` y `CHANGELOG.md`) se audite, compile, indexe en el RAG (con arranque/apagado JIT del Gateway si estaba en reposo), despliegue en `https://antigravity.gironacc.com` y se versione en GitHub:
 
-1.  Registra el alta en `CHANGELOG.md` (ver [Bitácora de Cambios](/historial/cambios/)).
-2.  Ejecuta la compilación y sincronización en `IA_Documentacion/src/docs`:
-    ```powershell
-    npm run build --prefix "C:\Users\jjtei\Desktop\IA_Documentacion\src\docs"
-    ```
+```powershell
+npm run publish:auto --prefix "C:\Users\jjtei\Desktop\IA_Documentacion\src\docs"
+```

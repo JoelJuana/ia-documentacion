@@ -5,7 +5,7 @@ sidebar:
   order: 2
 ---
 
-Este documento detalla el catálogo completo de **13 proyectos activos** registrados en el archivo central `IA_Proyectos/projects.json` en la raíz del monorepositorio.
+Este documento detalla el catálogo completo de **13 proyectos activos** registrados en el archivo central `IA_Proyectos/projects.json` (con detección automática de subcarpetas nuevas en `apps/` y `apps/business-plans/`).
 
 ---
 
@@ -15,7 +15,7 @@ Este documento detalla el catálogo completo de **13 proyectos activos** registr
 | :--- | :--- | :--- | :--- | :--- |
 | **[antigravity-joel](/proyectos-ia/apps/antigravity-joel/)** | `starlight` | Portal central de documentación de IA, especificaciones de agentes, catálogo de skills e infraestructura local. | [Enlace](https://antigravity.gironacc.com) | 2026-07-01 |
 | **[documentacion-farmacia](/proyectos-ia/apps/documentacion-farmacia/)** | `starlight` | Validador de Documentación Técnica, PNT y Procedimientos Operativos de Oficina de Farmacia. | [Enlace](https://protocolo-farmacia.gironacc.com) | 2026-07-05 |
-| **[app-calendario-farmacia](/proyectos-ia/apps/app-calendario-farmacia/)** | `react` | Planificador de turnos, rotaciones de sábados, festivos con guardia y guardias nocturnas de 2026 para el personal de la farmacia. | [Enlace](https://turnos-farmacia.gironacc.com) | 2026-07-11 |
+| **[app-calendario-farmacia](/proyectos-ia/apps/app-calendario-farmacia/)** | `react` | Planificador multi-año (2026/2027) de turnos, permutas en 1 clic, rotaciones de sábados, festivos, guardias nocturnas, bolsa de horas y PDF de impresión A4. | [Enlace](https://turnos-farmacia.gironacc.com) | 2026-07-11 |
 | **[app-comunidad-paradas](/proyectos-ia/apps/app-comunidad-paradas/)** | `react` | Panel de administración, presupuestos y gestión financiera para la Comunidad de Propietarios Paradas (Mercat de la Devesa, Girona). | [Enlace](https://paradas.gironacc.com) | 2026-06-28 |
 | **[workspace-skill-lab](/proyectos-ia/apps/workspace-skill-lab/)** | `node` | Hub MCP fundacional para gobernar Google Workspace (Drive, Sheets, Docs, Calendar, Apps Script) desde el agente. | - | 2026-07-10 |
 | **[app-notebook-studio](/proyectos-ia/apps/app-notebook-studio/)** | `react` | Entorno interactivo para controlar, alimentar fuentes de información, estructurar capítulos y crear materiales en cuadernos digitales. | [Enlace](https://notebook-studio.web.app) | 2026-08-14 |
@@ -40,7 +40,7 @@ Este documento detalla el catálogo completo de **13 proyectos activos** registr
 
 ### [app-calendario-farmacia](/proyectos-ia/apps/app-calendario-farmacia/)
 *   **Tipo**: `react`
-*   **Propósito**: Planificador de turnos, rotaciones de sábados, festivos con guardia y guardias nocturnas de 2026 para el personal de la farmacia.
+*   **Propósito**: Planificador multi-año (2026/2027) de turnos, permutas en 1 clic, rotaciones de sábados, festivos, guardias nocturnas, bolsa de horas y PDF de impresión A4.
 *   **Producción**: [https://turnos-farmacia.gironacc.com](https://turnos-farmacia.gironacc.com)
 *   **Creado el**: 2026-07-11
 

@@ -3,6 +3,7 @@ dist/
 src/docs/dist/
 src/docs/.astro/
 src/docs/.rag-manifest.json
+src/docs/.auto-publish.lock
 
 # dependencies
 node_modules/

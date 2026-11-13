@@ -67,17 +67,21 @@ Selecciona la sección correspondiente para acceder de forma inmediata a los con
   <div class="dashboard-card">
     <h3>Proyectos Registrados</h3>
     <p class="stat-number">13</p>
+    <span class="stat-sub">7 apps · 6 simuladores</span>
   </div>
   <div class="dashboard-card">
     <h3>Skills de Agente</h3>
     <p class="stat-number">12</p>
+    <span class="stat-sub">Sincronización bidireccional</span>
   </div>
   <div class="dashboard-card">
     <h3>Servicios de Infraestructura</h3>
     <p class="stat-number">8</p>
+    <span class="stat-sub">API Gateway :3000–3700</span>
   </div>
   <div class="dashboard-card">
     <h3>Plugins Activos</h3>
-    <p class="stat-number">14</p>
+    <p class="stat-number">4</p>
+    <span class="stat-sub">+9 módulos en reserva</span>
   </div>
 </div>

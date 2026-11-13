@@ -6,11 +6,9 @@ sidebar:
   order: 1
 ---
 
-Las **Skills** (habilidades) son extensiones de automatización personalizadas que se configuran y mantienen de forma centralizada en el repositorio [`IA_Configuracion`](/configuracion/introduccion/) (`IA_Configuracion/skills/`).
+Las **Skills** (habilidades) son extensiones de automatización personalizadas que se configuran y mantienen de forma centralizada en el repositorio [`IA_Configuracion`](/configuracion/introduccion/) (`IA_Configuracion/skills/`) con sincronización bidireccional hacia `~/.gemini/config/skills/`.
 
-Al arrancar el entorno de desarrollo o compilar el portal, estas habilidades se sincronizan y actualizan automáticamente en las carpetas de proyectos y microservicios locales (`IA_Proyectos`, `IA_Infraestructura` e `IA_Documentacion`).
-
-Permiten al agente interactuar con servicios locales y externos de forma autónoma basándose en disparadores de lenguaje natural.
+Al compilar o ejecutar la publicación automática (`npm run publish:auto`), estas habilidades se propagan y documentan de inmediato en todo el ecosistema.
 
 ---
 
