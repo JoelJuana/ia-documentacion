@@ -585,8 +585,8 @@ function reconcileActiveSkillsIntoConfig() {
       const activeStat = fs.statSync(activeSkillMd);
       const repoStat = fs.statSync(repoSkillMd);
       if (activeStat.mtimeMs > repoStat.mtimeMs + 2000) {
-        const aTxt = fs.readFileSync(activeSkillMd, 'utf8');
-        const rTxt = fs.readFileSync(repoSkillMd, 'utf8');
+        const aTxt = fs.readFileSync(activeSkillMd, 'utf8').replace(/\r\n/g, '\n');
+        const rTxt = fs.readFileSync(repoSkillMd, 'utf8').replace(/\r\n/g, '\n');
         if (aTxt !== rTxt) {
           fs.cpSync(activeItemDir, repoItemDir, { recursive: true, force: true });
           console.log(`[Auto-Sync Skills] Edición más reciente en ~/.gemini/config/skills sincronizada hacia IA_Configuracion: ${item}`);
