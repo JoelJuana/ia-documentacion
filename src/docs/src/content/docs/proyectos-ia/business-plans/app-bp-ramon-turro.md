@@ -49,6 +49,12 @@ El dossier ejecutivo auditado al 100% de ocupación A4 para Comité de Riesgos y
 
 ## Historial de Versiones del Proyecto
 
+### [2.4.0] - 2026-11-13
+#### Cambiado (Caso Base en Euros Constantes `IPC 0%` sin Reposición Pre-cargada)
+- **Simulador interactivo (`2.5 Actualización Monetaria`)**: desmarcados por defecto los controles `Actualización de ingresos y gastos (IPC 2%)` (`#chk-ipc`) y `Reposición de mobiliario e instalaciones` (`#chk-reposicion`), estableciendo el Caso Base Canónico en **euros constantes (`IPC 0%`)** para no depender de variables inflacionarias externas ni distorsionar con CapEx post-deuda el periodo de amortización hipotecaria.
+- **Motor financiero (`src/js/engine.js`)**: depurado el cálculo de `dscrMedio` para excluir colas residuales inferiores a un trimestre de cuota en el último año de extinción anticipada de deuda.
+- **Dossier Bancario A4 de 9 páginas (`documento.html`, `.pdf` y `.docx`)**: recalculadas al euro las 9 páginas en euros constantes (`291.720 €/año` de ingresos estables, `185.217 €/año` de EBITDA estable, DSCR Año 1 `1,62x` con 6 m de carencia y `1,29x` sin ella, DSCR Año 2 `1,75x`, cancelación total de deuda en `Año 10 y 4 meses` / `10a 8m` con DSRA, ahorro fiscal y financiero neto de `+478.411 €`, caja neta acumulada de `2.407.843 €` y nota explícita en Página 5 sobre autofinanciación post-deuda).
+
 ### [2.3.0] - 2026-11-13
 #### Mejorado (Díptico Comercial y Explotación · Páginas 2 y 3 del Dossier Bancario)
 - **Rediseño integral de la Página 2 (`Proyecto y modelo de negocio`)**: enfocada al 100% en la propuesta comercial multiformato con medias centradas en mercado (**meses `850–980 €/m` · media `900 €/m`**, **semanas `315–455 €/sem.` · media `345 €/sem.`** y **días `75–110 €/noche` · media `88,77 €/noche`**), coste operativo unitario de rotación por formato (`~2,2 €`, `~6,5 €` y `~17,5 €/noche`), segmentación de los 4 perfiles de cliente en Girona, blindaje del IVA al 10% (REDEME `288.750 €`) y cobro 100% anticipado sin riesgo de impago.
