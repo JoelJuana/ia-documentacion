@@ -114,7 +114,7 @@ Cada carpeta de documento incluye un archivo ligero **`editorial.meta.json`** qu
 
 ## Catálogo Vivo de Publicaciones A4 (9 Documentos)
 
-Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-13` · **61 páginas A4** vectoriales · **8 exportaciones Word**):
+Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-14` · **61 páginas A4** vectoriales · **8 exportaciones Word**):
 
 | Cliente / Ámbito | Título del Documento | Preset | Extensión y Formatos | Estado | Compilado |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -124,7 +124,7 @@ Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/cata
 | **OCA Global** | Protocolo y Checklist de Due Diligence Técnica: Álabe Ingenieros (Fase 2) | `oca_global` | 2 págs. (PDF + DOCX) | Protocolo Fase 2 | 2026-11-10 |
 | **CP Mercat Devesa** | Acta de Sesión de Trabajo — Comunidad Mercat Devesa | `actas_comunidad` | 5 págs. (PDF + DOCX) | Finalizado | 2026-11-10 |
 | **CP Mercat Devesa** | Documento de Alineación Técnica y Estatutos (Octubre 2026) | `actas_comunidad` | 2 págs. (PDF + DOCX) | Finalizado | 2026-11-10 |
-| **CP Mercat Devesa** | Texto Refundido de los Estatutos de la Comunidad General | `actas_comunidad` | 4 págs. (PDF + DOCX) | Finalizado | 2026-11-13 |
+| **CP Mercat Devesa** | Texto Refundido de los Estatutos de la Comunidad General | `actas_comunidad` | 4 págs. (PDF + DOCX) | Finalizado | 2026-11-14 |
 | **CP Mercat Devesa** | Reglamento de Régimen Interno de la Comunidad de Almacenes | `actas_comunidad` | 4 págs. (PDF + DOCX) | Pendiente datos registrales | 2026-11-10 |
 | **SEAT 124 FL** | Manual de Instalación Eléctrica SEAT 124 FL (1430 / 1600 Biárbol) | `seat_124_taller` | 30 págs. (PDF + HTML) | Edición Taller (30 Hojas) | 2026-11-10 |
 
