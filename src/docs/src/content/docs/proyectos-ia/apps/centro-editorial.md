@@ -113,9 +113,9 @@ Cada carpeta de documento incluye un archivo ligero **`editorial.meta.json`** qu
 
 ---
 
-## Catálogo Vivo de Publicaciones A4 (10 Documentos)
+## Catálogo Vivo de Publicaciones A4 (11 Documentos)
 
-Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-14` · **62 páginas A4** vectoriales · **9 exportaciones Word**):
+Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-14` · **63 páginas A4** vectoriales · **10 exportaciones Word**):
 
 | Cliente / Ámbito | Título del Documento | Preset | Extensión y Formatos | Estado | Compilado |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -126,7 +126,8 @@ Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/cata
 | **CP Mercat Devesa** | Acta de Sesión de Trabajo — Comunidad Mercat Devesa | `actas_comunidad` | 5 págs. (PDF + DOCX) | Finalizado | 2026-11-10 |
 | **CP Mercat Devesa** | Documento de Alineación Técnica y Estatutos (Octubre 2026) | `actas_comunidad` | 2 págs. (PDF + DOCX) | Finalizado | 2026-11-10 |
 | **CP Mercat Devesa** | Texto Refundido de los Estatutos de la Comunidad General | `actas_comunidad` | 4 págs. (PDF + DOCX) | Finalizado | 2026-11-14 |
-| **CP Mercat Devesa** | Acta de Junta de Presidentes — Acuerdos Previos Estatutos | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-14 |
+| **CP Mercat Devesa** | Acta de Reunión Ordinaria de la Junta de Presidentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-14 |
 | **CP Mercat Devesa** | Reglamento de Régimen Interno de la Comunidad de Almacenes | `actas_comunidad` | 4 págs. (PDF + DOCX) | Pendiente datos registrales | 2026-11-10 |
+| **CP Mercat Devesa** | Convocatoria de Asamblea General Extraordinaria — Nuevos Estatutos | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-14 |
 | **SEAT 124 FL** | Manual de Instalación Eléctrica SEAT 124 FL (1430 / 1600 Biárbol) | `seat_124_taller` | 30 págs. (PDF + HTML) | Edición Taller (30 Hojas) | 2026-11-10 |
 
