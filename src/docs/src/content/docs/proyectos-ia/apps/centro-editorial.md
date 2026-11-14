@@ -50,7 +50,8 @@ docs/editorial/
 │   ├── 2026-08-acta-devesa/                          # 📄 Acta de Sesión de Trabajo (HTML + PDF + DOCX)
 │   ├── 2026-10-acta-devesa/                          # 📄 Documento de Alineación Técnica (HTML + PDF + DOCX)
 │   ├── 2026-10-estatutos-devesa/                     # 📄 Texto Refundido de los Estatutos (HTML + PDF + DOCX)
-│   └── 2026-10-reglamento-almacenes/                 # 📄 Reglamento Interno de Almacenes (HTML + PDF + DOCX)
+│   ├── 2026-10-reglamento-almacenes/                 # 📄 Reglamento Interno de Almacenes (HTML + PDF + DOCX)
+│   └── 2026-11-acta-junta-presidentes/               # 📄 Acta de Junta de Presidentes — Acuerdos Previos Estatutos (HTML + PDF + DOCX)
 │
 ├── 📈 Compra Farmacia/ & 🏨 Ramon Turro/             # 3. PRESET: dossier_financiero (Inversión, Banca y Fiscalidad)
 │   ├── _identidad/                                   # 🎨 Imagen Ejecutiva de Planes de Negocio (.hoja-a4 100%)
@@ -112,9 +113,9 @@ Cada carpeta de documento incluye un archivo ligero **`editorial.meta.json`** qu
 
 ---
 
-## Catálogo Vivo de Publicaciones A4 (9 Documentos)
+## Catálogo Vivo de Publicaciones A4 (10 Documentos)
 
-Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-14` · **61 páginas A4** vectoriales · **8 exportaciones Word**):
+Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-14` · **63 páginas A4** vectoriales · **9 exportaciones Word**):
 
 | Cliente / Ámbito | Título del Documento | Preset | Extensión y Formatos | Estado | Compilado |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -125,6 +126,7 @@ Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/cata
 | **CP Mercat Devesa** | Acta de Sesión de Trabajo — Comunidad Mercat Devesa | `actas_comunidad` | 5 págs. (PDF + DOCX) | Finalizado | 2026-11-10 |
 | **CP Mercat Devesa** | Documento de Alineación Técnica y Estatutos (Octubre 2026) | `actas_comunidad` | 2 págs. (PDF + DOCX) | Finalizado | 2026-11-10 |
 | **CP Mercat Devesa** | Texto Refundido de los Estatutos de la Comunidad General | `actas_comunidad` | 4 págs. (PDF + DOCX) | Finalizado | 2026-11-14 |
+| **CP Mercat Devesa** | Acta de Junta de Presidentes — Acuerdos Previos Estatutos | `actas_comunidad` | 2 págs. (PDF + DOCX) | Finalizado | 2026-11-14 |
 | **CP Mercat Devesa** | Reglamento de Régimen Interno de la Comunidad de Almacenes | `actas_comunidad` | 4 págs. (PDF + DOCX) | Pendiente datos registrales | 2026-11-10 |
 | **SEAT 124 FL** | Manual de Instalación Eléctrica SEAT 124 FL (1430 / 1600 Biárbol) | `seat_124_taller` | 30 págs. (PDF + HTML) | Edición Taller (30 Hojas) | 2026-11-10 |
 
