@@ -119,7 +119,7 @@ Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/cata
 | Cliente / Ámbito | Título del Documento | Preset | Extensión y Formatos | Estado | Compilado |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Compra Farmacia** | Dossier Estratégico de Compraventa de Farmacia — Socios, Vendedor y Comprador | `dossier_financiero` | 3 págs. (PDF + DOCX) | Estrategia 3 Bloques (3 Págs.) | 2026-11-10 |
-| **Ramón Turró** | Plan de Negocio y Estrategia Financiera — Proyecto Hotelero Ramón Turró (Girona) | `dossier_financiero` | 9 págs. (PDF + DOCX) | Dossier Bancario (9 Págs.) | 2026-11-13 |
+| **Ramón Turró** | Plan de Negocio y Estrategia Financiera — Proyecto Hotelero Ramón Turró (Girona) | `dossier_financiero` | 9 págs. (PDF + DOCX) | Dossier Bancario (9 Págs.) | 2026-11-14 |
 | **OCA Global** | Due Diligence preliminar: Álabe Ingenieros (Fase 1) | `oca_global` | 2 págs. (PDF + DOCX) | Validado | 2026-11-10 |
 | **OCA Global** | Protocolo y Checklist de Due Diligence Técnica: Álabe Ingenieros (Fase 2) | `oca_global` | 2 págs. (PDF + DOCX) | Protocolo Fase 2 | 2026-11-10 |
 | **CP Mercat Devesa** | Acta de Sesión de Trabajo — Comunidad Mercat Devesa | `actas_comunidad` | 5 págs. (PDF + DOCX) | Finalizado | 2026-11-10 |
