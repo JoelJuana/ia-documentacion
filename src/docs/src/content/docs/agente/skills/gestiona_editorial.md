@@ -22,8 +22,8 @@ Esta habilidad dota al agente de capacidades completas de **editorial y maquetad
 >    - **Identidad**: Tipografía corporativa *Arial* + *Arial Black* según manual OCA (sin Google Fonts), azul marino `#0B3356`, rojo del logo `#DE473C`, logo recortado de `40 pt` a la derecha, metadatos en grid de 2 columnas, tablas con badges de estado y firma sobria con barra roja.
 >
 > 2. **Documento Jurídico / Comunidad de Propietarios (`actas_comunidad`)**:
->    - **Ámbito**: Actas de junta, sesiones de trabajo y acuerdos (Modalidad A) o Estatutos y Reglamentos de Régimen Interno articulados conforme al Libro Quinto del CCCat (Modalidad B), como en **CP Mercat Devesa**.
->    - **Identidad**: Estilo institucional jurídico, encabezados y tablas en `'Inter'`, cuerpo expositivo en `'Merriweather'` (Serif), azul clásico `#1B3A5C` y azul acuerdos `#2B6CB0`.
+>    - **Ámbito**: Convocatorias, Actas de Junta de Presidentes o de Asamblea General, Certificados para Notaría y Registro (Modalidad A) o Estatutos y Reglamentos de Régimen Interno articulados conforme al Libro Quinto del CCCat (Modalidad B), como en **CP Mercat Devesa** (Finca Matriz 4.001 de Girona).
+>    - **Identidad**: Estándar Monocromo Notarial y Registral (`#111827` negro pizarra, `#1F2937` cuerpo, `#4B5563` subtítulos, fondos blancos sin cajas azules), encabezados en `'Inter'` y cuerpo expositivo en `'Merriweather'` (Serif).
 >
 > 3. **Dossier Financiero / Plan de Negocio e Inversión (`dossier_financiero`)**:
 >    - **Ámbito**: Planes de negocio para bancos e inversores, dossiers estratégicos de compraventa (ej. *Compra Farmacia*, *Ramón Turró*) y estudios de optimización fiscal (IRPF / IS / IVA) vinculados a simuladores de `apps/business-plans/`.
@@ -98,6 +98,28 @@ Validadas con el usuario en las Fases 1 y 2 de Álabe Ingenieros:
 3. **Etiqueta de cabecera a la izquierda**: Sin caja ni fuente monoespaciada (`CONFIDENCIAL` en rojo + `Uso interno` en gris), alineada con la base de la palabra `"GLOBAL"`.
 4. **Tipografía corporativa**: `Arial` (cuerpo `10 pt`, ficha y tablas `9 pt`) + `Arial Black` (`font-weight: normal`, títulos `.doc-title` y `.oca-h1`). Prohibido usar `@import` de Google Fonts.
 5. **Firma (`.doc-signoff`)**: Sin recuadro ni *"Elaborado por:"*. Barra roja a la izquierda, nombre en negrita azul y cargo debajo (por defecto: *Joel Juana Teixidor · Responsable de Innovación · OCA Global*).
+
+---
+
+## Reglas de Oro: Comunidad de Propietarios y Propiedad Horizontal Catalana (`actas_comunidad` — Libro Quinto CCCat)
+
+Validadas en la actualización estatutaria y documental de la **Comunidad General del Mercado de la Devesa** (Finca Matriz **4.001** del Registro de la Propiedad de Girona, Tomo **2.407**, Libro **314**, Folio **159**):
+
+1. **Datos fijos de las 4 Comunidades Integrantes y cargos (CP Mercat Devesa)**:
+   - **Comunidad de Propietarios de Paradas (`62,082 %`)**: Presidente, **D. Toni Ortiz**.
+   - **Comunidad de Propietarios de Aparcamientos (`17,519 %`)**: Presidente, **D. Josep Pujol**.
+   - **Comunidad de Propietarios de Locales (`14,064 %`)**: Presidenta, **D.ª Judith Pell**.
+   - **Comunidad de Propietarios de Almacenes (`6,335 %`)**: Presidente, **D. Joel Juana Teixidor** (`D.N.I. 40.368.592-G`), quien ejerce simultáneamente el cargo de **Presidente – Secretario de la Comunidad General** (art. 553-15 CCCat).
+2. **Estándar Monocromo Notarial y Registral (`#111827`) y compacidad en 1 página A4**:
+   - En documentos oficiales (Estatutos, Convocatorias, Actas de reunión y Certificados para Notaría y Registro), usar exclusivamente escala monocroma (`#111827` títulos y filetes, `#1F2937` cuerpo, `#4B5563` subtítulos, sin cajas azules ni colores naranjas en `.docx`).
+   - Las **Convocatorias**, **Actas de reuniones ordinarias/concretas** y **Certificados para Notaría y Registro** deben maquetarse para caber en **1 sola página A4** (en las Actas, pasar directamente a `ACUERDOS ADOPTADOS` sin repetir un bloque previo de Orden del Día).
+3. **Convocatorias y Notificaciones (arts. 553-21 a 553-24 y 553-26 CCCat)**:
+   - **Única convocatoria y hora**: En Cataluña rige única convocatoria sin quórum mínimo (art. 553-23 CCCat). En la Convocatoria / Orden del Día solo se indica la **hora de inicio** (la hora de finalización solo consta en el Acta) y nunca se predetermina en el Orden del Día el nombre del candidato a elegir.
+   - **Régimen de acuerdos (art. 553-26 CCCat)**: Citar genéricamente *«conforme al régimen de acuerdos del artículo 553-26 del Código Civil de Cataluña»* (sin encasillarse entre unanimidad o 4/5 partes) para que el silencio positivo de los ausentes durante 1 mes (art. 553-26.3 CCCat) sirva tanto para unanimidad (553-26.1) como para 4/5 (553-26.2).
+   - **Requisitos del art. 553-21.4 CCCat**: Detallar en el Punto Primero las materias estatutarias clave, adjuntar el texto íntegro de los Estatutos, incluir en el Punto Segundo la facultad de solicitar **inscripción total o parcial**, hacer constar expresamente la advertencia del voto favorable de los ausentes tras 1 mes (art. 553-26.3 CCCat) y la situación de morosidad / inexistencia de deudas vencidas frente a la Comunidad General (art. 553-21.4.d CCCat), con protocolo de notificación en orden: **(1)** elementos privativos del edificio, **(2)** tablón de anuncios de la Comunidad General (con diligencia fechada del art. 553-21.2 CCCat) y **(3)** contactos facilitados por las Presidencias.
+4. **Estatutos vs. Acta (arts. 567-2 CCCat y 98 LH)**:
+   - **Finiquitos del pasado fuera de los Estatutos**: Los pactos de liquidación, exoneración o renuncia de reclamaciones por obras, reparaciones o incumplimientos de los antiguos Estatutos carecen de trascendencia real (art. 98 LH) y no deben ir como artículo de los Estatutos (que quedan limpios del Art. 1 al 15), sino como acuerdo en el **Acta de la Junta de Presidentes** supeditado a la aprobación unánime de los nuevos Estatutos.
+   - **Blindaje del Artículo 13 (art. 567-2.1 CCCat) sin visibilidad de «derecho de vuelo»**: Integrar los 4 requisitos del art. 567-2.1 CCCat como límites formales: **(1)** tope de altura máxima del inmueble (`planta baja más tres plantas piso`) y prohibición de incrementar el número de elementos privativos preexistentes en el ámbito, **(2)** plazo máximo legal de **treinta años** desde la inscripción en una o varias veces, **(3)** recálculo de cuotas internas **en proporción a su superficie útil** sin alterar la cuota global en la Comunidad General, y **(4)** **sin contraprestación económica por reciprocidad estatutaria entre subcomunidades**.
 
 ---
 
