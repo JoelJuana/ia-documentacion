@@ -51,7 +51,10 @@ docs/editorial/
 │   ├── 2026-10-acta-devesa/                          # 📄 Documento de Alineación Técnica (HTML + PDF + DOCX)
 │   ├── 2026-10-estatutos-devesa/                     # 📄 Texto Refundido de los Estatutos (HTML + PDF + DOCX)
 │   ├── 2026-10-reglamento-almacenes/                 # 📄 Reglamento Interno de Almacenes (HTML + PDF + DOCX)
-│   └── 2026-11-acta-junta-presidentes/               # 📄 Acta de Junta de Presidentes — Acuerdos Previos Estatutos (HTML + PDF + DOCX)
+│   ├── 2026-11-acta-junta-presidentes/               # 📄 Convocatoria y Acta de Junta de Presidentes — Acuerdos Previos (HTML + PDF + DOCX)
+│   ├── 2026-11-convocatoria-asamblea-estatutos/      # 📄 Convocatoria de Asamblea General y Certificado para Notaría/Registro (HTML + PDF + DOCX)
+│   ├── 2026-11-hoja-asistencia-asamblea/             # 📄 Hoja de Control de Asistencia y Delegaciones — Asamblea General (HTML + PDF + DOCX)
+│   └── 2026-11-acta-asamblea-estatutos/              # 📄 Acta de Asamblea General Extraordinaria y Notificación de Ausentes (HTML + PDF + DOCX)
 │
 ├── 📈 Compra Farmacia/ & 🏨 Ramon Turro/             # 3. PRESET: dossier_financiero (Inversión, Banca y Fiscalidad)
 │   ├── _identidad/                                   # 🎨 Imagen Ejecutiva de Planes de Negocio (.hoja-a4 100%)
@@ -113,9 +116,9 @@ Cada carpeta de documento incluye un archivo ligero **`editorial.meta.json`** qu
 
 ---
 
-## Catálogo Vivo de Publicaciones A4 (11 Documentos)
+## Catálogo Vivo de Publicaciones A4 (13 Documentos)
 
-Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-16` · **63 páginas A4** vectoriales · **10 exportaciones Word**):
+Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-16` · **65 páginas A4** vectoriales · **12 exportaciones Word**):
 
 | Cliente / Ámbito | Título del Documento | Preset | Extensión y Formatos | Estado | Compilado |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -130,4 +133,6 @@ Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/cata
 | **CP Mercat Devesa** | Reglamento de Régimen Interno de la Comunidad de Almacenes | `actas_comunidad` | 4 págs. (PDF + DOCX) | Pendiente datos registrales | 2026-11-10 |
 | **CP Mercat Devesa** | Convocatoria de Asamblea General Extraordinaria — Nuevos Estatutos | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-16 |
 | **SEAT 124 FL** | Manual de Instalación Eléctrica SEAT 124 FL (1430 / 1600 Biárbol) | `seat_124_taller` | 30 págs. (PDF + HTML) | Edición Taller (30 Hojas) | 2026-11-10 |
+| **CP Mercat Devesa** | Hoja de Control de Asistencia y Delegaciones — Asamblea Extraordinaria | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-16 |
+| **CP Mercat Devesa** | Acta de Asamblea General Extraordinaria — Aprobación de Estatutos | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-16 |
 
