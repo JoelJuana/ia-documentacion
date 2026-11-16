@@ -32,9 +32,9 @@ Simulador interactivo de viabilidad financiera, estructura bancaria y optimizaci
    - **Cascada del Impuesto sobre Sociedades:** Ajuste extracontable de amortización → Reserva de Capitalización (art. 25 LIS, `20%` del beneficio retenido con tope del `25%` en microempresa) → Compensación de BINs (art. 26 LIS) → Tipo reducido de Nueva Creación (`15%` los dos primeros ejercicios positivos) → Escala definitiva de Microempresa (`17%` primeros `50.000 €` y `20%` resto), generando `+413.792 €` de ahorro neto conciliado por palancas en la S.L.
    - **Bonificación IBI Solar en Girona:** `50%` de bonificación municipal durante 5 años conforme al límite de la ordenanza fiscal de Girona (`329,10 €/año`).
 
-3. **Tesorería, Freno de Barrido y Solvencia Bancaria (Bloques 3 y 4)**
-   - **Puente exacto 1:1 Resultados → Caja → Deuda:** Validado mediante suite automatizada de 26 tests (`npm test` en `tests/engine.test.js`), con conciliación fiscal y de deuda auditada al euro.
-   - **Prelación de barrido (*Cash Sweep*) y Freno Estratégico (`Deuda/EBITDA`):** Cancelación prioritaria de la Póliza de Circulante seguida de amortización anticipada de la Hipoteca Única, siempre con prelación sobre el alquiler subordinado, e incorporando control interactivo de freno estratégico tras liberar el *covenant* de reparto de dividendos (`Deuda/EBITDA ≤ 3,5x`).
+3. **Tesorería, *Standstill* Automático, Freno de Barrido y Solvencia Bancaria (Bloques 3 y 4)**
+   - **Puente exacto 1:1 Resultados → Caja → Deuda:** Validado mediante suite automatizada de 27 tests (`npm test` en `tests/engine.test.js`), con conciliación fiscal, de cuenta subordinada del socio (`deudaSocio`) y de deuda bancaria auditada al euro.
+   - **Subordinación automática del alquiler (*Standstill*) y Prelación de barrido (*Cash Sweep*):** Si el `DSCR` baja de `1,15x` o falta caja libre, la S.L. mantiene la deducción fiscal del alquiler (`art. 11.1 LIS`) pero aplaza automáticamente el pago en cuenta subordinada del propietario (`0%`), limpiando primero la Póliza de Circulante (`5,20%`), liquidando atrasos al socio cuando hay holgura y amortizando anticipadamente la Hipoteca Única (con control interactivo de freno estratégico `Deuda/EBITDA ≤ 3,5x`).
    - **Solvencia en escenarios base y estrés (`3.4 Rentabilidad Socio 25a`):** Caso Base en euros constantes (`IPC 0%`, sin reposición pre-cargada) con **doble lectura de cobertura**: `DSCR neto S.L.` (tras abonar alquiler) de `1,41x` en A1 c/ 6 m de carencia (`1,12x` sin carencia) y `1,59x` en A2 (`1,62x` y `1,76x` pre-canon subordinado *EBITDAR*), cancelación total de deuda en `Año 11 y 9 meses` (`1.973.068 €` caja S.L. + `450.000 €` rentas percibidas = `2.423.068 €` totales), autosuficiencia bajo **Estrés Severo Combinado con *Standstill*** (`DSCR A2 = 1,03x`, póliza A2 `94.831 € < 150.000 €`) y panel consolidado de rentabilidad económica del socio sobre los `600.000 €` de garantía real (`TIR 10,1%`, `VAN +534.576 €` al `6%` y `Payback 14,1 años`).
 
 ## Dossier Bancario Editorial A4 (9 Páginas + Word)
@@ -48,6 +48,11 @@ El dossier ejecutivo auditado al 100% de ocupación A4 para Comité de Riesgos y
 ---
 
 ## Historial de Versiones del Proyecto
+
+### [2.6.0] - 2026-11-16
+#### Mejorado (Subordinación Automática del Alquiler *Standstill* y Cuenta de Deuda con el Propietario)
+- **Automatización del *Standstill* en el motor (`src/js/config.js` y `src/js/engine.js`)**: cuando el `DSCR` efectivo baja de `1,15x` o el flujo operativo antes de alquiler no alcanza para cubrir deuda e impuestos sin recurrir a la póliza bancaria, la S.L. **mantiene íntegro el gasto devengado en el Impuesto sobre Sociedades** (`art. 11.1 LIS`, sin perder deducción ni BINs), **pospone automáticamente el pago en efectivo** registrándolo en una cuenta subordinada sin intereses a favor del propietario (`deudaSocio`), prioriza el pago al banco y la limpieza de la póliza corta, y **liquida el 100% de los atrasos al socio** en cuanto recupera holgura (rescatando `>+500.000 €` de caja en la S.L. bajo *Estrés Severo* sin que el propietario pierda un solo euro de los `450.000 €`).
+- **Visibilidad y control en la interfaz (`src/index.html` y `src/js/app.js`)**: destacado `Alquiler edificio (propiedad)` (`18.000 €/año`) en la primera fila de `2.2 Gastos (OpEx)`, añadido control interactivo `Posposición alquiler si baja DSCR (Standstill)` en `2.4 Gestión de Deuda`, línea dinámica en `3.2 Tesorería` cuando se posponen o liquidan rentas al socio, y visualización directa de las rentas acumuladas (`+450.000 €`) en `3.4 Rentabilidad Socio (25a)`, manteniendo el Caso Base 100% conciliado al euro con el Dossier Bancario (`27/27` tests unitarios en verde).
 
 ### [2.5.0] - 2026-11-14
 #### Cambiado (Rediseño Página 4: Garantía Real Hipotecaria + Contrato de Alquiler Subordinado a 25 Años)
