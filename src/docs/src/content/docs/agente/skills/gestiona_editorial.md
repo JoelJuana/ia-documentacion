@@ -53,7 +53,7 @@ Tanto la biblioteca interna de la skill (`presets/<nombre_preset>/`) como cada c
 | Preset en la Skill (`presets/`) | Carpeta en Workspace (`docs/editorial/`) | Manual de Marca y Hoja de Estilos | Reglas y Plantillas por Tipo de Documento |
 |---|---|---|---|
 | `presets/oca_global/` | `OCA Global/_identidad/` | `IDENTIDAD_CORPORATIVA.md`<br>`style.css`<br>`logo_oca_global.png` | • `reglas_due_diligence.md` + `plantilla_due_diligence.html`<br>• `reglas_informe_tecnico.md` + `plantilla_informe_tecnico.html` *(incluye Fase 2 / Checklists)* |
-| `presets/actas_comunidad/` | `CP Mercat Devesa/_identidad/` | `IDENTIDAD_CORPORATIVA.md`<br>`style.css` | • `reglas_acta_reunion.md` + `plantilla_acta_reunion.html` *(Modalidad A)*<br>• `reglas_estatutos_reglamento.md` + `plantilla_estatutos_reglamento.html` *(Modalidad B)* |
+| `presets/actas_comunidad/` | `CP Mercat Devesa/_identidad/` | `IDENTIDAD_CORPORATIVA.md`<br>`style.css` | • `reglas_acta_reunion.md` + `plantilla_convocatoria.html`, `plantilla_asistencia.html`, `plantilla_acta_reunion.html`, `plantilla_certificado.html` *(Modalidad A)*<br>• `reglas_estatutos_reglamento.md` + `plantilla_estatutos_reglamento.html` *(Modalidad B)* |
 | `presets/dossier_financiero/` | `Compra Farmacia/_identidad/`<br>`Ramon Turro/_identidad/` | `IDENTIDAD_CORPORATIVA.md`<br>`style.css` | • `reglas_dossier_financiero.md` + `plantilla_dossier_financiero.html` *(Hojas `.hoja-a4` 100 %)* |
 | `presets/seat_124_taller/` | `SEAT 124 FL - Instalacion Electrica/_identidad/` | `IDENTIDAD_CORPORATIVA.md`<br>`style.css` | • `reglas_manual_electrico.md` + `plantilla_ficha_circuito.html` |
 
@@ -120,6 +120,20 @@ Validadas en la actualización estatutaria y documental de la **Comunidad Genera
 4. **Estatutos vs. Acta (arts. 567-2 CCCat y 98 LH)**:
    - **Finiquitos del pasado fuera de los Estatutos**: Los pactos de liquidación, exoneración o renuncia de reclamaciones por obras, reparaciones o incumplimientos de los antiguos Estatutos carecen de trascendencia real (art. 98 LH) y no deben ir como artículo de los Estatutos (que quedan limpios del Art. 1 al 15), sino como acuerdo en el **Acta de la Junta de Presidentes** supeditado a la aprobación unánime de los nuevos Estatutos.
    - **Blindaje del Artículo 13 (art. 567-2.1 CCCat) sin visibilidad de «derecho de vuelo»**: Integrar los 4 requisitos del art. 567-2.1 CCCat como límites formales: **(1)** tope de altura máxima del inmueble (`planta baja más tres plantas piso`) y prohibición de incrementar el número de elementos privativos preexistentes en el ámbito, **(2)** plazo máximo legal de **treinta años** desde la inscripción en una o varias veces, **(3)** recálculo de cuotas internas **en proporción a su superficie útil** sin alterar la cuota global en la Comunidad General, y **(4)** **sin contraprestación económica por reciprocidad estatutaria entre subcomunidades**.
+5. **Arquitectura Obligatoria de Carpetas, Kits por Reunión y Conocimiento Vivo (`CP Mercat Devesa`)**:
+   - **Organización por órgano y fecha real de la reunión (`AAAA-MM-DD`)**: Nunca mezclar varios documentos distintos en la misma carpeta hoja (para que cada pieza tenga su propio `editorial.meta.json` y sea visible en el Visor Editorial), ni usar la fecha de redacción en lugar de la fecha de celebración:
+     * `01_Normativa/N01_...`, `N02_...`: Estatutos y Reglamentos vigentes + subcarpeta `firmados/`.
+     * `02_Junta_Presidentes/JP-AAAA-MM-DD_<Asunto>/`: Kit fijo obligatorio de **`01-convocatoria/`** (Convocatoria + Orden del Día unificados) + **`02-acta/`** + **`firmados/`** *(+ `03-certificado/` opcional)*.
+     * `03_Asamblea_General/AG-AAAA-MM-DD_<Asunto>/`: Kit fijo obligatorio de **`01-convocatoria/`** + **`02-asistencia/`** (Hoja de Control de Asistencia, Delegaciones y Escrutinio) + **`03-acta/`** + **`firmados/`** *(+ `04-certificado/` cuando vaya a Notaría/Registro)*.
+     * `04_Sesiones_Trabajo/ST-AAAA-MM-DD_<Asunto>/`: Minutas internas o notas preparatorias que no van al Libro de Actas.
+     * `05_Subcomunidad_<Nombre>/SC-AAAA-MM-DD_<Asunto>/`: Juntas propias de cada subcomunidad con el mismo kit que `AG`.
+   - **Nomenclatura oficial de archivos**: `<Expediente>_<Paso>_<Descripción>_Devesa.pdf` / `.docx` (ej. `AG-2027-01-15_03_Acta_Asamblea_Estatutos_Devesa.pdf`).
+   - **Inicialización automática de reuniones con `new-reunion-devesa.ps1`**: Siempre que el usuario pida preparar una nueva Junta de Presidentes, Asamblea o reunión de subcomunidad, crear primero el expediente completo con:
+     ```powershell
+     & "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\new-reunion-devesa.ps1" -Organo JP -Fecha "2027-03-15" -Slug "Ordinaria-Presupuesto-2027"
+     ```
+     *(Usar `-Organo AG -ConCertificado` para Asambleas con elevación a público).*
+   - **Mantenimiento colaborativo del archivo de conocimiento `CP Mercat Devesa/README.md`**: `build_editorial.js` regenera de forma 100 % automática el inventario, enlaces y tabla de auditoría de kits/evidencias de `CP Mercat Devesa/README.md` en cada compilación. Adicionalmente, cuando se adopten nuevos acuerdos relevantes, cambien cargos o se abran nuevos frentes jurídicos/económicos en la Comunidad, el agente **debe actualizar también el bloque narrativo «2. Qué Estamos Haciendo»** de dicho `README.md` para mantener viva la memoria institucional.
 
 ---
 

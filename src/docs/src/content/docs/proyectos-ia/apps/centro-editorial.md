@@ -39,22 +39,22 @@ docs/editorial/
 │   └── 2026-10-due-diligence-tecnica-alabe-fase2/    # 📄 Protocolo y Checklist Técnico Fase 2 (HTML + PDF + DOCX)
 │
 ├── 🏛️ CP Mercat Devesa/                              # 2. PRESET: actas_comunidad (Ámbito Jurídico / Comunidad)
-│   ├── _identidad/                                   # 🎨 Imagen Institucional y Plantillas de la Comunidad
-│   │   ├── IDENTIDAD_CORPORATIVA.md                  # Colores (#1B3A5C, #2B6CB0), Inter + Merriweather y estilo legal
+│   ├── README.md                                     # 📖 Base de Conocimiento Viva y Registro Auto-sincronizado
+│   ├── _identidad/                                   # 🎨 Estándar Monocromo Notarial (#111827) y Plantillas CCCat
+│   │   ├── IDENTIDAD_CORPORATIVA.md                  # Datos Finca 4.001, 4 subcomunidades, kits de reunión y reglas CCCat
 │   │   ├── style.css                                 # Hoja de estilos institucional maestra
-│   │   ├── reglas_acta_reunion.md                    # Reglas para Actas de Junta, Sesiones y Acuerdos (Modalidad A)
-│   │   ├── plantilla_acta_reunion.html               # Plantilla exclusiva para Actas de Reunión
-│   │   ├── reglas_estatutos_reglamento.md            # Reglas para Estatutos y Reglamentos Libro V CCCat (Modalidad B)
+│   │   ├── reglas_acta_reunion.md                    # Reglas para Convocatorias, Asistencia, Actas y Certificados (Mod. A)
+│   │   ├── plantilla_convocatoria.html               # Plantilla base Convocatoria + Orden del Día
+│   │   ├── plantilla_asistencia.html                 # Plantilla base Hoja de Control de Asistencia y Escrutinio
+│   │   ├── plantilla_acta_reunion.html               # Plantilla base Acta Oficial 1 página A4
+│   │   ├── plantilla_certificado.html                # Plantilla base Certificado para Notaría y Registro
+│   │   ├── reglas_estatutos_reglamento.md            # Reglas para Estatutos y Reglamentos Libro V CCCat (Mod. B)
 │   │   └── plantilla_estatutos_reglamento.html       # Plantilla exclusiva para Estatutos y Reglamentos
 │   │
-│   ├── 2026-08-acta-devesa/                          # 📄 Acta de Sesión de Trabajo (HTML + PDF + DOCX)
-│   ├── 2026-10-acta-devesa/                          # 📄 Documento de Alineación Técnica (HTML + PDF + DOCX)
-│   ├── 2026-10-estatutos-devesa/                     # 📄 Texto Refundido de los Estatutos (HTML + PDF + DOCX)
-│   ├── 2026-10-reglamento-almacenes/                 # 📄 Reglamento Interno de Almacenes (HTML + PDF + DOCX)
-│   ├── 2026-11-acta-junta-presidentes/               # 📄 Convocatoria y Acta de Junta de Presidentes — Acuerdos Previos (HTML + PDF + DOCX)
-│   ├── 2026-11-convocatoria-asamblea-estatutos/      # 📄 Convocatoria de Asamblea General y Certificado para Notaría/Registro (HTML + PDF + DOCX)
-│   ├── 2026-11-hoja-asistencia-asamblea/             # 📄 Hoja de Control de Asistencia y Delegaciones — Asamblea General (HTML + PDF + DOCX)
-│   └── 2026-11-acta-asamblea-estatutos/              # 📄 Acta de Asamblea General Extraordinaria y Notificación de Ausentes (HTML + PDF + DOCX)
+│   ├── 01_Normativa/                                 # 📜 Estatutos generales (N01) y Reglamentos internos (N02)
+│   ├── 02_Junta_Presidentes/                         # 🤝 Expedientes JP-AAAA-MM-DD (01-convocatoria, 02-acta, firmados/)
+│   ├── 03_Asamblea_General/                          # 🏛️ Expedientes AG-AAAA-MM-DD (01-convocatoria..04-certificado, firmados/)
+│   └── 04_Sesiones_Trabajo/                          # 📝 Antecedentes y minutas técnicas ST-AAAA-MM-DD
 │
 ├── 📈 Compra Farmacia/ & 🏨 Ramon Turro/             # 3. PRESET: dossier_financiero (Inversión, Banca y Fiscalidad)
 │   ├── _identidad/                                   # 🎨 Imagen Ejecutiva de Planes de Negocio (.hoja-a4 100%)
@@ -89,50 +89,56 @@ docs/editorial/
 | Preset | Ámbito / Proyectos | Colores Principales | Tipografías | Tipos de Documento y Paginación |
 |---|---|---|---|---|
 | **`oca_global`** | **OCA Global** | Azul marino `#0B3356` · Rojo logo `#DE473C` · Gris tabla `#F2F2F2` | `Arial Black` (títulos) + `Arial` (cuerpo y tablas) | 1. **Due Diligence Preliminar (Fase 1)**<br>2. **Protocolo Técnico (Fase 2) / Informe Técnico**<br>*(Flujo editorial continuo + PDF + DOCX)* |
-| **`actas_comunidad`** | **CP Mercat Devesa** | Azul clásico `#1B3A5C` · Azul noche `#0D1F33` · Azul acuerdos `#2B6CB0` | `Inter` (títulos, fichas y tablas) + `Merriweather` (cuerpo Serif) | 1. **Acta de Reunión y Acuerdos (Mod. A)**<br>2. **Estatutos y Reglamentos CCCat (Mod. B)**<br>*(Flujo editorial continuo + PDF + DOCX)* |
+| **`actas_comunidad`** | **[CP Mercat Devesa](./CP%20Mercat%20Devesa/README.md)** | Negro notarial `#111827` · Gris carbón `#1F2937` · Subtítulos `#4B5563` | `Inter` (títulos, fichas y tablas) + `Merriweather` (cuerpo Serif) | 1. **Kits Oficiales `JP` / `AG` en 1 pág. A4 (Mod. A)**<br>2. **Estatutos y Reglamentos CCCat (Mod. B)**<br>*(Flujo continuo + PDF + DOCX + Registro auto-sincronizado)* |
 | **`dossier_financiero`** | **Compra Farmacia**<br>**Ramón Turró** | Azul banca `#1B3A5C` · Esmeralda `#0F766E` · Ámbar `#B45309` · Púrpura `#5B21B6` | `Inter` (títulos, KPIs, tablas y fichas) + `Merriweather` (introducción) | 1. **Dossier Bancario / Socios (`.hoja-a4`)**<br>2. **Anexos Fiscales Densos (`.hoja-densa`)**<br>*(Ocupación exacta 100 % por página A4 + PDF + DOCX)* |
 | **`seat_124_taller`** | **SEAT 124 FL** | Rojo SEAT `#C8102E` · Carbón `#111827` · Ámbar Bosch `#D97706` | `Barlow Condensed` + `IBM Plex Sans` + `JetBrains Mono` | 1. **Manual Eléctrico y Fichas de Circuito SVG**<br>*(Alta densidad técnica + DIN 72552 · 30 Hojas)* |
 
+<!-- AUTO-EDITORIAL-STATS:START -->
+> **Estado actual del catálogo editorial:** **15 documentos activos** (**68 páginas A4** y **14 archivos Word `.docx`**) — Compra Farmacia: **1** · Ramón Turró: **1** · OCA Global: **2** · CP Mercat Devesa: **10** · SEAT 124 FL: **1**.
+<!-- AUTO-EDITORIAL-STATS:END -->
+
 ---
 
-## Compilación, QA Geométrico y Catálogo en 1 Comando
+## Compilación, Creación de Expedientes y Catálogo en 1 Comando
 
-Para compilar cualquier documento a **`.pdf`** (con **marcadores/índice interactivo PDF** y metadatos integrados), verificar automáticamente la **ocupación vertical y ausencia de recortes en `.hoja-a4`**, regenerar **`preview/page_X.png`**, exportar a **`.docx`** y actualizar automáticamente el catálogo **`catalog.js`** del visor `index.html`:
+Para compilar cualquier documento a **`.pdf`** (con **marcadores/índice interactivo PDF** y metadatos integrados), verificar automáticamente la **ocupación vertical**, regenerar **`preview/page_X.png`**, exportar a **`.docx`** y actualizar automáticamente tanto **`catalog.js`** como el registro vivo **[`CP Mercat Devesa/README.md`](./CP%20Mercat%20Devesa/README.md)**:
 
 ```powershell
-# Compilar documento + Bookmarks PDF + QA geométrico + Previews + DOCX + Autocatálogo
-node "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\build_editorial.js" ".\ruta\al\documento.html" --max-pages 3
+# Compilar documento + Bookmarks PDF + QA geométrico + Previews + DOCX + Autocatálogo + README Devesa
+node "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\build_editorial.js" ".\ruta\al\documento.html" --max-pages 1
 
-# Opcional: inyectar cifras actualizadas desde un JSON de simulador ([data-bind="clave"])
-node "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\build_editorial.js" ".\ruta\al\documento.html" --data ".\escenario.json"
+# Crear un expediente completo de reunión en CP Mercat Devesa (JP, AG, ST o Subcomunidad)
+& "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\new-reunion-devesa.ps1" -Organo JP -Fecha "2027-03-15" -Slug "Ordinaria-Presupuesto-2027"
 
-# Re-sincronizar únicamente el catálogo del visor o las carpetas _identidad/ de los 4 presets
+# Re-sincronizar únicamente el catálogo del visor + READMEs o propagar presets y scripts a IA_Configuracion
 node "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\build_editorial.js" --sync-catalog
 node "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\build_editorial.js" --sync-presets
 ```
 
-Cada carpeta de documento incluye un archivo ligero **`editorial.meta.json`** que alimenta automáticamente `catalog.js` y el visor interactivo (que soporta además *deep-linking* directo por URL como `index.html#doc=ramon-turro-plan-financiero-2026&page=5` y vista de pliego editorial real `1`, `2–3`, `4–5`).
+Cada carpeta de documento incluye un archivo ligero **`editorial.meta.json`** que alimenta automáticamente `catalog.js` y el visor interactivo (que soporta además *deep-linking* directo por URL como `index.html#doc=devesa-ag-2027-01-15-03-acta&page=1` y vista de pliego editorial real `1`, `2–3`, `4–5`).
 
 
 ---
 
-## Catálogo Vivo de Publicaciones A4 (13 Documentos)
+## Catálogo Vivo de Publicaciones A4 (15 Documentos)
 
-Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-16` · **65 páginas A4** vectoriales · **12 exportaciones Word**):
+Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-16` · **68 páginas A4** vectoriales · **14 exportaciones Word**):
 
 | Cliente / Ámbito | Título del Documento | Preset | Extensión y Formatos | Estado | Compilado |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Compra Farmacia** | Dossier Estratégico de Compraventa de Farmacia — Socios, Vendedor y Comprador | `dossier_financiero` | 3 págs. (PDF + DOCX) | Estrategia 3 Bloques (3 Págs.) | 2026-11-10 |
-| **Ramón Turró** | Plan de Negocio y Estrategia Financiera — Proyecto Hotelero Ramón Turró (Girona) | `dossier_financiero` | 9 págs. (PDF + DOCX) | Dossier Bancario (9 Págs.) | 2026-11-14 |
+| **Ramón Turró** | Plan de Negocio y Estrategia Financiera — Proyecto Hotelero Ramón Turró (Girona) | `dossier_financiero` | 10 págs. (PDF + DOCX) | Dossier Bancario (10 Págs.) | 2026-11-16 |
 | **OCA Global** | Due Diligence preliminar: Álabe Ingenieros (Fase 1) | `oca_global` | 2 págs. (PDF + DOCX) | Validado | 2026-11-10 |
 | **OCA Global** | Protocolo y Checklist de Due Diligence Técnica: Álabe Ingenieros (Fase 2) | `oca_global` | 2 págs. (PDF + DOCX) | Protocolo Fase 2 | 2026-11-10 |
-| **CP Mercat Devesa** | Acta de Sesión de Trabajo — Comunidad Mercat Devesa | `actas_comunidad` | 5 págs. (PDF + DOCX) | Finalizado | 2026-11-10 |
-| **CP Mercat Devesa** | Documento de Alineación Técnica y Estatutos (Octubre 2026) | `actas_comunidad` | 2 págs. (PDF + DOCX) | Finalizado | 2026-11-10 |
-| **CP Mercat Devesa** | Texto Refundido de los Estatutos de la Comunidad General | `actas_comunidad` | 4 págs. (PDF + DOCX) | Finalizado | 2026-11-16 |
-| **CP Mercat Devesa** | Acta de Reunión Ordinaria de la Junta de Presidentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-16 |
-| **CP Mercat Devesa** | Reglamento de Régimen Interno de la Comunidad de Almacenes | `actas_comunidad` | 4 págs. (PDF + DOCX) | Pendiente datos registrales | 2026-11-10 |
-| **CP Mercat Devesa** | Convocatoria de Asamblea General Extraordinaria — Nuevos Estatutos | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-16 |
+| **CP Mercat Devesa** | N01 · Estatutos de la Comunidad General del Mercado de la Devesa (Texto Refundido) | `actas_comunidad` | 4 págs. (PDF + DOCX) | Texto Definitivo | 2026-11-16 |
+| **CP Mercat Devesa** | N02 · Reglamento de Régimen Interno — Subcomunidad de Almacenes | `actas_comunidad` | 4 págs. (PDF + DOCX) | Pendiente datos registrales | 2026-11-16 |
+| **CP Mercat Devesa** | JP-2026-12-14 [01] · Convocatoria y Orden del Día — Junta Ordinaria de Presidentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-16 |
+| **CP Mercat Devesa** | JP-2026-12-14 [02] · Acta de la Reunión Ordinaria de la Junta de Presidentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-16 |
+| **CP Mercat Devesa** | AG-2027-01-15 [01] · Convocatoria y Orden del Día — Asamblea General Extraordinaria | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-16 |
+| **CP Mercat Devesa** | AG-2027-01-15 [02] · Hoja de Control de Asistencia, Delegaciones y Escrutinio | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-16 |
+| **CP Mercat Devesa** | AG-2027-01-15 [03] · Acta de la Asamblea General Extraordinaria y Notificación a Ausentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-16 |
+| **CP Mercat Devesa** | AG-2027-01-15 [04] · Certificado de Acuerdos y Firmeza para Notaría y Registro | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-16 |
+| **CP Mercat Devesa** | ST-2026-08-17 · Acta de Sesión de Trabajo con Comunidad de Aparcamientos | `actas_comunidad` | 5 págs. (PDF + DOCX) | Antecedente Cerrado | 2026-11-16 |
+| **CP Mercat Devesa** | ST-2026-10-07 · Documento de Trabajo y Alineación Técnica con Letrado | `actas_comunidad` | 2 págs. (PDF + DOCX) | Antecedente Cerrado | 2026-11-16 |
 | **SEAT 124 FL** | Manual de Instalación Eléctrica SEAT 124 FL (1430 / 1600 Biárbol) | `seat_124_taller` | 30 págs. (PDF + HTML) | Edición Taller (30 Hojas) | 2026-11-10 |
-| **CP Mercat Devesa** | Hoja de Control de Asistencia y Delegaciones — Asamblea Extraordinaria | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-16 |
-| **CP Mercat Devesa** | Acta de Asamblea General Extraordinaria — Aprobación de Estatutos | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-16 |
 
