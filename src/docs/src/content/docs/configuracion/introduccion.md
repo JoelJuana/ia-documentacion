@@ -16,16 +16,47 @@ Repositorio privado que almacena las **skills (habilidades)**, **plugins** y **r
 ```
 ├── AGENTS.md          → Reglas globales de comportamiento del agente
 ├── install.ps1        → Script de instalación automática en equipos nuevos
+├── scripts/           → Continuidad de negocio, bóveda cifrada AES-256 y DR
+│   ├── sync-ecosystem.ps1    → Auditor anti-fugas y sincronización de los 4 pilares
+│   ├── vault-secrets.ps1     → Bóveda cifrada AES-256 + HMAC para archivos .env y credenciales
+│   └── restore-ecosystem.ps1 → Reconstrucción completa del entorno en portátil nuevo (ARM64)
+├── proyectos-reglas/  → Reglas específicas por proyecto
 ├── skills/            → Habilidades personalizadas del agente
 │   ├── crea_proyecto/
 │   ├── gestiona_dominios/
 │   ├── gestiona_fierbase/
-│   └── gestiona_github/
+│   └── ...
 └── plugins/           → Plugins activos que extienden las capacidades del agente
     ├── auto-documenter/
     ├── auto-previewer/
     ├── chrome-devtools-plugin/
-    └── ... (14 plugins en total)
+    └── ...
+```
+
+## Continuidad de Negocio (Anti-Pérdida de Portátil)
+
+### 1. Verificar y sincronizar los 4 repositorios con escaneo de secretos
+```powershell
+# Solo auditar estado y seguridad de remotos
+powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\Desktop\IA_Configuracion\scripts\sync-ecosystem.ps1"
+
+# Respaldar todo hacia GitHub (bloquea automáticamente si detecta tokens expuestos)
+powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\Desktop\IA_Configuracion\scripts\sync-ecosystem.ps1" -Push
+```
+
+### 2. Exportar / Restaurar Bóveda Cifrada de `.env` y credenciales (AES-256)
+```powershell
+# Ver inventario de archivos sensibles locales (sin mostrar su contenido)
+powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\Desktop\IA_Configuracion\scripts\vault-secrets.ps1" -Action Inventory
+
+# Generar archivo cifrado .vault.enc (seguro para subir a Google Drive)
+powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\Desktop\IA_Configuracion\scripts\vault-secrets.ps1" -Action Export
+```
+
+### 3. Reconstruir todo el ecosistema desde cero en un portátil nuevo
+```powershell
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/JoelJuana/gemini-agent-config/main/scripts/restore-ecosystem.ps1" -OutFile "$env:TEMP\restore-ecosystem.ps1"
+powershell -ExecutionPolicy Bypass -File "$env:TEMP\restore-ecosystem.ps1" -VaultPath "C:\Ruta\ecosystem-secrets.vault.enc"
 ```
 
 ## Instalación en un equipo nuevo

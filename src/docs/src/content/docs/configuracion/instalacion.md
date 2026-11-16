@@ -6,7 +6,7 @@ description: Script de instalación y setup del entorno de los agentes.
 El script `install.ps1` permite realizar la instalación y despliegue del repositorio de configuración de agentes de forma local en la máquina de desarrollo.
 
 ```powershell
-<#
+﻿<#
 .SYNOPSIS
     Instala o sincroniza la configuración del agente Gemini desde GitHub.
 .DESCRIPTION
@@ -103,8 +103,8 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
-# Copiar skills y plugins del repo al directorio existente
-$folders = @("skills", "plugins")
+# Copiar skills, plugins, reglas y scripts del repo al directorio existente
+$folders = @("skills", "plugins", "proyectos-reglas", "scripts")
 foreach ($folder in $folders) {
     $source = Join-Path $TempDir $folder
     $dest = Join-Path $TargetDir $folder
