@@ -32,7 +32,7 @@ Selecciona uno de los simuladores para consultar su ficha técnica e historial d
   <a href="/proyectos-ia/business-plans/app-bp-ramon-turro/" class="dashboard-card">
     <span class="card-meta">app-bp-ramon-turro</span>
     <h3>Business Plan · Ramón Turró (Girona)</h3>
-    <p>Modelo financiero y fiscal a 25 años para rehabilitación y explotación de hotel de 26 habitaciones en C/ Ramon Turró (Girona), con dossier bancario A4 de 9 páginas.</p>
+    <p>Modelo financiero y fiscal a 25 años para rehabilitación y explotación de hotel de 26 habitaciones en C/ Ramon Turró (Girona), con dossier bancario A4 de 10 páginas.</p>
   </a>
   <a href="/proyectos-ia/business-plans/app-bp-compra-farmacia/" class="dashboard-card">
     <span class="card-meta">app-bp-compra-farmacia</span>
@@ -57,7 +57,7 @@ Selecciona uno de los simuladores para consultar su ficha técnica e historial d
 </div>
 
 *   **[app-bp-caravanas](/proyectos-ia/business-plans/app-bp-caravanas/)** (*Business Plan · Parking Caravanas*): Simulador financiero y fiscal de modelo de negocio para custodia y alquiler de caravanas en naves industriales. — [Producción](https://caravanas.gironacc.com)
-*   **[app-bp-ramon-turro](/proyectos-ia/business-plans/app-bp-ramon-turro/)** (*Business Plan · Ramón Turró (Girona)*): Modelo financiero y fiscal a 25 años para rehabilitación y explotación de hotel de 26 habitaciones en C/ Ramon Turró (Girona), con dossier bancario A4 de 9 páginas. — [Producción](https://ramon-turro.gironacc.com)
+*   **[app-bp-ramon-turro](/proyectos-ia/business-plans/app-bp-ramon-turro/)** (*Business Plan · Ramón Turró (Girona)*): Modelo financiero y fiscal a 25 años para rehabilitación y explotación de hotel de 26 habitaciones en C/ Ramon Turró (Girona), con dossier bancario A4 de 10 páginas. — [Producción](https://ramon-turro.gironacc.com)
 *   **[app-bp-compra-farmacia](/proyectos-ia/business-plans/app-bp-compra-farmacia/)** (*Business Plan · Compra de Farmacia*): Simulador comparativo Comprador vs Vendedor para compraventa de Oficina de Farmacia (2 M€): 6 opciones estratégicas, S.L. de Parafarmacia, Fondo de Comercio (7,5%) e IRPF/IS. — [Producción](https://compra-farmacia.gironacc.com)
 *   **[app-bp-velero](/proyectos-ia/business-plans/app-bp-velero/)** (*Business Plan · Inversión Velero*): Planificador de inversión, explotación en chárter, financiación y amortización fiscal para adquisición de embarcaciones recreativas. — [Producción](https://velero.gironacc.com)
 *   **[app-bp-inversion-compra-piso](/proyectos-ia/business-plans/app-bp-inversion-compra-piso/)** (*Business Plan · Inversión Compra Piso*): Simulador de viabilidad financiera y fiscal para adquisición, reforma, hipoteca y explotación en alquiler de vivienda. — [Producción](https://compra-piso.gironacc.com)
