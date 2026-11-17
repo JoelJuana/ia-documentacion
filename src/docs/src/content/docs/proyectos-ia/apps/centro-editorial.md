@@ -122,7 +122,7 @@ Cada carpeta de documento incluye un archivo ligero **`editorial.meta.json`** qu
 
 ## Catálogo Vivo de Publicaciones A4 (15 Documentos)
 
-Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-16` · **68 páginas A4** vectoriales · **14 exportaciones Word**):
+Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-17` · **68 páginas A4** vectoriales · **14 exportaciones Word**):
 
 | Cliente / Ámbito | Título del Documento | Preset | Extensión y Formatos | Estado | Compilado |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -130,14 +130,14 @@ Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/cata
 | **Ramón Turró** | Plan de Negocio y Estrategia Financiera — Proyecto Hotelero Ramón Turró (Girona) | `dossier_financiero` | 10 págs. (PDF + DOCX) | Dossier Bancario (10 Págs.) | 2026-11-16 |
 | **OCA Global** | Due Diligence preliminar: Álabe Ingenieros (Fase 1) | `oca_global` | 2 págs. (PDF + DOCX) | Validado | 2026-11-10 |
 | **OCA Global** | Protocolo y Checklist de Due Diligence Técnica: Álabe Ingenieros (Fase 2) | `oca_global` | 2 págs. (PDF + DOCX) | Protocolo Fase 2 | 2026-11-10 |
-| **CP Mercat Devesa** | N01 · Estatutos de la Comunidad General del Mercado de la Devesa (Texto Refundido) | `actas_comunidad` | 4 págs. (PDF + DOCX) | Texto Definitivo | 2026-11-16 |
+| **CP Mercat Devesa** | N01 · Estatutos de la Comunidad General del Mercado de la Devesa (Texto Refundido) | `actas_comunidad` | 4 págs. (PDF + DOCX) | Texto Definitivo | 2026-11-17 |
 | **CP Mercat Devesa** | N02 · Reglamento de Régimen Interno — Subcomunidad de Almacenes | `actas_comunidad` | 4 págs. (PDF + DOCX) | Pendiente datos registrales | 2026-11-16 |
-| **CP Mercat Devesa** | JP-2026-12-14 [01] · Convocatoria y Orden del Día — Junta Ordinaria de Presidentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-16 |
-| **CP Mercat Devesa** | JP-2026-12-14 [02] · Acta de la Reunión Ordinaria de la Junta de Presidentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-16 |
+| **CP Mercat Devesa** | JP-2026-12-14 [01] · Convocatoria y Orden del Día — Junta Ordinaria de Presidentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-17 |
+| **CP Mercat Devesa** | JP-2026-12-14 [02] · Acta de la Reunión Ordinaria de la Junta de Presidentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-17 |
 | **CP Mercat Devesa** | AG-2027-01-15 [01] · Convocatoria y Orden del Día — Asamblea General Extraordinaria | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-16 |
 | **CP Mercat Devesa** | AG-2027-01-15 [02] · Hoja de Control de Asistencia, Delegaciones y Escrutinio | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-16 |
-| **CP Mercat Devesa** | AG-2027-01-15 [03] · Acta de la Asamblea General Extraordinaria y Notificación a Ausentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-16 |
-| **CP Mercat Devesa** | AG-2027-01-15 [04] · Certificado de Acuerdos y Firmeza para Notaría y Registro | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-16 |
+| **CP Mercat Devesa** | AG-2027-01-15 [03] · Acta de la Asamblea General Extraordinaria y Notificación a Ausentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-17 |
+| **CP Mercat Devesa** | AG-2027-01-15 [04] · Certificado de Acuerdos y Firmeza para Notaría y Registro | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-17 |
 | **CP Mercat Devesa** | ST-2026-08-17 · Acta de Sesión de Trabajo con Comunidad de Aparcamientos | `actas_comunidad` | 5 págs. (PDF + DOCX) | Antecedente Cerrado | 2026-11-16 |
 | **CP Mercat Devesa** | ST-2026-10-07 · Documento de Trabajo y Alineación Técnica con Letrado | `actas_comunidad` | 2 págs. (PDF + DOCX) | Antecedente Cerrado | 2026-11-16 |
 | **SEAT 124 FL** | Manual de Instalación Eléctrica SEAT 124 FL (1430 / 1600 Biárbol) | `seat_124_taller` | 30 págs. (PDF + HTML) | Edición Taller (30 Hojas) | 2026-11-10 |
