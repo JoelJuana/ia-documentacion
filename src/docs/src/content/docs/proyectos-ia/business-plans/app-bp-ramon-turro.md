@@ -57,12 +57,12 @@ El dossier ejecutivo en lenguaje claro y 100% sincronizado al euro con el simula
 - **Política de barrido pro-promotor y modo `'Solo Leas.'` en `1.4 Gestión de Deuda`**: pacto bancario de **barrido obligatorio únicamente para póliza y leasing (`5,20%`, Años 1–3)**, dejando la amortización anticipada de la hipoteca (`4,50%`) como **opción voluntaria al `0%` de comisión**, dividendos permitidos bajo `4,0x EBITDA` (o `3,5x` deuda neta) y **reserva `DSRA` de `45.000 €` cubierta vía sublímite pignorado de póliza** sin inmovilizar caja (`TIR 9,5%`, `VAN +400.993 €` y `74.031 €` libres ya en el Año 4). Añadida posición `'Solo Leas.'` en el deslizador de freno de barrido y canalización vía S.L. de honorarios técnicos e ICIO para recuperar el `21%` de IVA (`28/28` tests unitarios en verde).
 
 ### [2.9.0] - 2026-11-18
-#### Mejorado (Configurador Comercial por Habitación/Año `8 meses · 7 sem. · 18 días` sin Porcentajes de Cupo)
-- **Rediseño intuitivo de las 3 tarjetas de `2.1 Ingresos` (`src/index.html`, `src/js/config.js`, `src/js/engine.js` y `src/js/app.js`)**: eliminados todos los porcentajes de cupo/ventas y etiquetas confusas (`17,3h`, `78%`, `64%`) para modelar exactamente cómo se alquila **cada habitación a lo largo de los 12 meses del año**, igual que en el Dossier PDF:
-  - **Por meses (`/hab·a`):** deslizador de `0` a `12 meses` (defecto **`8 meses`**) y tarifa **`900 €/m`** → **`187.200 €`**.
-  - **Por semanas (`/hab·a`):** deslizador de `0` a `26 sem.` (defecto **`7 sem.`** = `1,6 m`) y tarifa **`345 €/s`** → **`62.400 €`**.
-  - **Por días (`/hab·a`):** deslizador de `0` a `90 días` (defecto **`18 días`** = `0,6 m`) y tarifa **`89 €/d`** → **`42.120 €`**.
-- **Ocupación anual estable (`Año 2+`) calculada automáticamente**: la suma de estancias por habitación (`8,0 + 1,6 + 0,6 = 10,2 meses ocupados de 12 = 85 %` y media `1.100 €/m · 36 €/d`) calcula sola la ocupación desde el Año 2 con tope automático en los `12 meses` del año, ahorrando además una fila completa en la Columna 2 y manteniendo el `100%` de los `28/28` tests unitarios en verde.
+#### Mejorado (Selectores de Ingresos Unificados en Verde Esmeralda por Habitación/Año `8m · 7s · 18d`)
+- **Unificación visual en verde esmeralda con el mismo formato de filas del resto del simulador (`src/index.html` y `src/js/app.js`)**: sustituidas las tarjetas multicolores por un sub-bloque lateral en verde esmeralda (`bg-emerald-950/15 border-l-2 border-emerald-400/40`, idéntico al patrón de `1.3 Financiación Bancaria`) con todos los deslizadores en `accent-emerald-500` y una fila limpia por modalidad:
+  - **Por meses (`187.200 €`):** doble control (`estancia` · `tarifa`) → **`8m · 900 €/m`**.
+  - **Por semanas (`62.400 €`):** doble control (`estancia` · `tarifa`) → **`7s · 345 €/s`**.
+  - **Por días (`42.120 €`):** doble control (`estancia` · `tarifa`) → **`18d · 89 €/d`**.
+  - **Resumen automático al pie:** **`Ocupación A2+: 85 % (10,2m/hab)  |  Media: 1.100 €/mes`** (`28/28` tests unitarios en verde).
 
 ### [2.8.0] - 2026-11-17
 #### Mejorado (Blindaje Operativo, Separación Bancaria Hipoteca + Leasing, Capital Social y Seguridad Fiscal · Bloques 1 y 2)
