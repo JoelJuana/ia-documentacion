@@ -20,7 +20,7 @@ Simulador interactivo de viabilidad financiera, estructura bancaria y optimizaci
 ## Arquitectura del Modelo (`src/js/config.js` y `src/js/engine.js`)
 
 1. **Patrimonio, Inversión y Deuda (Columna 1)**
-   - **`1.1 Propiedad y Garantía`:** Titularidad al 100% de las 40 fincas privativas del hotel libres de cargas (`1.250 m²`, `78,1%` en Propiedad Horizontal art. 553 CCCat) más proyecto visado y licencia municipal ya concedida, mantenidas a título personal como **hipotecante no deudor** (`~600.000 €` ECO) sumadas a **`82.500 €` de Capital Social dinerario** desembolsado en la S.L. (`682.500 €` = `33,6%` de *Equity* total, evitando `60–85k €` en impuestos de traspaso y cerrando el Año 0 con `+50.517 €` de Patrimonio Neto, libre de causa de disolución `art. 363 LSC`).
+   - **`1.1 Propiedad y Garantía`:** Titularidad al **`100%` de la Comunidad de Propietarios del edificio** (`unanimidad total en Junta y estatutos art. 553 CCCat, cero vecinos externos`), aportando en primera hipoteca las **40 fincas privativas del hotel libres de cargas** (`1.250 m²`) más proyecto visado y licencia municipal ya concedida como **hipotecante no deudor** (`~600.000 €` ECO) sumadas a **`82.500 €` de Capital Social dinerario** en la S.L. (`682.500 €` = `33,6%` de *Equity* total, fianza personal liberada tras fin de obra ECO + 1 año con `DSCR ≥ 1,20x`, y cierre Año 0 con `+50.517 €` de Patrimonio Neto libre de causa de disolución `art. 363 LSC`).
    - **`1.2 Inversión y Obra (CAPEX)`:** Rehabilitación integral ejecutada por la S.L. bajo **contratista general único llave en mano (EPC)** (`1.430.000 €` totales): Obra civil (`780.000 €`), Clima, `30 kWp` solares y baños (`370.000 €`), Mobiliario, equipamiento y *office* ligero sin humos `< 12 kW` (`150.000 €`), Imprevistos bloqueados (`10%` = `130.000 €`), plazo de ejecución (`9 meses`) y gastos fijos en obra (`9.000 €`).
    - **`1.3 Financiación Bancaria (Tramos Separados)`:**
      - **Hipoteca Promotora Verde Inmobiliaria (`1.265.000 €`):** `100%` obra + instalaciones (`0 €` mobiliario), `57,5% LTV` s/ `2,20 M€` ECO, `20 años`, `4,50%` fijo, **`18 meses` totales de carencia de capital** (`9m` obra + `9m` apertura), cuota plena `8.196 €/mes` (`98.351 €/año`).
@@ -49,6 +49,12 @@ El dossier ejecutivo en lenguaje claro y 100% sincronizado al euro con el simula
 ---
 
 ## Historial de Versiones del Proyecto
+
+### [2.10.0] - 2026-11-18
+#### Mejorado (Blindaje Contractual a Favor del Promotor y 100% de la Comunidad de Propietarios)
+- **Titularidad del `100%` de la Comunidad de Propietarios del edificio**: actualizada toda la documentación técnica, tooltips y las 10 páginas del Dossier Bancario para reflejar que la propiedad ostenta el **`100%` de cuotas y votos de la Comunidad de Propietarios** (`0` copropietarios externos y riesgo vecinal nulo en estatutos, hueco de ascensor, bajantes o cubierta solar `art. 553 CCCat`), hipotecando en primer rango las 40 fincas afectas al hotel (`1.250 m²`).
+- **Liberación rápida de la fianza personal del socio (tras Año 1)**: sustituida la condición de 2 años con `DSCR ≥ 1,35x` por **Certificado Final de Obra ECO + alta turística RTC + 1 único ejercicio auditado con `DSCR ≥ 1,20x` (`≥ 1,35x` pre-alquiler)**, liberando el aval personal al cierre del Año 1 (`1,26x` / `1,47x*`).
+- **Política de barrido pro-promotor y modo `'Solo Leas.'` en `1.4 Gestión de Deuda`**: pacto bancario de **barrido obligatorio únicamente para póliza y leasing (`5,20%`, Años 1–3)**, dejando la amortización anticipada de la hipoteca (`4,50%`) como **opción voluntaria al `0%` de comisión**, dividendos permitidos bajo `4,0x EBITDA` (o `3,5x` deuda neta) y **reserva `DSRA` de `45.000 €` cubierta vía sublímite pignorado de póliza** sin inmovilizar caja (`TIR 9,5%`, `VAN +400.993 €` y `74.031 €` libres ya en el Año 4). Añadida posición `'Solo Leas.'` en el deslizador de freno de barrido y canalización vía S.L. de honorarios técnicos e ICIO para recuperar el `21%` de IVA (`28/28` tests unitarios en verde).
 
 ### [2.9.0] - 2026-11-18
 #### Mejorado (Configurador Comercial por Habitación/Año `8 meses · 7 sem. · 18 días` sin Porcentajes de Cupo)
