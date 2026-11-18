@@ -122,7 +122,7 @@ Cada carpeta de documento incluye un archivo ligero **`editorial.meta.json`** qu
 
 ## Catálogo Vivo de Publicaciones A4 (15 Documentos)
 
-Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-17` · **68 páginas A4** vectoriales · **14 exportaciones Word**):
+Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-18` · **68 páginas A4** vectoriales · **14 exportaciones Word**):
 
 | Cliente / Ámbito | Título del Documento | Preset | Extensión y Formatos | Estado | Compilado |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -130,7 +130,7 @@ Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/cata
 | **Ramón Turró** | Plan de Negocio y Estrategia Financiera — Proyecto Hotelero Ramón Turró (Girona) | `dossier_financiero` | 10 págs. (PDF + DOCX) | Dossier Bancario (10 Págs.) | 2026-11-17 |
 | **OCA Global** | Due Diligence preliminar: Álabe Ingenieros (Fase 1) | `oca_global` | 2 págs. (PDF + DOCX) | Validado | 2026-11-10 |
 | **OCA Global** | Protocolo y Checklist de Due Diligence Técnica: Álabe Ingenieros (Fase 2) | `oca_global` | 2 págs. (PDF + DOCX) | Protocolo Fase 2 | 2026-11-10 |
-| **CP Mercat Devesa** | N01 · Estatutos de la Comunidad General del Mercado de la Devesa (Texto Refundido) | `actas_comunidad` | 4 págs. (PDF + DOCX) | Texto Definitivo | 2026-11-17 |
+| **CP Mercat Devesa** | N01 · Estatutos de la Comunidad General del Mercado de la Devesa (Texto Refundido) | `actas_comunidad` | 4 págs. (PDF + DOCX) | Texto Definitivo | 2026-11-18 |
 | **CP Mercat Devesa** | N02 · Reglamento de Régimen Interno — Subcomunidad de Almacenes | `actas_comunidad` | 4 págs. (PDF + DOCX) | Pendiente datos registrales | 2026-11-16 |
 | **CP Mercat Devesa** | JP-2026-12-14 [01] · Convocatoria y Orden del Día — Junta Ordinaria de Presidentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-17 |
 | **CP Mercat Devesa** | JP-2026-12-14 [02] · Acta de la Reunión Ordinaria de la Junta de Presidentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-17 |
