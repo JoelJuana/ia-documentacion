@@ -29,7 +29,7 @@ Simulador interactivo de viabilidad financiera, estructura bancaria y optimizaci
    - **`1.4 Gestión de Deuda`:** Posposición automática del alquiler (*Standstill* si `DSCR < 1,15x` con cuenta subordinada del propietario), recuperación mensual de IVA en obra (`REDEME`), barrido automático de excedentes (*Cash Sweep*: 1.º Póliza → 2.º Leasing `5,2%` → 3.º Hipoteca `4,5%`) y freno estratégico (`Deuda/EBITDA`).
 
 2. **Explotación Multiformato y Fiscalidad AEAT — Ley 7/2024 y Decret 75/2020 (Columna 2)**
-   - **`2.1 Ingresos Multiformato (Meses · Semanas · Días)`:** Configurador comercial en 3 tarjetas interactivas sobre `26 habitaciones` (`70%` ocup. Año 1 = `240.240 €`; `85%` ocup. Año 2+ = `22,1 hab.` medias = `291.720 €/año`), combinando **Meses** (`17,3h` · `78%` B2B directo a `900 €/mes` = `187.200 €`), **Semanas** (`3,5h` · `16%` a `345 €/sem` = `62.400 €`) y **Días** (`1,3h` · `6%` = `18 noches/hab·año` a `89 €/día` = `42.120 €`) para una tarifa media ponderada de `1.100 €/mes` (`36,16 €/noche` + `10%` IVA hospedaje art. 91.Uno.2.2.º LIVA).
+   - **`2.1 Ingresos Multiformato por Habitación/Año (`Por meses · Por semanas · Por días`)`:** Configurador directo de cuánto tiempo al año se alquila cada una de las `26 habitaciones` y a qué tarifa (`70%` ocup. arranque Año 1 = `240.240 €`; desde Año 2 suma **`8 meses/hab`** a **`900 €/mes`** = `187.200 €` + **`7 sem./hab`** a **`345 €/sem`** = `62.400 €` + **`18 días/hab`** a **`89 €/día`** = `42.120 €` → **`10,2 meses/hab` = `85%` de ocupación** y tarifa media de **`1.100 €/mes` = `291.720 €/año`** + `10%` IVA hospedaje art. 91.Uno.2.2.º LIVA).
    - **`2.2 Gastos Operativos Reforzados (OpEx)`:** `139.003 €/año` en crucero (`18.000 €/año` de alquiler subordinado LAU Título III a **25 años + 5×5 prórrogas = 50 años** con tasación `art. 18.4 LIS` + `121.003 €` operativos del hotel: Personal y recepción 24/7 `39k €`, Limpieza 7 días c/ domingos externos y lavandería `28k €`, Comisiones OTA y pasarela `6%`, Luz c/ invierno térmico, tope de agua y fibra `14,5k €`, Mantenimiento normativo + reserva continua FF&E `12k €`, Gestoría/seguros/PMS `5,5k €` e IBI y basuras `4,5k €`), logrando **`152.717 €/año` de EBITDA neto S.L.** (`170.717 €/año` EBITDAR).
    - **Doble contabilidad (PGC PYMES vs. Ajuste Extracontable Art. 103 LIS):** Amortización contable lineal en la S.L. (`2%` obra civil = `17.160 €/a` amparada en horizonte contractual de 50 años, `5%` instalaciones = `20.350 €/a`, `10%` equipamiento = `16.500 €/a`; total `54.010 €/a` en A1–A10), combinada con amortización fiscal acelerada del `4%` en obra nueva mediante ajuste extracontable (`+17.160 €/año`) y deducibilidad íntegra del canon de alquiler (`18.000 €/año`).
    - **Cascada del Impuesto sobre Sociedades:** Ajuste extracontable → Reserva de Capitalización (`art. 25 LIS`) → Compensación de BINs (`art. 26 LIS`) → Tipo reducido Nueva Creación (`15%` en A3–A4, pagando solo **`530 €` acumulados en los primeros 5 años**) → Escala Microempresa (`17%` / `20%`), generando **`+360.256 €`** de ahorro fiscal y financiero neto en la S.L.
@@ -49,6 +49,14 @@ El dossier ejecutivo en lenguaje claro y 100% sincronizado al euro con el simula
 ---
 
 ## Historial de Versiones del Proyecto
+
+### [2.9.0] - 2026-11-18
+#### Mejorado (Configurador Comercial por Habitación/Año `8 meses · 7 sem. · 18 días` sin Porcentajes de Cupo)
+- **Rediseño intuitivo de las 3 tarjetas de `2.1 Ingresos` (`src/index.html`, `src/js/config.js`, `src/js/engine.js` y `src/js/app.js`)**: eliminados todos los porcentajes de cupo/ventas y etiquetas confusas (`17,3h`, `78%`, `64%`) para modelar exactamente cómo se alquila **cada habitación a lo largo de los 12 meses del año**, igual que en el Dossier PDF:
+  - **Por meses (`/hab·a`):** deslizador de `0` a `12 meses` (defecto **`8 meses`**) y tarifa **`900 €/m`** → **`187.200 €`**.
+  - **Por semanas (`/hab·a`):** deslizador de `0` a `26 sem.` (defecto **`7 sem.`** = `1,6 m`) y tarifa **`345 €/s`** → **`62.400 €`**.
+  - **Por días (`/hab·a`):** deslizador de `0` a `90 días` (defecto **`18 días`** = `0,6 m`) y tarifa **`89 €/d`** → **`42.120 €`**.
+- **Ocupación anual estable (`Año 2+`) calculada automáticamente**: la suma de estancias por habitación (`8,0 + 1,6 + 0,6 = 10,2 meses ocupados de 12 = 85 %` y media `1.100 €/m · 36 €/d`) calcula sola la ocupación desde el Año 2 con tope automático en los `12 meses` del año, ahorrando además una fila completa en la Columna 2 y manteniendo el `100%` de los `28/28` tests unitarios en verde.
 
 ### [2.8.0] - 2026-11-17
 #### Mejorado (Blindaje Operativo, Separación Bancaria Hipoteca + Leasing, Capital Social y Seguridad Fiscal · Bloques 1 y 2)
