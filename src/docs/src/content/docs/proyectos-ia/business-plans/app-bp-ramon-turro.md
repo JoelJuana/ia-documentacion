@@ -50,6 +50,11 @@ El dossier ejecutivo en lenguaje claro y 100% sincronizado al euro con el simula
 
 ## Historial de Versiones del Proyecto
 
+### [2.10.2] - 2026-11-19
+#### Mejorado (`Ocupación Año 2+ (máx.)` como Techo Dinámico de Estancia Anual en `2.1 Ingresos`)
+- **Deslizador `Ocupación Año 2+ (máx.)` situado debajo de `Ocupación Año 1 (arranque)` (`src/index.html`, `src/js/engine.js` y `src/js/app.js`)**: fija el tope máximo de tiempo alquilable al año por habitación (`85 % = 10,2 m/hab` en Caso Base; `100 % = 12 m/hab`).
+- **Tope dinámico en tiempo real en las 3 barras de estancia**: al bajar `Ocupación Año 2+ (máx.)` por debajo del tiempo ya asignado, las barras de `Estancia por meses`, `Estancia por semanas` y `Estancia por días` se ajustan proporcionalmente para respetar el nuevo máximo; y al subir cualquiera de las tres estancias nunca se puede superar ese tope. El pie del sub-bloque muestra `Asignado: 10,2 / 10,2 m/hab | Real: 85 %` manteniendo 1 sola barra verde esmeralda por línea, la altura de la Columna 2 por debajo de la Columna 3 y el Caso Base 100 % conciliado al euro (`28/28` tests unitarios en verde).
+
 ### [2.10.1] - 2026-11-19
 #### Mejorado (Un Único Deslizador por Línea en Todo el Simulador · Bloques `1.3` y `2.1`)
 - **Eliminados todos los controles dobles por fila (`src/index.html` y `src/js/app.js`)**: en **`2.1 Ingresos`**, separación limpia en dos sub-bloques en verde esmeralda con **una sola barra estándar (`w-16 sm:w-20`) por línea**:
