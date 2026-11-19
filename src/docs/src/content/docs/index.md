@@ -81,7 +81,7 @@ Selecciona la sección correspondiente para acceder de forma inmediata a los con
   </div>
   <div class="dashboard-card">
     <h3>Plugins Activos</h3>
-    <p class="stat-number">4</p>
+    <p class="stat-number">5</p>
     <span class="stat-sub">+9 módulos en reserva</span>
   </div>
 </div>

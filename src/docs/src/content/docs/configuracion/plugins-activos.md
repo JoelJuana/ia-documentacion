@@ -1,15 +1,20 @@
 ---
 title: Plugins Activos y en Reserva
-description: Catálogo completo de plugins de comportamiento y herramientas configurados para el agente (4 activos y 9 en reserva).
+description: Catálogo completo de plugins de comportamiento y herramientas configurados para el agente (5 activos y 9 en reserva).
 ---
 
 Los **Plugins** son módulos de comportamiento, reglas de estilo, sidecars o integraciones MCP que personalizan y amplían las capacidades de los agentes en el entorno de desarrollo.
 
 ---
 
-## Plugins Activos (4)
+## Plugins Activos (5)
 
 <div class="dashboard-grid">
+  <a href="/configuracion/plugins/comite-dossier-bancario/" class="dashboard-card">
+    <span class="card-meta">Activo</span>
+    <h3>comite-dossier-bancario</h3>
+    <p>Comité multidisciplinar de 9 agentes expertos (negocio, explotación, CAPEX/EPC, deuda, modelización/estrés, fiscal/legal, riesgos bancarios, dirección ejecutiva y maquetación editorial A4) para crear, auditar y profesionalizar dossiers de financiación bancaria sincronizados con simuladores financieros.</p>
+  </a>
   <a href="/configuracion/plugins/fierbase/" class="dashboard-card">
     <span class="card-meta">Activo</span>
     <h3>fierbase</h3>
@@ -88,10 +93,11 @@ Módulos preservados con especificación `SKILL.md.disabled` listos para activar
 
 ---
 
-## Tabla Resumen de Plugins (13)
+## Tabla Resumen de Plugins (14)
 
 | Nombre del Plugin | Estado | Descripción |
 | :--- | :--- | :--- |
+| **[comite-dossier-bancario](/configuracion/plugins/comite-dossier-bancario/)** | `Activo` | Comité multidisciplinar de 9 agentes expertos (negocio, explotación, CAPEX/EPC, deuda, modelización/estrés, fiscal/legal, riesgos bancarios, dirección ejecutiva y maquetación editorial A4) para crear, auditar y profesionalizar dossiers de financiación bancaria sincronizados con simuladores financieros. |
 | **[fierbase](/configuracion/plugins/fierbase/)** | `Activo` | Inicializa proyectos de Fierbase dinámicamente, configura servicios automáticos (Firestore, Auth, Hosting) y despliega de forma automatizada mediante un Token de CI/CD o variables de entorno. |
 | **[modern-web-guidance-plugin](/configuracion/plugins/modern-web-guidance-plugin/)** | `Activo` | Curated collection of agent skills for modern web development. |
 | **[skills-dashboard-manager](/configuracion/plugins/skills-dashboard-manager/)** | `Activo` | Skill global para arrancar y monitorizar el Cuadro de Mandos de gestion de skills de Antigravity. |
