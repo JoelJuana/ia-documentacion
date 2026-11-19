@@ -50,6 +50,13 @@ El dossier ejecutivo en lenguaje claro y 100% sincronizado al euro con el simula
 
 ## Historial de Versiones del Proyecto
 
+### [2.10.1] - 2026-11-19
+#### Mejorado (Un Único Deslizador por Línea en Todo el Simulador · Bloques `1.3` y `2.1`)
+- **Eliminados todos los controles dobles por fila (`src/index.html` y `src/js/app.js`)**: en **`2.1 Ingresos`**, separación limpia en dos sub-bloques en verde esmeralda con **una sola barra estándar (`w-16 sm:w-20`) por línea**:
+  - **Estancias anuales por habitación:** `Estancia por meses (8 meses)`, `Estancia por semanas (7 sem.)` y `Estancia por días (18 días)` → resumen **`Ocupación A2+: 85 % | 10,2 m/hab ocup.`**.
+  - **Tarifas netas sin IVA:** `Precio mensual (900 €/mes · 187.200 €)`, `Precio semanal (345 €/sem · 62.400 €)` y `Precio diario (89 €/día · 42.120 €)` → resumen **`Tarifa media: 1.100 €/mes | 36,2 €/noche`**.
+- **Consistencia en `1.3 Financiación Bancaria`**: desdoblado también `Tipo leasing · Plazo` en dos líneas limpias (`Tipo interés leasing: 5,2 %` y `Plazo leasing: 7 años`), logrando que cada deslizador del simulador ocupe exactamente una fila alineada sin superar la altura de la Columna 3 (`28/28` tests unitarios en verde).
+
 ### [2.10.0] - 2026-11-18
 #### Mejorado (Blindaje Contractual a Favor del Promotor y 100% de la Comunidad de Propietarios)
 - **Titularidad del `100%` de la Comunidad de Propietarios del edificio**: actualizada toda la documentación técnica, tooltips y las 10 páginas del Dossier Bancario para reflejar que la propiedad ostenta el **`100%` de cuotas y votos de la Comunidad de Propietarios** (`0` copropietarios externos y riesgo vecinal nulo en estatutos, hueco de ascensor, bajantes o cubierta solar `art. 553 CCCat`), hipotecando en primer rango las 40 fincas afectas al hotel (`1.250 m²`).
