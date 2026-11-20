@@ -1,10 +1,10 @@
 ---
 title: Plugin "comite-dossier-bancario"
-description: "Comité multidisciplinar de 9 agentes expertos (negocio, explotación, CAPEX/EPC, deuda, modelización/estrés, fiscal/legal, riesgos bancarios, dirección ejecutiva y maquetación editorial A4) para crear, auditar y profesionalizar dossiers de financiación bancaria sincronizados con simuladores financieros."
+description: "Comité autónomo de 9 agentes expertos con Mesa de Debate para maximizar beneficios netos, auditoría de Comité de Riesgos Bancario, reconciliación al euro con simuladores y entrega final 10/10 en PDF vectorial A4 y DOCX."
 ---
 
 *   **Ruta en repositorio**: `IA_Configuracion/plugins/comite-dossier-bancario/`
-*   **Versión**: `v1.0.0`
+*   **Versión**: `v2.0.0`
 *   **Estado**: Activo
 
 ---

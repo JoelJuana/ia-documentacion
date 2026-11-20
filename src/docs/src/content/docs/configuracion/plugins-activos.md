@@ -13,7 +13,7 @@ Los **Plugins** son módulos de comportamiento, reglas de estilo, sidecars o int
   <a href="/configuracion/plugins/comite-dossier-bancario/" class="dashboard-card">
     <span class="card-meta">Activo</span>
     <h3>comite-dossier-bancario</h3>
-    <p>Comité multidisciplinar de 9 agentes expertos (negocio, explotación, CAPEX/EPC, deuda, modelización/estrés, fiscal/legal, riesgos bancarios, dirección ejecutiva y maquetación editorial A4) para crear, auditar y profesionalizar dossiers de financiación bancaria sincronizados con simuladores financieros.</p>
+    <p>Comité autónomo de 9 agentes expertos con Mesa de Debate para maximizar beneficios netos, auditoría de Comité de Riesgos Bancario, reconciliación al euro con simuladores y entrega final 10/10 en PDF vectorial A4 y DOCX.</p>
   </a>
   <a href="/configuracion/plugins/fierbase/" class="dashboard-card">
     <span class="card-meta">Activo</span>
@@ -97,7 +97,7 @@ Módulos preservados con especificación `SKILL.md.disabled` listos para activar
 
 | Nombre del Plugin | Estado | Descripción |
 | :--- | :--- | :--- |
-| **[comite-dossier-bancario](/configuracion/plugins/comite-dossier-bancario/)** | `Activo` | Comité multidisciplinar de 9 agentes expertos (negocio, explotación, CAPEX/EPC, deuda, modelización/estrés, fiscal/legal, riesgos bancarios, dirección ejecutiva y maquetación editorial A4) para crear, auditar y profesionalizar dossiers de financiación bancaria sincronizados con simuladores financieros. |
+| **[comite-dossier-bancario](/configuracion/plugins/comite-dossier-bancario/)** | `Activo` | Comité autónomo de 9 agentes expertos con Mesa de Debate para maximizar beneficios netos, auditoría de Comité de Riesgos Bancario, reconciliación al euro con simuladores y entrega final 10/10 en PDF vectorial A4 y DOCX. |
 | **[fierbase](/configuracion/plugins/fierbase/)** | `Activo` | Inicializa proyectos de Fierbase dinámicamente, configura servicios automáticos (Firestore, Auth, Hosting) y despliega de forma automatizada mediante un Token de CI/CD o variables de entorno. |
 | **[modern-web-guidance-plugin](/configuracion/plugins/modern-web-guidance-plugin/)** | `Activo` | Curated collection of agent skills for modern web development. |
 | **[skills-dashboard-manager](/configuracion/plugins/skills-dashboard-manager/)** | `Activo` | Skill global para arrancar y monitorizar el Cuadro de Mandos de gestion de skills de Antigravity. |
