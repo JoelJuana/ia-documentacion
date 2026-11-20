@@ -13,7 +13,7 @@ Los **Plugins** son módulos de comportamiento, reglas de estilo, sidecars o int
   <a href="/configuracion/plugins/comite-dossier-bancario/" class="dashboard-card">
     <span class="card-meta">Activo</span>
     <h3>comite-dossier-bancario</h3>
-    <p>Comité autónomo multidisciplinar de 9 agentes expertos con Mesa de Debate para maximizar beneficios, playbooks multisectoriales (hotelero, farmacia, inmobiliario, flota), bucle de remediación con Abogado del Diablo, linter determinista A4/OCR y sincronización al euro con simuladores.</p>
+    <p>Comité autónomo de 9 expertos con checkpoints reanudables, dieta de contexto (-80% tokens), 6 playbooks sectoriales, ensamblaje HTML y sincronización de simulador deterministas, linter pre-vuelo A4/OCR y generación de Excel bancario (.xlsx) + Q&A + Teaser.</p>
   </a>
   <a href="/configuracion/plugins/fierbase/" class="dashboard-card">
     <span class="card-meta">Activo</span>
@@ -97,7 +97,7 @@ Módulos preservados con especificación `SKILL.md.disabled` listos para activar
 
 | Nombre del Plugin | Estado | Descripción |
 | :--- | :--- | :--- |
-| **[comite-dossier-bancario](/configuracion/plugins/comite-dossier-bancario/)** | `Activo` | Comité autónomo multidisciplinar de 9 agentes expertos con Mesa de Debate para maximizar beneficios, playbooks multisectoriales (hotelero, farmacia, inmobiliario, flota), bucle de remediación con Abogado del Diablo, linter determinista A4/OCR y sincronización al euro con simuladores. |
+| **[comite-dossier-bancario](/configuracion/plugins/comite-dossier-bancario/)** | `Activo` | Comité autónomo de 9 expertos con checkpoints reanudables, dieta de contexto (-80% tokens), 6 playbooks sectoriales, ensamblaje HTML y sincronización de simulador deterministas, linter pre-vuelo A4/OCR y generación de Excel bancario (.xlsx) + Q&A + Teaser. |
 | **[fierbase](/configuracion/plugins/fierbase/)** | `Activo` | Inicializa proyectos de Fierbase dinámicamente, configura servicios automáticos (Firestore, Auth, Hosting) y despliega de forma automatizada mediante un Token de CI/CD o variables de entorno. |
 | **[modern-web-guidance-plugin](/configuracion/plugins/modern-web-guidance-plugin/)** | `Activo` | Curated collection of agent skills for modern web development. |
 | **[skills-dashboard-manager](/configuracion/plugins/skills-dashboard-manager/)** | `Activo` | Skill global para arrancar y monitorizar el Cuadro de Mandos de gestion de skills de Antigravity. |
