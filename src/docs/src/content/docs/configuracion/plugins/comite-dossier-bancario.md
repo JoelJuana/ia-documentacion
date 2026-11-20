@@ -1,10 +1,10 @@
 ---
 title: Plugin "comite-dossier-bancario"
-description: "Comité autónomo de 9 agentes expertos con Mesa de Debate para maximizar beneficios netos, auditoría de Comité de Riesgos Bancario, reconciliación al euro con simuladores y entrega final 10/10 en PDF vectorial A4 y DOCX."
+description: "Comité autónomo multidisciplinar de 9 agentes expertos con Mesa de Debate para maximizar beneficios, playbooks multisectoriales (hotelero, farmacia, inmobiliario, flota), bucle de remediación con Abogado del Diablo, linter determinista A4/OCR y sincronización al euro con simuladores."
 ---
 
 *   **Ruta en repositorio**: `IA_Configuracion/plugins/comite-dossier-bancario/`
-*   **Versión**: `v2.0.0`
+*   **Versión**: `v2.1.0`
 *   **Estado**: Activo
 
 ---
