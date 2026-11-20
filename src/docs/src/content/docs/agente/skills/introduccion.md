@@ -12,7 +12,7 @@ Al compilar o ejecutar la publicación automática (`npm run publish:auto`), est
 
 ---
 
-## Catálogo de Habilidades Activas (12)
+## Catálogo de Habilidades Activas (13)
 
 Selecciona una de las habilidades en la barra lateral o a través de las siguientes tarjetas para consultar su propósito y manual de instrucciones detallado:
 
@@ -48,6 +48,10 @@ Selecciona una de las habilidades en la barra lateral o a través de las siguien
   <a href="/agente/skills/gestiona_fierbase/" class="dashboard-card">
     <h3>gestiona_fierbase</h3>
     <p>Inicializa proyectos de Firebase y gestiona sus servicios (Firestore, Auth, Hosting) de forma centralizada utilizando la API REST local del microservicio infra-firebase. Úsalo cuando el usuario solicite base de datos Firestore, autenticación o despliegues de Firebase, asegurando que todas las peticiones pasen por el Gateway de infraestructura.</p>
+  </a>
+  <a href="/agente/skills/gestiona_fusion360/" class="dashboard-card">
+    <h3>gestiona_fusion360</h3>
+    <p>Diseña, parametriza, inspecciona visualmente y exporta piezas CAD 3D (STEP, STL, 3MF, F3D, DXF) en Autodesk Fusion mediante el servidor MCP local fusion360-mcp-lab.</p>
   </a>
   <a href="/agente/skills/gestiona_github/" class="dashboard-card">
     <h3>gestiona_github</h3>
