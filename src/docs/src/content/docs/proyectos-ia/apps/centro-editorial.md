@@ -94,7 +94,7 @@ docs/editorial/
 | **`seat_124_taller`** | **SEAT 124 FL** | Rojo SEAT `#C8102E` · Carbón `#111827` · Ámbar Bosch `#D97706` | `Barlow Condensed` + `IBM Plex Sans` + `JetBrains Mono` | 1. **Manual Eléctrico y Fichas de Circuito SVG**<br>*(Alta densidad técnica + DIN 72552 · 30 Hojas)* |
 
 <!-- AUTO-EDITORIAL-STATS:START -->
-> **Estado actual del catálogo editorial:** **15 documentos activos** (**70 páginas A4** y **14 archivos Word `.docx`**) — Compra Farmacia: **1** · Ramón Turró: **1** · OCA Global: **2** · CP Mercat Devesa: **10** · SEAT 124 FL: **1**.
+> **Estado actual del catálogo editorial:** **16 documentos activos** (**76 páginas A4** y **15 archivos Word `.docx`**) — Compra Farmacia: **1** · Ramón Turró: **1** · OCA Global: **2** · CP Mercat Devesa: **11** · SEAT 124 FL: **1**.
 <!-- AUTO-EDITORIAL-STATS:END -->
 
 ---
@@ -120,9 +120,9 @@ Cada carpeta de documento incluye un archivo ligero **`editorial.meta.json`** qu
 
 ---
 
-## Catálogo Vivo de Publicaciones A4 (15 Documentos)
+## Catálogo Vivo de Publicaciones A4 (16 Documentos)
 
-Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-21` · **70 páginas A4** vectoriales · **14 exportaciones Word**):
+Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-21` · **76 páginas A4** vectoriales · **15 exportaciones Word**):
 
 | Cliente / Ámbito | Título del Documento | Preset | Extensión y Formatos | Estado | Compilado |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -140,5 +140,6 @@ Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/cata
 | **CP Mercat Devesa** | ST-2026-08-17 · Acta de Sesión de Trabajo con Comunidad de Aparcamientos | `actas_comunidad` | 5 págs. (PDF + DOCX) | Antecedente Cerrado | 2026-11-16 |
 | **CP Mercat Devesa** | ST-2026-10-07 · Documento de Trabajo y Alineación Técnica con Letrado | `actas_comunidad` | 2 págs. (PDF + DOCX) | Antecedente Cerrado | 2026-11-16 |
 | **CP Mercat Devesa** | ST-2026-11-21 · Censo Maestro Registral, Catastral y Conciliación de Cuotas (153 Entidades) | `actas_comunidad` | 6 págs. (PDF + DOCX) | Vigente | 2026-11-21 |
+| **CP Mercat Devesa** | ST-2026-11-21-B · Radiografía Arquitectónica-Registral del Edificio por Plantas y Auditoría de Discrepancias | `actas_comunidad` | 6 págs. (PDF + DOCX) | Vigente | 2026-11-21 |
 | **SEAT 124 FL** | Manual de Instalación Eléctrica SEAT 124 FL (1430 / 1600 Biárbol) | `seat_124_taller` | 30 págs. (PDF + HTML) | Edición Taller (30 Hojas) | 2026-11-10 |
 
