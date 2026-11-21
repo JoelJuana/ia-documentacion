@@ -51,7 +51,7 @@ docs/editorial/
 │   │   ├── reglas_estatutos_reglamento.md            # Reglas para Estatutos y Reglamentos Libro V CCCat (Mod. B)
 │   │   └── plantilla_estatutos_reglamento.html       # Plantilla exclusiva para Estatutos y Reglamentos
 │   │
-│   ├── 01_Normativa/                                 # 📜 Estatutos generales (N01) y Reglamentos internos (N02)
+│   ├── 01_Normativa/                                 # 📜 Título 1984 (N00), Estatutos Generales (N01) y Almacenes (N02)
 │   ├── 02_Junta_Presidentes/                         # 🤝 Expedientes JP-AAAA-MM-DD (01-convocatoria, 02-acta, firmados/)
 │   ├── 03_Asamblea_General/                          # 🏛️ Expedientes AG-AAAA-MM-DD (01-convocatoria..04-certificado, firmados/)
 │   └── 04_Sesiones_Trabajo/                          # 📝 Antecedentes y minutas técnicas ST-AAAA-MM-DD
@@ -94,7 +94,7 @@ docs/editorial/
 | **`seat_124_taller`** | **SEAT 124 FL** | Rojo SEAT `#C8102E` · Carbón `#111827` · Ámbar Bosch `#D97706` | `Barlow Condensed` + `IBM Plex Sans` + `JetBrains Mono` | 1. **Manual Eléctrico y Fichas de Circuito SVG**<br>*(Alta densidad técnica + DIN 72552 · 30 Hojas)* |
 
 <!-- AUTO-EDITORIAL-STATS:START -->
-> **Estado actual del catálogo editorial:** **16 documentos activos** (**76 páginas A4** y **15 archivos Word `.docx`**) — Compra Farmacia: **1** · Ramón Turró: **1** · OCA Global: **2** · CP Mercat Devesa: **11** · SEAT 124 FL: **1**.
+> **Estado actual del catálogo editorial:** **18 documentos activos** (**84 páginas A4** y **17 archivos Word `.docx`**) — CP Mercat Devesa: **13** · Compra Farmacia: **1** · Ramón Turró: **1** · OCA Global: **2** · SEAT 124 FL: **1**.
 <!-- AUTO-EDITORIAL-STATS:END -->
 
 ---
@@ -120,9 +120,9 @@ Cada carpeta de documento incluye un archivo ligero **`editorial.meta.json`** qu
 
 ---
 
-## Catálogo Vivo de Publicaciones A4 (16 Documentos)
+## Catálogo Vivo de Publicaciones A4 (18 Documentos)
 
-Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-21` · **76 páginas A4** vectoriales · **15 exportaciones Word**):
+Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-21` · **84 páginas A4** vectoriales · **17 exportaciones Word**):
 
 | Cliente / Ámbito | Título del Documento | Preset | Extensión y Formatos | Estado | Compilado |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -131,6 +131,7 @@ Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/cata
 | **OCA Global** | Due Diligence preliminar: Álabe Ingenieros (Fase 1) | `oca_global` | 2 págs. (PDF + DOCX) | Validado | 2026-11-10 |
 | **OCA Global** | Protocolo y Checklist de Due Diligence Técnica: Álabe Ingenieros (Fase 2) | `oca_global` | 2 págs. (PDF + DOCX) | Protocolo Fase 2 | 2026-11-10 |
 | **CP Mercat Devesa** | N01 · Estatutos de la Comunidad General del Mercado de la Devesa (Texto Refundido) | `actas_comunidad` | 4 págs. (PDF + DOCX) | Texto Definitivo | 2026-11-21 |
+| **CP Mercat Devesa** | N02-ALM · Proyecto de Estatutos Particulares de la Comunidad de Propietarios de Almacenes (Sustitución Apartado C de 1984) | `actas_comunidad` | 3 págs. (PDF + DOCX) | Borrador Preparado (Fase Posterior a N01) | 2026-11-21 |
 | **CP Mercat Devesa** | JP-2026-12-14 [01] · Convocatoria y Orden del Día — Junta Ordinaria de Presidentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-21 |
 | **CP Mercat Devesa** | JP-2026-12-14 [02] · Acta de la Reunión Ordinaria de la Junta de Presidentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-21 |
 | **CP Mercat Devesa** | AG-2027-01-15 [01] · Convocatoria y Orden del Día — Asamblea General Extraordinaria | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-21 |
@@ -142,4 +143,5 @@ Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/cata
 | **CP Mercat Devesa** | ST-2026-11-21 · Censo Maestro Registral, Catastral y Conciliación de Cuotas (153 Entidades) | `actas_comunidad` | 6 págs. (PDF + DOCX) | Vigente | 2026-11-21 |
 | **CP Mercat Devesa** | ST-2026-11-21-B · Radiografía Arquitectónica-Registral del Edificio por Plantas y Auditoría de Discrepancias | `actas_comunidad` | 6 págs. (PDF + DOCX) | Vigente | 2026-11-21 |
 | **SEAT 124 FL** | Manual de Instalación Eléctrica SEAT 124 FL (1430 / 1600 Biárbol) | `seat_124_taller` | 30 págs. (PDF + HTML) | Edición Taller (30 Hojas) | 2026-11-10 |
+| **CP Mercat Devesa** | N00 · Título Modificativo y Estatutos Originarios de 1984 (Escritura 3.093) y Expediente Municipal (1983–1994) | `actas_comunidad` | 5 págs. (PDF + DOCX) | Antecedente 1984 (A sustituir por N01) | 2026-11-21 |
 
