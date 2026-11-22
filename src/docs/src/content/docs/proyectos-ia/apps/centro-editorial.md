@@ -94,7 +94,7 @@ docs/editorial/
 | **`seat_124_taller`** | **SEAT 124 FL** | Rojo SEAT `#C8102E` · Carbón `#111827` · Ámbar Bosch `#D97706` | `Barlow Condensed` + `IBM Plex Sans` + `JetBrains Mono` | 1. **Manual Eléctrico y Fichas de Circuito SVG**<br>*(Alta densidad técnica + DIN 72552 · 30 Hojas)* |
 
 <!-- AUTO-EDITORIAL-STATS:START -->
-> **Estado actual del catálogo editorial:** **19 documentos activos** (**88 páginas A4** y **18 archivos Word `.docx`**) — CP Mercat Devesa: **14** · Compra Farmacia: **1** · Ramón Turró: **1** · OCA Global: **2** · SEAT 124 FL: **1**.
+> **Estado actual del catálogo editorial:** **19 documentos activos** (**90 páginas A4** y **18 archivos Word `.docx`**) — CP Mercat Devesa: **14** · Compra Farmacia: **1** · Ramón Turró: **1** · OCA Global: **2** · SEAT 124 FL: **1**.
 <!-- AUTO-EDITORIAL-STATS:END -->
 
 ---
@@ -122,12 +122,12 @@ Cada carpeta de documento incluye un archivo ligero **`editorial.meta.json`** qu
 
 ## Catálogo Vivo de Publicaciones A4 (19 Documentos)
 
-Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-22` · **88 páginas A4** vectoriales · **18 exportaciones Word**):
+Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-22` · **90 páginas A4** vectoriales · **18 exportaciones Word**):
 
 | Cliente / Ámbito | Título del Documento | Preset | Extensión y Formatos | Estado | Compilado |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Compra Farmacia** | Dossier Estratégico de Compraventa de Farmacia — Socios, Vendedor y Comprador | `dossier_financiero` | 3 págs. (PDF + DOCX) | Estrategia 3 Bloques (3 Págs.) | 2026-11-10 |
-| **Ramón Turró** | Plan de Negocio y Estrategia Financiera — Proyecto Hotelero Ramón Turró (Girona) | `dossier_financiero` | 10 págs. (PDF + DOCX) | Aprobable 10/10 · Gate 0 (10 Págs.) | 2026-11-20 |
+| **Ramón Turró** | Plan de Negocio y Estrategia Financiera — Proyecto Hotelero Ramón Turró (Girona) | `dossier_financiero` | 10 págs. (PDF + DOCX) | Aprobable 10/10 · Gate 0 (10 Págs.) | 2026-11-22 |
 | **OCA Global** | Due Diligence preliminar: Álabe Ingenieros (Fase 1) | `oca_global` | 2 págs. (PDF + DOCX) | Validado | 2026-11-10 |
 | **OCA Global** | Protocolo y Checklist de Due Diligence Técnica: Álabe Ingenieros (Fase 2) | `oca_global` | 2 págs. (PDF + DOCX) | Protocolo Fase 2 | 2026-11-10 |
 | **CP Mercat Devesa** | N01 · Estatutos de la Comunidad General del Mercado de la Devesa (Texto Refundido) | `actas_comunidad` | 4 págs. (PDF + DOCX) | Texto Definitivo | 2026-11-21 |
@@ -142,7 +142,7 @@ Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/cata
 | **CP Mercat Devesa** | ST-2026-10-07 · Documento de Trabajo y Alineación Técnica con Letrado | `actas_comunidad` | 2 págs. (PDF + DOCX) | Antecedente Cerrado | 2026-11-16 |
 | **CP Mercat Devesa** | ST-2026-11-21 · Censo Maestro Registral, Catastral y Conciliación de Cuotas (153 Entidades) | `actas_comunidad` | 6 págs. (PDF + DOCX) | Vigente | 2026-11-21 |
 | **CP Mercat Devesa** | ST-2026-11-21-B · Radiografía Arquitectónica-Registral del Edificio por Plantas y Auditoría de Discrepancias | `actas_comunidad` | 6 págs. (PDF + DOCX) | Vigente | 2026-11-21 |
-| **CP Mercat Devesa** | ST-2026-11-21-C · Auditoría del Proyecto Original (1983), Planos Visados E:1/50 y Licencias Municipales (1983–1984) | `actas_comunidad` | 4 págs. (PDF + DOCX) | Vigente | 2026-11-22 |
+| **CP Mercat Devesa** | ST-2026-11-21-C · Auditoría de Proyectos (COAC y Actividades), Atlas de 23 Planos 1:50 y Licencias Municipales (1983–1985) | `actas_comunidad` | 6 págs. (PDF + DOCX) | Vigente | 2026-11-22 |
 | **SEAT 124 FL** | Manual de Instalación Eléctrica SEAT 124 FL (1430 / 1600 Biárbol) | `seat_124_taller` | 30 págs. (PDF + HTML) | Edición Taller (30 Hojas) | 2026-11-10 |
 | **CP Mercat Devesa** | N00 · Título Modificativo y Estatutos Originarios de 1984 (Escritura 3.093) y Expediente Municipal (1983–1994) | `actas_comunidad` | 5 págs. (PDF + DOCX) | Antecedente 1984 (A sustituir por N01) | 2026-11-21 |
 
