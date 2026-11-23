@@ -94,7 +94,7 @@ docs/editorial/
 | **`seat_124_taller`** | **SEAT 124 FL** | Rojo SEAT `#C8102E` · Carbón `#111827` · Ámbar Bosch `#D97706` | `Barlow Condensed` + `IBM Plex Sans` + `JetBrains Mono` | 1. **Manual Eléctrico y Fichas de Circuito SVG**<br>*(Alta densidad técnica + DIN 72552 · 30 Hojas)* |
 
 <!-- AUTO-EDITORIAL-STATS:START -->
-> **Estado actual del catálogo editorial:** **20 documentos activos** (**93 páginas A4** y **19 archivos Word `.docx`**) — CP Mercat Devesa: **15** · Compra Farmacia: **1** · Ramón Turró: **1** · OCA Global: **2** · SEAT 124 FL: **1**.
+> **Estado actual del catálogo editorial:** **21 documentos activos** (**96 páginas A4** y **20 archivos Word `.docx`**) — CP Mercat Devesa: **16** · Compra Farmacia: **1** · Ramón Turró: **1** · OCA Global: **2** · SEAT 124 FL: **1**.
 <!-- AUTO-EDITORIAL-STATS:END -->
 
 ---
@@ -120,9 +120,9 @@ Cada carpeta de documento incluye un archivo ligero **`editorial.meta.json`** qu
 
 ---
 
-## Catálogo Vivo de Publicaciones A4 (20 Documentos)
+## Catálogo Vivo de Publicaciones A4 (21 Documentos)
 
-Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-23` · **93 páginas A4** vectoriales · **19 exportaciones Word**):
+Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-23` · **96 páginas A4** vectoriales · **20 exportaciones Word**):
 
 | Cliente / Ámbito | Título del Documento | Preset | Extensión y Formatos | Estado | Compilado |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -134,6 +134,7 @@ Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/cata
 | **CP Mercat Devesa** | N02-ALM · Proyecto de Estatutos Particulares de la Comunidad de Propietarios de Almacenes (Sustitución Apartado C de 1984) | `actas_comunidad` | 3 págs. (PDF + DOCX) | Borrador Preparado (Fase Posterior a N01) | 2026-11-23 |
 | **CP Mercat Devesa** | N03-PAR · Proyecto de Estatutos Particulares de la Comunidad de Propietarios de Paradas (Sustitución Apartado B de 1984) | `actas_comunidad` | 3 págs. (PDF + DOCX) | Borrador Preparado (Fase Posterior a N01) | 2026-11-23 |
 | **CP Mercat Devesa** | JP-2026-12-14 [01] · Convocatoria y Orden del Día — Junta Ordinaria de Presidentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-22 |
+| **CP Mercat Devesa** | N04-LOC · Proyecto de Estatutos Particulares de la Comunidad de Propietarios de Locales (Regulación Estatutaria Propia) | `actas_comunidad` | 3 págs. (PDF + DOCX) | Borrador Preparado (Fase Posterior a N01) | 2026-11-23 |
 | **CP Mercat Devesa** | JP-2026-12-14 [02] · Acta de la Reunión Ordinaria de la Junta de Presidentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-22 |
 | **CP Mercat Devesa** | AG-2027-01-15 [01] · Convocatoria y Orden del Día — Asamblea General Extraordinaria | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-23 |
 | **CP Mercat Devesa** | AG-2027-01-15 [02] · Hoja de Control de Asistencia, Delegaciones y Escrutinio | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-16 |
