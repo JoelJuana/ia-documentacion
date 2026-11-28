@@ -148,6 +148,6 @@ Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/cata
 | **CP Mercat Devesa** | ST-2026-11-21 · Censo Maestro Registral, Catastral y Conciliación de Cuotas (153 Entidades) | `actas_comunidad` | 6 págs. (PDF + DOCX) | Vigente | 2026-11-24 |
 | **CP Mercat Devesa** | ST-2026-11-21-B · Radiografía Arquitectónica-Registral del Edificio por Plantas y Auditoría de Discrepancias | `actas_comunidad` | 6 págs. (PDF + DOCX) | Vigente | 2026-11-25 |
 | **CP Mercat Devesa** | ST-2026-11-21-C · Auditoría de Proyectos (COAC y Actividades), Atlas de 23 Planos 1:50 y Licencias Municipales (1983–1985) | `actas_comunidad` | 6 págs. (PDF + DOCX) | Vigente | 2026-11-25 |
-| **CP Mercat Devesa** | ST-2026-11-24 · Estrategia y Protocolo Operativo de Blindaje Registral (Controles Extrínsecos y Plantilla para Administradores) | `actas_comunidad` | 2 págs. (PDF + DOCX) | Vigente | 2026-11-26 |
+| **CP Mercat Devesa** | ST-2026-11-24 · Estrategia y Protocolo Operativo de Blindaje Registral (Controles Extrínsecos y Plantilla para Administradores) | `actas_comunidad` | 2 págs. (PDF + DOCX) | Vigente | 2026-11-28 |
 | **SEAT 124 FL** | Manual de Instalación Eléctrica SEAT 124 FL (1430 / 1600 Biárbol) | `seat_124_taller` | 30 págs. (PDF + HTML) | Edición Taller (30 Hojas) | 2026-11-10 |
 
