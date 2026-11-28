@@ -1,30 +1,31 @@
 ---
 title: Plugin "comite-registral-cccat"
-description: "Suite jurídico-registral para Propiedad Horizontal en Cataluña (Libro V CCCat, LH, RH y RN): corpus oficial consolidado del BOE, linter determinista de citas y plazos registrales, calculadora de escrutinio de asambleas, colección RAG aislada (juridico-cccat) y subagentes Registrador Calificador y Redactor Notarial."
+description: "Suite jurídico-registral industrial v2.0 para Propiedad Horizontal en Cataluña (Libro V CCCat, LH, RH, RN y Ley 5/2009): corpus oficial BOE (298 preceptos) + catálogo de resoluciones verificadas, linter bilingüe ES/CA y geométrico A4 (--check-pdf --cross-check), calculadora de plazos fecha a fecha, escrutinio con doble mayoría y Excel vivo (.xlsx), sincronizador 0-tokens de Actas/Certificados, Pack Notaría/Modelo 600 ATC y orquestador autónomo con checkpoints."
 ---
 
 *   **Ruta en repositorio**: `IA_Configuracion/plugins/comite-registral-cccat/`
-*   **Versión**: `v1.0.0`
+*   **Versión**: `v2.0.0`
 *   **Estado**: Activo
 
 ---
 
-# Comité Registral y Propiedad Horizontal CCCat (`comite-registral-cccat` v1.0.0)
+# Comité Registral y Propiedad Horizontal CCCat (`comite-registral-cccat` v2.0.0)
 
-Plugin especializado de Antigravity para blindar técnicamente **Estatutos, Reglamentos Internos, Convocatorias, Actas bilingües (catalán/castellano), Anexos de efectividad y Certificados para Notaría y Registro de la Propiedad** en complejos inmobiliarios y comunidades de propietarios regidas por el **Libro Quinto del Código Civil de Cataluña (CCCat)** y la legislación hipotecaria española.
+Plugin especializado de Antigravity (**Industrial & Notarial Edition**) para blindar de extremo a extremo **Estatutos, Reglamentos Internos, Convocatorias, Hojas de Asistencia, Actas bilingües (`ca`/`es`), Anexos `art. 553-27.5`, Certificados Notariales, Mesas de Asamblea en Excel vivo (`.xlsx`) y Minutas / Modelos 600 ATC** en comunidades de propietarios simples y complejas regidas por el **Libro Quinto del Código Civil de Cataluña (CCCat)** y la legislación hipotecaria española.
 
-## Arquitectura en Cuatro Capas (`v1.0.0`)
+## Arquitectura en Seis Capas (`v2.0.0`)
 
-1. **Corpus Normativo Oficial Consolidado del BOE (`corpus_ph_catalunya.json`)**:
-   - Extraído de forma reproducible desde la API abierta de Legislación Consolidada del BOE (`build_corpus_boe.py`), abarcando el Libro Quinto del CCCat (`BOE-A-2006-11130`, con las reformas vigentes de la Ley 5/2015 y posteriores), Libro Primero (`BOE-A-2003-2410`), Ley Hipotecaria (`BOE-A-1946-2453`), Reglamento Hipotecario (`BOE-A-1947-3843`), Reglamento Notarial (`BOE-A-1944-6578`), RD 1093/1997 (`BOE-A-1997-16469`), Ley 24/2001 (`BOE-A-2001-24965`), Ley 1/1998 de Política Lingüística (`BOE-A-1998-2989`) y TRLITPAJD (`BOE-A-1993-25359`).
-   - Desglosa cada artículo, apartado numérico y letra (`553-15.9`, `553-11.2.f`, `553-25.2.i`, `553-26.1.e`, `553-34.2`, `567-2.1.d`, etc.) con consulta instantánea por CLI (`lookup_norma.py`) sin consumir memoria en reposo.
-2. **Linter Jurídico-Registral Pre-Vuelo (`lint_registral_cccat.py`)**:
-   - Escanea archivos HTML editoriales o carpetas enteras de expediente, parsea todas las citas legales simples y múltiples y comprueba al 100 % contra el corpus oficial que ningún artículo, apartado o letra sea inexistente o derogado.
-   - Audita controles hipotecarios críticos según modalidad documental: exclusión de pactos personales (`art. 98 LH`), congruencia Orden del Día y título constitutivo (`arts. 553-10`, `553-25.1` y `553-26.1 CCCat`), los cuatro requisitos del derecho de vuelo/cubrición (`art. 567-2.1.a–d CCCat`), plazos fatales (`8`, `5` y `10` días + `3 días tablón + 1 mes` del `art. 553-26.3 CCCat`), solicitud de inscripción parcial (`arts. 19 bis y 322 LH`) y suma exacta de cuotas (`100,000 %`).
-3. **Calculadora Determinista de Asistencia y Escrutinio (`escrutinio_asamblea.py`)**:
-   - Opera directamente sobre el censo registral oficial (`censo_153_entidades.csv`), agrupando cotitularidades, personas jurídicas y comunidades funcionales de garaje (`art. 553-52.1.a CCCat`), y calcula sin error humano las cuotas presentes, representadas, abstenciones adheridas (`art. 553-24.3 CCCat`) y voto favorable presunto de no asistentes (`art. 553-26.3.a CCCat`).
-4. **Subagentes Especializados y Colección RAG Aislada (`juridico-cccat`)**:
-   - **`registrador-calificador`**: Audita cualquier borrador como Registrador de la Propiedad en Cataluña emitiendo dictamen preventivo de defectos insubsanables, subsanables o mejoras de técnica hipotecaria.
-   - **`redactor-notarial-cccat`**: Redacta y armoniza piezas en castellano y catalán apoyándose exclusivamente en preceptos verificados del corpus y datos tabulares del censo.
-   - **`sync_rag_normativa.py`**: Sincroniza la normativa consolidada y el compendio de doctrina de la DGDyEJ de Catalunya y de la DGSJFP en la colección aislada `juridico-cccat` del microservicio `api-conocimiento-rag` (`v1.3.0`).
+1. **Corpus Normativo Oficial del BOE (`298` preceptos) + Catálogo Verificado de Doctrina (`DGDyEJ`, `DGSJFP` y `TC`)**:
+   - Extraído desde la API abierta de Legislación Consolidada del BOE (`build_corpus_boe.py`), abarcando Libro Quinto (`BOE-A-2006-11130`: propiedad, vecindad/inmisiones `544`, comunidad `552`, propiedad horizontal simple y compleja `553`, usufructo `561`, servidumbres `566` y derecho de vuelo `567`), Libro Primero (`111`, `121`, `122`), Código Civil (`arts. 5 y 396`), `LH`, `RH` (incluyendo `art. 16.2` y `art. 415`), `RN`, `RD 1093/1997`, `Ley 24/2001`, `Ley 1/1998`, `Ley 5/2009` de recursos ante la DGDyEJ y `TRLITPAJD`.
+   - Incluye `catalogo_resoluciones_cccat.json` consultable con `lookup_norma.py --doctrina` con resoluciones oficiales contrastadas por código `BOE-A-YYYY-XXXXX` y fecha exacta.
+2. **Linter Bilingüe (`ES`/`CA`), Geométrico A4 y Reconciliador Cruzado (`lint_registral_cccat.py` + `audit_expediente_cruzado.py`)**:
+   - Verifica el `100 %` de citas legales en castellano y catalán contra el BOE, suma universal de cuotas (`100,000 %`), filtro del `art. 98 LH`, los `4` extremos del `art. 567-2.1` (bloqueando plazos `> 30` años), inscripción parcial (`arts. 19 bis y 322 LH`), páginas huérfanas A4 (`--check-pdf` vía PyMuPDF), campos vacíos (`--ready-to-sign`) y reconciliación cruzada entre Estatutos, Convocatoria, Asistencia, Acta, Anexo, Certificado y CSV del censo (`--cross-check`).
+3. **Motor de Calendario Registral Fecha a Fecha (`calendario_plazos_cccat.py`)**:
+   - Calcula y audita sin error de meses cortos (como febrero de 28 días) la cadena completa `8d convocatoria -> Junta -> 5d cierre -> 10d notificación -> 3d tablón subsidiario + 1 mes de fecha a fecha (art. 5.1 CC) -> 1.er día hábil para Anexo 553-27.5 y Certificado`.
+4. **Calculadora de Doble Mayoría + Kit "Día D" (`escrutinio_asamblea.py` + `export_mesa_asamblea.py` + `sync_acta_certificado.py`)**:
+   - Normaliza titulares por NIF/condominio (`art. 553-22.3`), descuenta morosos de la base (`art. 553-24.1`), verifica **doble mayoría de propietarios y cuotas** (`553-25.2` y `553-26.2`), soporta `--subcomunidad` y comunidad funcional `Dep. 153` (`553-52.1.a`), exporta `Mesa_Escrutinio_Asamblea.xlsx` con fórmulas Excel vivas y vuelca en `0` tokens los resultados en `02-asistencia`, `03-acta` (`ca`), `03b-anexo-acta` (`ca`) y `04-certificado` (`es`).
+5. **Pack Documental para Notaría y Agència Tributària de Catalunya (`export_pack_notaria.py`)**:
+   - Genera automáticamente la *Minuta de Escritura de Elevación a Público*, la *Memoria Fiscal de no sujeción a AJD gradual (`art. 31.2 TRLITPAJD`) para el Modelo 600 ATC (`art. 254 LH`)* y el *Checklist de Tracto Sucesivo (`arts. 20 y 34 LH`)*.
+6. **Orquestador Autónomo `run_workflow` con Checkpoints y Colección RAG `juridico-cccat` (`run_comite_registral.py`)**:
+   - Coordina a **`registrador-calificador`** y **`redactor-notarial-cccat`** con checkpoints reanudables, bucle automático de subsanación y sincronización JIT en `api-conocimiento-rag` (`sync_rag_normativa.py`).
 
