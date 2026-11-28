@@ -136,16 +136,16 @@ Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/cata
 | **CP Mercat Devesa** | N02-ALM · Proyecto de Estatutos Particulares de la Comunidad de Propietarios de Almacenes (Sustitución Apartado C de 1984) | `actas_comunidad` | 3 págs. (PDF + DOCX) | Borrador Preparado (Fase Posterior a N01) | 2026-11-28 |
 | **CP Mercat Devesa** | N03-PAR · Proyecto de Estatutos Particulares de la Comunidad de Propietarios de Paradas (Sustitución Apartado B de 1984) | `actas_comunidad` | 3 págs. (PDF + DOCX) | Borrador Preparado (Fase Posterior a N01) | 2026-11-28 |
 | **CP Mercat Devesa** | N04-LOC · Proyecto de Estatutos Particulares de la Comunidad de Propietarios de Locales (Regulación Estatutaria Propia) | `actas_comunidad` | 3 págs. (PDF + DOCX) | Borrador Preparado (Fase Posterior a N01) | 2026-11-28 |
-| **CP Mercat Devesa** | JP-2026-12-14 [01] · Convocatoria y Orden del Día — Junta Ordinaria de Presidentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-25 |
-| **CP Mercat Devesa** | JP-2026-12-14 [02] · Acta de la Reunión Ordinaria de la Junta de Presidentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-24 |
+| **CP Mercat Devesa** | JP-2026-12-14 [01] · Convocatoria y Orden del Día — Junta Ordinaria de Presidentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-28 |
+| **CP Mercat Devesa** | JP-2026-12-14 [02] · Acta de la Reunión Ordinaria de la Junta de Presidentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-28 |
 | **CP Mercat Devesa** | AG-2027-01-15 [01] · Convocatoria y Orden del Día — Asamblea General Extraordinaria | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-28 |
-| **CP Mercat Devesa** | AG-2027-01-15 [02] · Hoja de Control de Asistencia, Delegaciones y Escrutinio | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-24 |
+| **CP Mercat Devesa** | AG-2027-01-15 [02] · Hoja de Control de Asistencia, Delegaciones y Escrutinio | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-28 |
 | **CP Mercat Devesa** | AG-2027-01-15 [03] · Acta de la Asamblea General Extraordinaria y Notificación a Ausentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-28 |
 | **CP Mercat Devesa** | AG-2027-01-15 [03B] · Anexo al Acta de Efectividad Definitiva y Resultado Final por Unanimidad | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-28 |
 | **CP Mercat Devesa** | AG-2027-01-15 [04] · Certificado de Acuerdos y Firmeza para Notaría y Registro | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-28 |
 | **CP Mercat Devesa** | ST-2026-08-17 · Acta de Sesión de Trabajo con Comunidad de Aparcamientos | `actas_comunidad` | 5 págs. (PDF + DOCX) | Antecedente Cerrado | 2026-11-16 |
 | **CP Mercat Devesa** | ST-2026-10-07 · Documento de Trabajo y Alineación Técnica con Letrado | `actas_comunidad` | 2 págs. (PDF + DOCX) | Antecedente Cerrado | 2026-11-16 |
-| **CP Mercat Devesa** | ST-2026-11-21 · Censo Maestro Registral, Catastral y Conciliación de Cuotas (153 Entidades) | `actas_comunidad` | 6 págs. (PDF + DOCX) | Vigente | 2026-11-24 |
+| **CP Mercat Devesa** | ST-2026-11-21 · Censo Maestro Registral, Catastral y Conciliación de Cuotas (153 Entidades) | `actas_comunidad` | 6 págs. (PDF + DOCX) | Vigente | 2026-11-28 |
 | **CP Mercat Devesa** | ST-2026-11-21-B · Radiografía Arquitectónica-Registral del Edificio por Plantas y Auditoría de Discrepancias | `actas_comunidad` | 6 págs. (PDF + DOCX) | Vigente | 2026-11-25 |
 | **CP Mercat Devesa** | ST-2026-11-21-C · Auditoría de Proyectos (COAC y Actividades), Atlas de 23 Planos 1:50 y Licencias Municipales (1983–1985) | `actas_comunidad` | 6 págs. (PDF + DOCX) | Vigente | 2026-11-25 |
 | **CP Mercat Devesa** | ST-2026-11-24 · Estrategia y Protocolo Operativo de Blindaje Registral (Controles Extrínsecos y Plantilla para Administradores) | `actas_comunidad` | 2 págs. (PDF + DOCX) | Vigente | 2026-11-28 |

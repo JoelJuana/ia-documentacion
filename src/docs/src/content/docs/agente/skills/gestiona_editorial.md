@@ -106,7 +106,7 @@ Validadas con el usuario en las Fases 1 y 2 de Álabe Ingenieros:
 Validadas en la actualización estatutaria y documental de la **Comunidad General del Mercado de la Devesa** (Finca Matriz **4.001** del Registro de la Propiedad de Girona n.º 2, Tomo **2.407**, Libro **314** de Girona, Sección **1.ª**, Folio **159**):
 
 1. **Datos fijos de las 4 Comunidades Integrantes y cargos vigentes (CP Mercat Devesa)**:
-   - **Comunidad de Propietarios de Paradas (`62,082 %`)**: Presidente, **D. Toni Ortiz** (quien ejerce asimismo el cargo de **Secretario General de la Comunidad General**, en representación orgánica de *Toni Ortiz Peixaters, S.L.*, `N.I.F. B-64455512`, finca `18.893`).
+   - **Comunidad de Propietarios de Paradas (`62,082 %`)**: Presidente, **D. Antonio Ortiz Vázquez** (quien ejerce asimismo el cargo de **Secretario General de la Comunidad General**, en representación orgánica de *Toni Ortiz Peixaters, S.L.*, `N.I.F. B-64455512`, finca `18.893`).
    - **Comunidad de Propietarios de Aparcamientos (`17,519 %`)**: Presidente, **D. Josep Pujol**.
    - **Comunidad de Propietarios de Locales (`14,064 %`)**: Presidenta, **D.ª Judith Pell**.
    - **Comunidad de Propietarios de Almacenes (`6,335 %`)**: Presidente, **D. Joel Juana Teixidor** (`D.N.I. 40.368.592-G`, cotitular registral de la finca `18.908`), quien ejerce el cargo de **Presidente de la Comunidad General** (y administración interna sin remuneración, manteniéndose diferenciados Presidencia y Secretaría conforme al art. 553-15.1 CCCat tras la Ley 5/2015).
