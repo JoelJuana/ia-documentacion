@@ -94,7 +94,7 @@ docs/editorial/
 | **`seat_124_taller`** | **SEAT 124 FL** | Rojo SEAT `#C8102E` · Carbón `#111827` · Ámbar Bosch `#D97706` | `Barlow Condensed` + `IBM Plex Sans` + `JetBrains Mono` | 1. **Manual Eléctrico y Fichas de Circuito SVG**<br>*(Alta densidad técnica + DIN 72552 · 30 Hojas)* |
 
 <!-- AUTO-EDITORIAL-STATS:START -->
-> **Estado actual del catálogo editorial:** **24 documentos activos** (**100 páginas A4** y **22 archivos Word `.docx`**) — Compra Farmacia: **1** · Ramón Turró: **1** · OCA Global: **3** · CP Mercat Devesa: **18** · SEAT 124 FL: **1**.
+> **Estado actual del catálogo editorial:** **26 documentos activos** (**104 páginas A4** y **24 archivos Word `.docx`**) — Compra Farmacia: **1** · Ramón Turró: **1** · OCA Global: **3** · CP Mercat Devesa: **20** · SEAT 124 FL: **1**.
 <!-- AUTO-EDITORIAL-STATS:END -->
 
 ---
@@ -120,9 +120,9 @@ Cada carpeta de documento incluye un archivo ligero **`editorial.meta.json`** qu
 
 ---
 
-## Catálogo Vivo de Publicaciones A4 (24 Documentos)
+## Catálogo Vivo de Publicaciones A4 (26 Documentos)
 
-Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-28` · **100 páginas A4** vectoriales · **22 exportaciones Word**):
+Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/catalog.js` (última compilación editorial: `2026-11-28` · **104 páginas A4** vectoriales · **24 exportaciones Word**):
 
 | Cliente / Ámbito | Título del Documento | Preset | Extensión y Formatos | Estado | Compilado |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -139,10 +139,12 @@ Inventario sincronizado automáticamente desde `IA_Proyectos/docs/editorial/cata
 | **CP Mercat Devesa** | JP-2026-12-14 [01] · Convocatoria y Orden del Día — Junta Ordinaria de Presidentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-28 |
 | **CP Mercat Devesa** | JP-2026-12-14 [02] · Acta de la Reunión Ordinaria de la Junta de Presidentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-28 |
 | **CP Mercat Devesa** | AG-2027-01-15 [01] · Convocatoria y Orden del Día — Asamblea General Extraordinaria | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-28 |
+| **CP Mercat Devesa** | AG-2027-01-15 [01B] · Guía Resumen para Propietarios (FAQ) y Boletín Suelto de Delegación de Voto | `actas_comunidad` | 2 págs. (PDF + DOCX) | Finalizado | 2026-11-28 |
 | **CP Mercat Devesa** | AG-2027-01-15 [02] · Hoja de Control de Asistencia, Delegaciones y Escrutinio | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-28 |
 | **CP Mercat Devesa** | AG-2027-01-15 [03] · Acta de la Asamblea General Extraordinaria y Notificación a Ausentes | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-28 |
 | **CP Mercat Devesa** | AG-2027-01-15 [03B] · Anexo al Acta de Efectividad Definitiva y Resultado Final por Unanimidad | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-28 |
 | **CP Mercat Devesa** | AG-2027-01-15 [04] · Certificado de Acuerdos y Firmeza para Notaría y Registro | `actas_comunidad` | 1 págs. (PDF + DOCX) | Finalizado | 2026-11-28 |
+| **CP Mercat Devesa** | AG-2027-01-15 [05] · Minuta Notarial de Elevación a Público y Guía Doble Modelo 600 ATC | `actas_comunidad` | 2 págs. (PDF + DOCX) | Finalizado | 2026-11-28 |
 | **CP Mercat Devesa** | ST-2026-08-17 · Acta de Sesión de Trabajo con Comunidad de Aparcamientos | `actas_comunidad` | 5 págs. (PDF + DOCX) | Antecedente Cerrado | 2026-11-16 |
 | **CP Mercat Devesa** | ST-2026-10-07 · Documento de Trabajo y Alineación Técnica con Letrado | `actas_comunidad` | 2 págs. (PDF + DOCX) | Antecedente Cerrado | 2026-11-16 |
 | **CP Mercat Devesa** | ST-2026-11-21 · Censo Maestro Registral, Catastral y Conciliación de Cuotas (153 Entidades) | `actas_comunidad` | 6 págs. (PDF + DOCX) | Vigente | 2026-11-28 |
