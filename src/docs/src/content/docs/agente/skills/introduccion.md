@@ -27,7 +27,7 @@ Selecciona una de las habilidades en la barra lateral o a través de las siguien
   </a>
   <a href="/agente/skills/gestiona_conocimiento/" class="dashboard-card">
     <h3>gestiona_conocimiento</h3>
-    <p>Indexa documentación y consulta la base de conocimiento local (RAG v1.3 con soporte multi-colección) para recuperar pasajes relevantes en tareas de investigación, soporte técnico o consulta normativa y jurisprudencial a través de /api/rag del Gateway.</p>
+    <p>Indexa documentación y consulta la base de conocimiento local (RAG v1.4 con colecciones aisladas, fragmentación semántica Markdown, lematización ligera en español e indexación por lotes) para recuperar pasajes relevantes en tareas de investigación, soporte técnico o consulta normativa y jurisprudencial a través de /api/rag del Gateway.</p>
   </a>
   <a href="/agente/skills/gestiona_diseno/" class="dashboard-card">
     <h3>gestiona_diseno</h3>

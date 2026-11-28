@@ -9,6 +9,8 @@ const __dirname = path.dirname(__filename);
 const docsContentDir = path.resolve(__dirname, '../src/content/docs');
 const manifestPath = path.resolve(__dirname, '../.rag-manifest.json');
 const gatewayUrl = 'http://127.0.0.1:3000/api/rag';
+const TARGET_COLLECTION = 'default';
+const BATCH_SIZE = 120;
 const forceReindex = process.argv.includes('--force');
 
 // Obtener recursivamente todos los archivos .md y .mdx
@@ -83,14 +85,40 @@ function extractTitleAndBody(rawContent, fallbackName) {
   return { title, body: stripDashboardGrids(body) };
 }
 
-// Dividir el markdown en secciones semánticas basadas en encabezados H2 y H3
+// Divide el markdown en secciones semánticas basadas en encabezados H1..H3 fusionando encabezados vacíos
 function splitByHeadings(markdown) {
-  const sectionRegex = /(?=^#{2,3} .+)/gm;
-  return markdown.split(sectionRegex).filter(s => s.trim().length > 0);
+  const normalized = markdown.replace(/\r\n/g, '\n');
+  const rawParts = normalized.split(/(?=^#{1,3} .+)/gm).filter((s) => s.trim().length > 0);
+  const merged = [];
+  let pendingHeaderPrefix = '';
+
+  for (const part of rawParts) {
+    const trimmed = part.trim();
+    const lines = trimmed.split('\n');
+    const firstLineIsHeading = /^#{1,3}\s+/.test(lines[0]);
+    const restBody = firstLineIsHeading ? lines.slice(1).join('\n').trim() : trimmed;
+
+    // Si la sección es únicamente un encabezado sin párrafo debajo, acumular para la siguiente subsección
+    if (firstLineIsHeading && restBody.length < 15) {
+      pendingHeaderPrefix = pendingHeaderPrefix ? `${pendingHeaderPrefix}\n${lines[0].trim()}` : lines[0].trim();
+      continue;
+    }
+
+    const fullSection = pendingHeaderPrefix ? `${pendingHeaderPrefix}\n${trimmed}` : trimmed;
+    pendingHeaderPrefix = '';
+    merged.push(fullSection);
+  }
+
+  // Si todo el archivo era breve y quedó en pendingHeaderPrefix, conservarlo si supera 25 caracteres
+  if (merged.length === 0 && pendingHeaderPrefix.length >= 25) {
+    merged.push(pendingHeaderPrefix);
+  }
+
+  return merged;
 }
 
 // Dividir un texto en trozos con ventana deslizante y solapamiento
-function splitBySize(text, maxChars = 1000, overlap = 150) {
+function splitBySize(text, maxChars = 1100, overlap = 150) {
   if (text.length <= maxChars) return [text];
   const chunks = [];
   let start = 0;
@@ -115,27 +143,33 @@ function buildDocumentChunks(title, body, relativePath, urlSlug) {
   const payloads = [];
 
   for (const section of sections) {
-    const headingMatch = section.match(/^#{2,3}\s+(.+)$/m);
-    const heading = headingMatch ? headingMatch[0].trim() : '';
-    const sizeChunks = splitBySize(section, 1000, 150);
+    const headingMatches = [...section.matchAll(/^#{1,3}\s+(.+)$/gm)];
+    const lastHeadingMatch = headingMatches.length > 0 ? headingMatches[headingMatches.length - 1] : null;
+    const headingRaw = lastHeadingMatch ? lastHeadingMatch[0].trim() : '';
+    const headingLabel = lastHeadingMatch ? lastHeadingMatch[1].trim() : '';
+    const sizeChunks = splitBySize(section, 1100, 150);
 
     sizeChunks.forEach((chunkContent, index) => {
+      if (chunkContent.trim().length < 20) return;
+
       let chunkTitle = title;
-      if (heading) {
-        chunkTitle += ` — ${heading.replace(/^#+\s+/, '')}`;
+      if (headingLabel && headingLabel.toLowerCase() !== title.toLowerCase()) {
+        chunkTitle += ` — ${headingLabel}`;
       }
       if (sizeChunks.length > 1) {
         chunkTitle += ` (${index + 1}/${sizeChunks.length})`;
       }
 
       payloads.push({
+        collection: TARGET_COLLECTION,
         title: chunkTitle,
         content: chunkContent,
         metadata: {
+          collection: TARGET_COLLECTION,
           source: 'documentacion-ia',
           file: relativePath,
           url: urlSlug,
-          section: heading,
+          section: headingRaw,
           chunk_index: index + 1,
           total_chunks: sizeChunks.length
         }
@@ -176,9 +210,9 @@ async function runWithConcurrency(items, limit, worker) {
 }
 
 async function indexDocumentation() {
-  console.log('\nIniciando sincronización incremental con el RAG local...');
+  console.log(`\nIniciando sincronización incremental con el RAG local (colección '${TARGET_COLLECTION}')...`);
 
-  let remoteTotalDocs = 0;
+  let defaultCollectionDocs = 0;
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 2500);
@@ -189,7 +223,11 @@ async function indexDocumentation() {
       throw new Error(`Gateway respondió con status ${response.status}`);
     }
     const statusJson = await response.json();
-    remoteTotalDocs = statusJson?.data?.totalDocuments || 0;
+    const collections = Array.isArray(statusJson?.data?.collections) ? statusJson.data.collections : [];
+    const defaultEntry = collections.find((c) => c.collection === TARGET_COLLECTION);
+    defaultCollectionDocs = defaultEntry
+      ? defaultEntry.documentsCount
+      : (collections.length === 0 ? statusJson?.data?.totalDocuments || 0 : 0);
   } catch {
     console.warn('\n[WARN] El servicio local api-conocimiento-rag (Gateway :3000) no responde.');
     console.warn('Saltando la indexación RAG de documentación para no interrumpir el build.\n');
@@ -197,13 +235,14 @@ async function indexDocumentation() {
   }
 
   const prevManifest = loadManifest();
-  const hasValidCache = !forceReindex && remoteTotalDocs > 0 && Object.keys(prevManifest).length > 0;
+  const hasValidCache = !forceReindex && defaultCollectionDocs > 0 && Object.keys(prevManifest).length > 0;
 
   if (!hasValidCache) {
-    await fetch(`${gatewayUrl}/store`, { method: 'DELETE' });
+    // Vaciar exclusivamente la colección 'default' preservando colecciones especializadas (ej. juridico-cccat)
+    await fetch(`${gatewayUrl}/store?collection=${encodeURIComponent(TARGET_COLLECTION)}`, { method: 'DELETE' });
     console.log(forceReindex
-      ? 'Modo --force activo: Store de RAG restablecido para re-indexación completa.'
-      : 'Caché inicial o store vacío: iniciando indexación base limpia.');
+      ? `Modo --force activo: Colección '${TARGET_COLLECTION}' restablecida (resto de colecciones intactas).`
+      : `Caché inicial o colección '${TARGET_COLLECTION}' vacía: iniciando indexación base limpia.`);
   }
 
   const mdFiles = getMarkdownFiles(docsContentDir);
@@ -248,7 +287,7 @@ async function indexDocumentation() {
     payloadsToIndex.push(...docPayloads);
     nextManifest[relativePath] = {
       hash,
-      titles: docPayloads.map(p => p.title)
+      titles: docPayloads.map((p) => p.title)
     };
     updatedFiles++;
   }
@@ -266,40 +305,69 @@ async function indexDocumentation() {
     }
   }
 
-  // Purgar fragmentos previos de archivos modificados o eliminados
+  // Purgar fragmentos previos de archivos modificados o eliminados únicamente en 'default'
   if (titlesToDelete.length > 0) {
-    await runWithConcurrency(titlesToDelete, 4, async (docTitle) => {
+    await runWithConcurrency(titlesToDelete, 6, async (docTitle) => {
       try {
-        await fetch(`${gatewayUrl}/documents/${encodeURIComponent(docTitle)}`, { method: 'DELETE' });
+        await fetch(
+          `${gatewayUrl}/documents/${encodeURIComponent(docTitle)}?collection=${encodeURIComponent(TARGET_COLLECTION)}`,
+          { method: 'DELETE' }
+        );
       } catch {
         // Ignorar si algún título ya no existía
       }
     });
   }
 
-  // Indexar únicamente fragmentos nuevos o modificados con concurrencia controlada
+  // Indexar por lotes transaccionales (/index-batch) con fallback automático individual
   let indexedCount = 0;
   let failedCount = 0;
 
   if (payloadsToIndex.length > 0) {
-    await runWithConcurrency(payloadsToIndex, 4, async (payload) => {
+    const batches = [];
+    for (let i = 0; i < payloadsToIndex.length; i += BATCH_SIZE) {
+      batches.push(payloadsToIndex.slice(i, i + BATCH_SIZE));
+    }
+
+    for (const batch of batches) {
       try {
-        const response = await fetch(`${gatewayUrl}/index`, {
+        const batchRes = await fetch(`${gatewayUrl}/index-batch`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          body: JSON.stringify({
+            collection: TARGET_COLLECTION,
+            documents: batch
+          })
         });
-        if (response.ok) {
-          indexedCount++;
-        } else {
-          console.warn(`[WARN] Falló la indexación de "${payload.title}" (HTTP ${response.status})`);
+
+        if (batchRes.ok) {
+          const json = await batchRes.json();
+          indexedCount += json?.data?.documentsProcessed ?? batch.length;
+          continue;
+        }
+      } catch {
+        // Fallback a inserción unitaria si el servicio aún estuviera en versión anterior
+      }
+
+      await runWithConcurrency(batch, 4, async (payload) => {
+        try {
+          const response = await fetch(`${gatewayUrl}/index`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (response.ok) {
+            indexedCount++;
+          } else {
+            console.warn(`[WARN] Falló la indexación de "${payload.title}" (HTTP ${response.status})`);
+            failedCount++;
+          }
+        } catch (err) {
+          console.error(`[ERROR] Excepción al indexar "${payload.title}":`, err.message);
           failedCount++;
         }
-      } catch (err) {
-        console.error(`[ERROR] Excepción al indexar "${payload.title}":`, err.message);
-        failedCount++;
-      }
-    });
+      });
+    }
   }
 
   if (failedCount === 0) {
@@ -307,7 +375,7 @@ async function indexDocumentation() {
   }
 
   console.log(
-    `[RAG Incremental] Total docs: ${mdFiles.length} | Actualizados: ${updatedFiles} | En caché (omitidos): ${unchangedFiles} | Eliminados: ${removedFiles} | Chunks enviados: ${indexedCount} | Fallidos: ${failedCount}\n`
+    `[RAG Incremental '${TARGET_COLLECTION}'] Total docs: ${mdFiles.length} | Actualizados: ${updatedFiles} | En caché (omitidos): ${unchangedFiles} | Eliminados: ${removedFiles} | Chunks enviados: ${indexedCount} | Fallidos: ${failedCount}\n`
   );
 }
 
