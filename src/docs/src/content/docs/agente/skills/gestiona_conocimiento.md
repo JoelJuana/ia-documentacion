@@ -1,6 +1,6 @@
 ---
 title: gestiona_conocimiento
-description: "Indexa documentación y consulta la base de conocimiento local (RAG) para recuperar pasajes relevantes en tareas de investigación o soporte. Úsalo cuando necesites procesar o buscar en documentación extensa, manuales de API o código fuente del proyecto a través de la ruta /api/rag del Gateway."
+description: "Indexa documentación y consulta la base de conocimiento local (RAG v1.3 con soporte multi-colección) para recuperar pasajes relevantes en tareas de investigación, soporte técnico o consulta normativa y jurisprudencial a través de /api/rag del Gateway."
 ---
 
 *   **Ruta de Configuración**: `IA_Configuracion/skills/gestiona_conocimiento/SKILL.md`
@@ -9,85 +9,89 @@ description: "Indexa documentación y consulta la base de conocimiento local (RA
 
 # Skill: Gestionar Conocimiento (`gestiona_conocimiento`)
 
-Este skill interactúa con el microservicio **api-conocimiento-rag** (corriendo en el puerto **3600** o de manera centralizada a través del API Gateway en `http://localhost:3000/api/rag`) para indexar documentación y buscar información relevante en un almacén temporal en memoria.
+Esta habilidad interactúa con el microservicio **api-conocimiento-rag** (`v1.3.0`, puerto interno **3600**, expuesto centralizadamente en `http://localhost:3000/api/rag`) para indexar documentación, separarla en **colecciones aisladas (`collection`)** y recuperar pasajes relevantes mediante **Okapi BM25 + Phrase Boost**.
 
 ---
 
 ## Cuándo activar
 
 Activa esta habilidad cuando el usuario o los requerimientos de la tarea soliciten:
-- *"guarda este manual en la base de conocimientos"*, *"indexa la documentación"*
-- *"busca información sobre..."*, *"consulta en la base de conocimientos qué dice sobre..."*
-- *"carga el código/guía en el RAG"*
-- *"limpia la base de datos de conocimiento"*
+- Guardar manuales, doctrina o carpetas en la base de conocimientos (`default`, `juridico-cccat`, etc.).
+- Consultar pasajes relevantes en documentación extensa, jurisprudencia registral o antecedentes históricos sin saturar el contexto.
+- Listar colecciones activas o limpiar selectivamente una colección concreta.
 
 ---
 
 ## Instrucciones de Uso y Automatización
 
-### Paso 1: Verificar el Estado del Servidor (Health Check)
+### Paso 1: Verificar el Estado del Servidor (Health Check vía Gateway)
 
-El servidor corre por defecto en el puerto **3600** (mapeado en `/api/rag` del Gateway). Comprueba su estado a través del Gateway:
+Comprueba siempre el estado a través del Gateway central (`http://localhost:3000/api/health` o `/api/rag/`):
 
 ```powershell
-try { $r = Invoke-RestMethod -Uri "http://localhost:3000/api/rag/" -TimeoutSec 3; $r.message } catch { "OFFLINE" }
+try { $r = Invoke-RestMethod -Uri "http://localhost:3000/api/rag/" -TimeoutSec 3; $r.data | ConvertTo-Json -Depth 4 } catch { "OFFLINE" }
 ```
 
-Si no responde, arráncalo de fondo:
-```powershell
-Start-Process -FilePath "node" -ArgumentList "server.js" -WorkingDirectory "C:\Users\jjtei\Desktop\IA_Infraestructura\api-conocimiento-rag" -WindowStyle Hidden
-Start-Sleep -Seconds 2
-```
+Si está apagado, arranca la infraestructura de fondo (`npm run start --prefix "C:\Users\jjtei\Desktop\IA_Infraestructura"`) y recuerda detenerla obligatoriamente al finalizar tu tarea (`npm run stop --prefix "C:\Users\jjtei\Desktop\IA_Infraestructura"`).
 
 ---
 
-### Paso 2: Indexar Documentos (`POST /api/rag/index`)
+### Paso 2: Indexar Documentos o Carpetas con Colección (`POST /api/rag/index` y `/index-directory`)
 
-Este endpoint toma un texto extenso (`content`), lo divide automáticamente en fragmentos (*chunks*) por párrafos, los normaliza (tokenización, remoción de acentos) y los guarda en memoria.
+Si se omite `collection`, los fragmentos se guardan en la colección `'default'` (usada por el portal de documentación). Para dominios específicos (como normativa y doctrina hipotecaria catalana), especifica `collection` (ej. `"juridico-cccat"`):
 
 ```powershell
 $body = @{
-    title = "Manual de Arquitectura Local"
-    content = "El Gateway central de la infraestructura escucha en el puerto 3000.`n`nRedirige las peticiones a los respectivos puertos internos en el rango 3100-3700."
-    metadata = @{ autor = "Admin"; proyecto = "Suite IA" }
-} | ConvertTo-Json
+    collection = "juridico-cccat"
+    title      = "Doctrina DGDyEJ - Voto presunto art. 553-26.3 CCCat"
+    content    = "En los acuerdos sujetos a unanimidad o mayoría cualificada del artículo 553-26 CCCat..."
+    metadata   = @{ ambito = "Propiedad Horizontal Cataluña"; fuente = "DGDyEJ" }
+} | ConvertTo-Json -Depth 4
 
-$res = Invoke-RestMethod -Uri "http://localhost:3000/api/rag/index" -Method Post -Body $body -ContentType "application/json"
-$res | Format-List
+Invoke-RestMethod -Uri "http://localhost:3000/api/rag/index" -Method Post -Body $body -ContentType "application/json; charset=utf-8"
 ```
 
----
-
-### Paso 3: Buscar Pasajes Relevantes (`POST /api/rag/search`)
-
-Permite realizar búsquedas rápidas. Devuelve los fragmentos ordenados descendentemente por su puntaje de relevancia léxica (`score`):
+Para indexar una carpeta completa dentro de una colección aislada:
 
 ```powershell
 $body = @{
-    query = "en qué puerto escucha el gateway"
-    limit = 3 # Cantidad máxima de fragmentos a retornar (por defecto 3)
+    collection    = "juridico-cccat"
+    directoryPath = "C:\Users\jjtei\.gemini\config\plugins\comite-registral-cccat\skills\verifica_registral_cccat\references\rag_docs"
+    titlePrefix   = "cccat"
 } | ConvertTo-Json
 
-$res = Invoke-RestMethod -Uri "http://localhost:3000/api/rag/search" -Method Post -Body $body -ContentType "application/json"
-$res.data | Format-Table -Wrap
+Invoke-RestMethod -Uri "http://localhost:3000/api/rag/index-directory" -Method Post -Body $body -ContentType "application/json; charset=utf-8"
 ```
 
 ---
 
-### Paso 4: Limpiar la Base de Conocimiento (`DELETE /store`)
+### Paso 3: Consultar Colecciones y Buscar Pasajes (`GET /collections` y `POST /search`)
 
-Para vaciar por completo la base de conocimiento temporal en memoria (por ejemplo, para reiniciar el contexto de una nueva investigación):
+Listar colecciones disponibles:
 
 ```powershell
-Invoke-RestMethod -Uri "http://localhost:3000/api/rag/store" -Method Delete
+Invoke-RestMethod -Uri "http://localhost:3000/api/rag/collections" -Method Get
+```
+
+Buscar restringiendo el cálculo BM25 únicamente a una colección específica:
+
+```powershell
+$body = @{
+    collection = "juridico-cccat"
+    query      = "derecho de vuelo plazo maximo treinta años valoracion 567-2"
+    limit      = 4
+} | ConvertTo-Json
+
+$res = Invoke-RestMethod -Uri "http://localhost:3000/api/rag/search" -Method Post -Body $body -ContentType "application/json; charset=utf-8"
+$res.data | Format-Table collection, title, score, text -Wrap
 ```
 
 ---
 
-## Flujo Recomendado de Indexación de Carpetas
+### Paso 4: Limpieza Selectiva por Colección (`DELETE /store?collection=...`)
 
-Si necesitas indexar una carpeta entera del ordenador del usuario, el agente debe:
-1. Buscar los archivos (generalmente `.md` o `.txt`) usando el sistema de archivos local (`list_dir`).
-2. Leer recursivamente cada archivo.
-3. Para cada uno, enviar una solicitud `POST` a `/api/rag/index` asignando el nombre del archivo como `title` y su contenido como `content`.
-4. Una vez cargados, realizar las llamadas a `/api/rag/search` para encontrar respuestas precisas en lugar de saturar la ventana de contexto de la conversación principal.
+Para vaciar únicamente una colección sin afectar al índice del portal `'default'`:
+
+```powershell
+Invoke-RestMethod -Uri "http://localhost:3000/api/rag/store?collection=juridico-cccat" -Method Delete
+```

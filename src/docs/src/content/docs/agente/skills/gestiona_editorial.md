@@ -146,8 +146,12 @@ Validadas en la actualización estatutaria y documental de la **Comunidad Genera
   & "C:\Users\jjtei\.gemini\config\skills\gestiona_editorial\scripts\new-doc.ps1" -Preset oca_global -Tipo due_diligence -Slug "due-diligence-empresa" -Titulo "Due Diligence Preliminar: Empresa"
   ```
 
-### Paso 2: Compilación Editorial, Bookmarks PDF, QA Geométrico y Autocatálogo (`build_editorial.js`)
-Ejecutar el CLI Node.js `build_editorial.js` para:
+### Paso 2: Linter Jurídico Pre-Vuelo (en `actas_comunidad`), Compilación Editorial, QA Geométrico y Autocatálogo (`build_editorial.js`)
+* Si el documento pertenece al preset **`actas_comunidad`** (Estatutos, Reglamentos, Convocatorias, Actas o Certificados en Cataluña), ejecutar previamente el linter determinista del plugin `comite-registral-cccat` para verificar el 100 % de citas del BOE consolidado, suma de cuotas y requisitos registrales:
+  ```powershell
+  python "C:\Users\jjtei\.gemini\config\plugins\comite-registral-cccat\skills\verifica_registral_cccat\scripts\lint_registral_cccat.py" "C:\ruta\a\la\carpeta\documento.html"
+  ```
+Ejecutar a continuación el CLI Node.js `build_editorial.js` para:
 1. Renderizar el PDF A4 vectorial con Microsoft Edge Headless.
 2. Inyectar automáticamente **Marcadores/Índice interactivo PDF (Outlines/TOC)** y metadatos corporativos mediante `postprocess-pdf.py`.
 3. Ejecutar **QA geométrico** por página (`%` de ocupación útil, detección de recortes por `overflow: hidden` en `.hoja-a4` y alerta de firmas huérfanas en flujo continuo).

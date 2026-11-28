@@ -1,19 +1,24 @@
 ---
 title: Plugins Activos y en Reserva
-description: Catálogo completo de plugins de comportamiento y herramientas configurados para el agente (5 activos y 9 en reserva).
+description: Catálogo completo de plugins de comportamiento y herramientas configurados para el agente (6 activos y 9 en reserva).
 ---
 
 Los **Plugins** son módulos de comportamiento, reglas de estilo, sidecars o integraciones MCP que personalizan y amplían las capacidades de los agentes en el entorno de desarrollo.
 
 ---
 
-## Plugins Activos (5)
+## Plugins Activos (6)
 
 <div class="dashboard-grid">
   <a href="/configuracion/plugins/comite-dossier-bancario/" class="dashboard-card">
     <span class="card-meta">Activo</span>
     <h3>comite-dossier-bancario</h3>
     <p>Comité autónomo de 9 expertos con checkpoints reanudables, dieta de contexto (-80% tokens), 6 playbooks sectoriales, ensamblaje HTML y sincronización de simulador deterministas, linter pre-vuelo A4/OCR y generación de Excel bancario (.xlsx) + Q&A + Teaser.</p>
+  </a>
+  <a href="/configuracion/plugins/comite-registral-cccat/" class="dashboard-card">
+    <span class="card-meta">Activo</span>
+    <h3>comite-registral-cccat</h3>
+    <p>Suite jurídico-registral para Propiedad Horizontal en Cataluña (Libro V CCCat, LH, RH y RN): corpus oficial consolidado del BOE, linter determinista de citas y plazos registrales, calculadora de escrutinio de asambleas, colección RAG aislada (juridico-cccat) y subagentes Registrador Calificador y Redactor Notarial.</p>
   </a>
   <a href="/configuracion/plugins/fierbase/" class="dashboard-card">
     <span class="card-meta">Activo</span>
@@ -93,11 +98,12 @@ Módulos preservados con especificación `SKILL.md.disabled` listos para activar
 
 ---
 
-## Tabla Resumen de Plugins (14)
+## Tabla Resumen de Plugins (15)
 
 | Nombre del Plugin | Estado | Descripción |
 | :--- | :--- | :--- |
 | **[comite-dossier-bancario](/configuracion/plugins/comite-dossier-bancario/)** | `Activo` | Comité autónomo de 9 expertos con checkpoints reanudables, dieta de contexto (-80% tokens), 6 playbooks sectoriales, ensamblaje HTML y sincronización de simulador deterministas, linter pre-vuelo A4/OCR y generación de Excel bancario (.xlsx) + Q&A + Teaser. |
+| **[comite-registral-cccat](/configuracion/plugins/comite-registral-cccat/)** | `Activo` | Suite jurídico-registral para Propiedad Horizontal en Cataluña (Libro V CCCat, LH, RH y RN): corpus oficial consolidado del BOE, linter determinista de citas y plazos registrales, calculadora de escrutinio de asambleas, colección RAG aislada (juridico-cccat) y subagentes Registrador Calificador y Redactor Notarial. |
 | **[fierbase](/configuracion/plugins/fierbase/)** | `Activo` | Inicializa proyectos de Fierbase dinámicamente, configura servicios automáticos (Firestore, Auth, Hosting) y despliega de forma automatizada mediante un Token de CI/CD o variables de entorno. |
 | **[modern-web-guidance-plugin](/configuracion/plugins/modern-web-guidance-plugin/)** | `Activo` | Curated collection of agent skills for modern web development. |
 | **[skills-dashboard-manager](/configuracion/plugins/skills-dashboard-manager/)** | `Activo` | Skill global para arrancar y monitorizar el Cuadro de Mandos de gestion de skills de Antigravity. |
