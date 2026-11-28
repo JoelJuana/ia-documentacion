@@ -1,6 +1,6 @@
 ---
 title: Plugin "comite-registral-cccat"
-description: "Suite industrial v2.2 (4 agentes expertos + 14 motores deterministas) para Propiedad Horizontal en Cataluña: 374 preceptos oficiales BOE + 17 resoluciones verificadas, cierre 1-clic de Asamblea desde Excel vivo (--from-excel), mail-merge de papeletas y certificados monitorios A4/PDF/DOCX, cruce de Notas Simples PDF vs Censo (art. 20 LH), motor de derramas complejas sin descuadre (0,00 €), simulador Modelo 600 ATC / afección real 4+1 años y defensa post-calificación (STC 4/2014: DGDyEJ vs DGSJFP)."
+description: "Suite industrial v2.2 (4 agentes expertos + 14 motores deterministas) para Propiedad Horizontal en Cataluña: 376 preceptos oficiales BOE + 17 resoluciones verificadas, cierre 1-clic de Asamblea desde Excel vivo (--from-excel), mail-merge de papeletas y certificados monitorios A4/PDF/DOCX, cruce de Notas Simples PDF vs Censo (art. 20 LH), motor de derramas complejas sin descuadre (0,00 €), simulador Modelo 600 ATC / afección real 4+1 años y defensa post-calificación (STC 4/2014: DGDyEJ vs DGSJFP)."
 ---
 
 *   **Ruta en repositorio**: `IA_Configuracion/plugins/comite-registral-cccat/`
@@ -22,7 +22,7 @@ Plugin especializado de Antigravity (**Industrial End-to-End 4-Expert Edition**)
 
 ## Arquitectura en Nueve Capas Deterministas (`v2.2.0`)
 
-1. **Corpus Oficial del BOE (`374` preceptos de `20` normas) + Catálogo Verificado (`17` resoluciones/sentencias)**:
+1. **Corpus Oficial del BOE (`376` preceptos de `20` normas) + Catálogo Verificado (`17` resoluciones/sentencias)**:
    - `lookup_norma.py` + `build_corpus_boe.py` + `sync_rag_normativa.py` (`7` documentos técnicos `00` a `06` en la colección aislada `juridico-cccat`).
 2. **Linter Bilingüe (`ES`/`CA`), Geométrico A4 y Reconciliador Cruzado (`lint_registral_cccat.py` + `audit_expediente_cruzado.py`)**.
 3. **Auditor de Tracto Sucesivo desde Notas Simples PDF (`audit_tracto_notas_simples.py`)** *(Nuevo en `v2.2`)*:
